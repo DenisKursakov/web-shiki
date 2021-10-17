@@ -1,7 +1,7 @@
 package by.gsu.epamlab;
 
 public class BusinessTrip {
-    private static final int DAILY_ALLOWANCE = 500; // BYN (bunks)
+    private final static int DAILY_ALLOWANCE = 500; // BYN (bunks)
     private String employeeAccount;
     private int transportationExpenses;                      // BYN (bunks)
     private int numberOfDays;
@@ -17,17 +17,8 @@ public class BusinessTrip {
     }
 
     private static String converter(int a) {
-        if (a < 0) {
-            return "Отрицательное число не может быть обработано";
-        }
-        if (a < 10) {
-            return "0.0" + a;
-        }
-        if (a < 100) {
-            return "0." + a;
-        }
-        String st = String.valueOf(a);
-        return String.format("%s.%s", st.substring(0, st.length() - 2), st.substring(st.length() - 2));
+        String bunks = "0" + a % 100;
+        return String.format("%d.%s", a / 100, bunks.substring(bunks.length() - 2));
 
     }
 

@@ -3,11 +3,11 @@ import by.gsu.epamlab.BusinessTrip;
 public class Runner {
     public static void main(String[] args) {
         BusinessTrip[] businessTrips = {
-                new BusinessTrip("Kursakou Dzianis", 1700, 4),
-                new BusinessTrip("Denisov Kirill", 2400, 7),
+                new BusinessTrip("Kursakou Dzianis", 1720, 4),
+                new BusinessTrip("Denisov Kirill", 2470, 7),
                 null,
                 new BusinessTrip("Ivanov Alex", 1700, 3),
-                new BusinessTrip("Malikou Dzianis", 1500, 5),
+                new BusinessTrip("Malikou Dzianis", 1530, 5),
                 new BusinessTrip()
         };
         BusinessTrip tripWithMaxCost = businessTrips[0];
