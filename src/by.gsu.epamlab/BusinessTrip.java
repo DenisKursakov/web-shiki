@@ -16,10 +16,8 @@ public class BusinessTrip {
         this.numberOfDays = numberOfDays;
     }
 
-    private static String converter(int a) {
-        String bunks = "0" + a % 100;
-        return String.format("%d.%s", a / 100, bunks.substring(bunks.length() - 2));
-
+    private static String convert(int a) {
+        return String.format("%d.%02d", a / 100, a % 100);
     }
 
 
@@ -53,12 +51,12 @@ public class BusinessTrip {
 
     public void show() {
         System.out.printf("Daily_allowance = %s \nAccount = %s\nTransport = %s\nDays = %d\nTotal = %s%n",
-                converter(DAILY_ALLOWANCE), employeeAccount, converter(transportationExpenses), numberOfDays, converter(getTotal()));
+                convert(DAILY_ALLOWANCE), employeeAccount, convert(transportationExpenses), numberOfDays, convert(getTotal()));
     }
 
     @Override
     public String toString() {
-        return String.format("%s;%s;%d;%s", employeeAccount, converter(transportationExpenses), numberOfDays, converter(getTotal()));
+        return String.format("%s;%s;%d;%s", employeeAccount, convert(transportationExpenses), numberOfDays, convert(getTotal()));
     }
 }
 
