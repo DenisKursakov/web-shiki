@@ -14,9 +14,8 @@ public class Runner {
         for (BusinessTrip businessTrip : businessTrips) {
             if (businessTrip == null) {
                 continue;
-            } else {
-                businessTrip.show();
-            }
+            } 
+            businessTrip.show();
 
             if (businessTrip.getTotal() > tripWithMaxCost.getTotal()) {
                 tripWithMaxCost = businessTrip;
