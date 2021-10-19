@@ -1,11 +1,12 @@
 package by.gsu.epamlab;
 
 public class Material {
-    private String name;
+    private final String name;
     private final double density;
 
     public Material() {
         this.density = 0.00;
+        this.name = "";
     }
 
     public Material(String name, double density) {

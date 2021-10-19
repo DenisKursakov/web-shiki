@@ -3,9 +3,11 @@ import by.gsu.epamlab.Subject;
 
 public class Runner {
     public static void main(String[] args) {
-        final Subject wire = new Subject("wire", new Material("steel", 7850.0), 0.03);
+        final Material STEEL = new Material("steel", 7850.0);
+        final Material COPPER = new Material("copper", 8500.0);
+        Subject wire = new Subject("wire", STEEL, 0.03);
         System.out.println(wire);
-        wire.setMaterial(new Material("copper", 8500.0));
+        wire.setMaterial(COPPER);
         System.out.printf("Wire mass is: %.1f kg", wire.getMass());
 
     }
