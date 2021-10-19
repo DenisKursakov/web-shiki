@@ -5,8 +5,7 @@ public class Material {
     private final double density;
 
     public Material() {
-        this.density = 0.00;
-        this.name = "";
+        this(null,0.00);
     }
 
     public Material(String name, double density) {
