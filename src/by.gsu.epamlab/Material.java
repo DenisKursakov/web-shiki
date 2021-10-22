@@ -12,6 +12,9 @@ public enum Material {
         this.density = density;
     }
 
+    public String getName(){
+        return name().toLowerCase(Locale.ROOT);
+    }
 
     public double getDensity() {
         return density;
@@ -19,6 +22,6 @@ public enum Material {
 
     @Override
     public String toString() {
-        return name().toLowerCase(Locale.ROOT) + ";" + density;
+        return getName() + ";" + density;
     }
 }
