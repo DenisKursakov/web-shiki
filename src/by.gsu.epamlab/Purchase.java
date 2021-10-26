@@ -1,13 +1,12 @@
 package by.gsu.epamlab;
 
-package by.gsu.epamlab;
-
 public class Purchase implements Comparable<Purchase> {
     private final static String PRODUCT_NAME = "Coffee";
     private final static int PRICE = 782;                           //bunks
     private int numberOfUnits;
     private double discountPercent;
     private WeekDay weekDay;
+
 
     public Purchase() {
 
@@ -21,7 +20,7 @@ public class Purchase implements Comparable<Purchase> {
 
 
     public String showConstant() {
-        return String.format("Name: %s\nPrice: %s", PRODUCT_NAME, convert(PRICE));
+        return String.format("Name: %s\nPrice: %s", PRODUCT_NAME, Converter.convert(PRICE));
     }
 
     public int getNumberOfUnits() {
@@ -48,25 +47,20 @@ public class Purchase implements Comparable<Purchase> {
         this.weekDay = weekDay;
     }
 
-    private static String convert(int a) {
-        return String.format("%d.%02d", a / 100, a % 100);
-    }
 
 
     public int getCost() {
-        return (int) Math.round(Double.parseDouble(convert
-                (PRICE * numberOfUnits * (int) (100.0 - discountPercent) / 100)));
+        return (int) Math.round(
+                (PRICE * numberOfUnits * (100.0 - discountPercent) / 100) * 0.01) * 100;
     }
 
     @Override
     public String toString() {
         return numberOfUnits + ";" + discountPercent + ";"
-                + weekDay + ";" + convert(getCost() * 100);
+                + weekDay + ";" + Converter.convert(getCost());
     }
 
     @Override
     public int compareTo(Purchase purchase) {
         return Integer.compare(numberOfUnits, purchase.numberOfUnits);
     }
-
-}

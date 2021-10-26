@@ -1,3 +1,4 @@
+import by.gsu.epamlab.Converter;
 import by.gsu.epamlab.Purchase;
 import by.gsu.epamlab.WeekDay;
 
@@ -18,13 +19,13 @@ public class Runner {
             Purchase[] purchases = new Purchase[PURCHASES_NUMBER];
             for (int i = 0; i < purchases.length; i++) {
                 purchases[i] = new Purchase(
-                        Integer.parseInt(scanner.next()),
-                        Double.parseDouble(scanner.next()),
-                        WeekDay.values()[Integer.parseInt(scanner.next())]);
+                        scanner.nextInt(),
+                        scanner.nextDouble(),
+                        WeekDay.values()[scanner.nextInt()]);
             }
-            showInfo(purchases, PURCHASES_NUMBER);
-            double sumOfCost = 0.0;
-            double sumOfMonday = 0.0;
+            showInfo(purchases);
+            int sumOfCost = 0;
+            int sumOfMonday = 0;
             Purchase DayWithMaxCostPurchase = new Purchase();
 
             for (Purchase purchase : purchases) {
@@ -37,15 +38,16 @@ public class Runner {
                 sumOfCost += purchase.getCost();
             }
 
-            double meanCost = PURCHASES_NUMBER != 0 ? sumOfCost / PURCHASES_NUMBER : 0.0;
+            double meanCost = PURCHASES_NUMBER != 0 ?
+                    Double.parseDouble( Converter.convert(sumOfCost)) / PURCHASES_NUMBER : 0.0;
             System.out.printf("Mean cost = %.3f\n", meanCost);
-            System.out.printf("Total cost of Monday = %.2f\n", sumOfMonday);
+            System.out.println("Total cost of Monday = " + Converter.convert(sumOfMonday));
             System.out.println("Day with the max cost is " + DayWithMaxCostPurchase.getWeekDay());
 
             Arrays.sort(purchases);
-            showInfo(purchases, PURCHASES_NUMBER);
+            showInfo(purchases);
             Purchase purchase = new Purchase(5, 35, WeekDay.FRIDAY);
-            int requiredElement = Arrays.binarySearch(purchases, purchase);
+            int requiredElement = Arrays.binarySearch(purchases,purchase);
             if (requiredElement > 0) {
                 System.out.println("Required element: " +
                         purchases[requiredElement]);
@@ -58,13 +60,10 @@ public class Runner {
 
     }
 
-    public static void showInfo(Purchase[] purchases, int number) {
-        for (int i = 0; i < purchases.length; i++) {
-            if (i == 0) {
-                System.out.println("Purchases number: " + number);
-                System.out.println(purchases[i].showConstant());
-            }
-            System.out.println(purchases[i]);
+    private static void showInfo(Purchase[] purchases) {
+        System.out.println(new Purchase().showConstant());
+        for (Purchase purchase: purchases) {
+            System.out.println(purchase);
         }
     }
 
