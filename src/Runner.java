@@ -14,23 +14,15 @@ public class Runner {
 
         try (Scanner scanner = new Scanner(new FileReader("src/in.txt"))) {
             scanner.useLocale(Locale.ENGLISH);
-            final int PURCHASES_NUMBER = Integer.parseInt(scanner.nextLine());
+            final int PURCHASES_NUMBER = scanner.nextInt();
             Purchase[] purchases = new Purchase[PURCHASES_NUMBER];
             for (int i = 0; i < purchases.length; i++) {
-                String[] st = scanner.nextLine().split(" ");
                 purchases[i] = new Purchase(
-                        Integer.parseInt(st[0]),
-                        Integer.parseInt(st[1]),
-                        WeekDay.values()[Integer.parseInt(st[2])]);
+                        Integer.parseInt(scanner.next()),
+                        Double.parseDouble(scanner.next()),
+                        WeekDay.values()[Integer.parseInt(scanner.next())]);
             }
-
-            for (int i = 0; i < purchases.length; i++) {
-                if (i == 0) {
-                    System.out.println("Purchases number: " + PURCHASES_NUMBER);
-                    System.out.println(purchases[i].showConstant());
-                }
-                System.out.println(purchases[i]);
-            }
+            showInfo(purchases, PURCHASES_NUMBER);
             double sumOfCost = 0.0;
             double sumOfMonday = 0.0;
             Purchase DayWithMaxCostPurchase = new Purchase();
@@ -51,22 +43,29 @@ public class Runner {
             System.out.println("Day with the max cost is " + DayWithMaxCostPurchase.getWeekDay());
 
             Arrays.sort(purchases);
-            for (int i = 0; i < purchases.length; i++) {
-                if (i == 0) {
-                    System.out.println("Purchases number: " + PURCHASES_NUMBER);
-                    System.out.println(purchases[i].showConstant());
-                }
-                System.out.println(purchases[i]);
-            }
+            showInfo(purchases, PURCHASES_NUMBER);
             Purchase purchase = new Purchase(5, 35, WeekDay.FRIDAY);
-            if (PURCHASES_NUMBER != 0 && Arrays.binarySearch(purchases, purchase) >= 0) {
+            int requiredElement = Arrays.binarySearch(purchases, purchase);
+            if (requiredElement > 0) {
                 System.out.println("Required element: " +
-                        purchases[Arrays.binarySearch(purchases, purchase)]);
-            } else System.out.println("Required element is not found");
+                        purchases[requiredElement]);
+            } else {
+                System.out.println("Required element is not found");
+            }
         } catch (FileNotFoundException e) {
             System.err.println("File is not found");
         }
 
+    }
+
+    public static void showInfo(Purchase[] purchases, int number) {
+        for (int i = 0; i < purchases.length; i++) {
+            if (i == 0) {
+                System.out.println("Purchases number: " + number);
+                System.out.println(purchases[i].showConstant());
+            }
+            System.out.println(purchases[i]);
+        }
     }
 
 }
