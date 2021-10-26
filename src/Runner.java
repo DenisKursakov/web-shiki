@@ -24,7 +24,7 @@ public class Runner {
                         WeekDay.values()[scanner.nextInt()]);
             }
             showInfo(purchases);
-            int sumOfCost = 0;
+            double sumOfCost = 0;
             int sumOfMonday = 0;
             Purchase DayWithMaxCostPurchase = new Purchase();
 
@@ -38,8 +38,7 @@ public class Runner {
                 sumOfCost += purchase.getCost();
             }
 
-            double meanCost = PURCHASES_NUMBER != 0 ?
-                    Double.parseDouble( Converter.convert(sumOfCost)) / PURCHASES_NUMBER : 0.0;
+            double meanCost = PURCHASES_NUMBER != 0 ? sumOfCost / PURCHASES_NUMBER / 100 : 0.0;
             System.out.printf("Mean cost = %.3f\n", meanCost);
             System.out.println("Total cost of Monday = " + Converter.convert(sumOfMonday));
             System.out.println("Day with the max cost is " + DayWithMaxCostPurchase.getWeekDay());
@@ -47,10 +46,9 @@ public class Runner {
             Arrays.sort(purchases);
             showInfo(purchases);
             Purchase purchase = new Purchase(5, 35, WeekDay.FRIDAY);
-            int requiredElement = Arrays.binarySearch(purchases,purchase);
+            int requiredElement = Arrays.binarySearch(purchases, purchase);
             if (requiredElement > 0) {
-                System.out.println("Required element: " +
-                        purchases[requiredElement]);
+                System.out.println("Required element: " + purchases[requiredElement]);
             } else {
                 System.out.println("Required element is not found");
             }
@@ -62,7 +60,7 @@ public class Runner {
 
     private static void showInfo(Purchase[] purchases) {
         System.out.println(new Purchase().showConstant());
-        for (Purchase purchase: purchases) {
+        for (Purchase purchase : purchases) {
             System.out.println(purchase);
         }
     }

@@ -48,7 +48,6 @@ public class Purchase implements Comparable<Purchase> {
     }
 
 
-
     public int getCost() {
         return (int) Math.round(
                 (PRICE * numberOfUnits * (100.0 - discountPercent) / 100) * 0.01) * 100;
@@ -64,3 +63,4 @@ public class Purchase implements Comparable<Purchase> {
     public int compareTo(Purchase purchase) {
         return Integer.compare(numberOfUnits, purchase.numberOfUnits);
     }
+}
