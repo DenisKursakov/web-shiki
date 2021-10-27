@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Runner {
     public static void main(String[] args) {
 
-        try (Scanner scanner = new Scanner(new FileReader("src/in.txt"))) {
+        try (Scanner scanner = new Scanner(new FileReader("src/in6.txt"))) {
             scanner.useLocale(Locale.ENGLISH);
             final int PURCHASES_NUMBER = scanner.nextInt();
             Purchase[] purchases = new Purchase[PURCHASES_NUMBER];
@@ -21,17 +21,20 @@ public class Runner {
                 purchases[i] = new Purchase(
                         scanner.nextInt(),
                         scanner.nextDouble(),
-                        WeekDay.values()[scanner.nextInt()]);
+                        scanner.nextInt());
             }
             showInfo(purchases);
-            double sumOfCost = 0;
+            int sumOfCost = 0;
             int sumOfMonday = 0;
-            Purchase DayWithMaxCostPurchase = new Purchase();
+            int maxCost = 0;
+            double meanCost = 0.0;
+            WeekDay maxCostDay = null;
 
             for (Purchase purchase : purchases) {
                 int cost = purchase.getCost();
-                if (DayWithMaxCostPurchase.getCost() < cost) {
-                    DayWithMaxCostPurchase = purchase;
+                if (maxCost < cost) {
+                    maxCost = cost;
+                    maxCostDay = purchase.getWeekDay();
                 }
                 if (purchase.getWeekDay() == WeekDay.MONDAY) {
                     sumOfMonday += cost;
@@ -39,18 +42,19 @@ public class Runner {
                 sumOfCost += cost;
             }
 
-            double meanCost = PURCHASES_NUMBER > 0 ? sumOfCost / PURCHASES_NUMBER / 100 : 0.0;
+            if (purchases.length > 0) {
+                meanCost = (double) sumOfCost / purchases.length / 100;
+            }
             System.out.printf("Mean cost = %.3f\n", meanCost);
             System.out.println("Total cost of Monday = " + Converter.convert(sumOfMonday));
-            System.out.println("Day with the max cost is " + DayWithMaxCostPurchase.getWeekDay());
+            System.out.println("Day with the max cost is " + maxCostDay);
 
             Arrays.sort(purchases);
             showInfo(purchases);
             Purchase purchase = new Purchase(5, 35, WeekDay.FRIDAY);
-            int requiredElement = Arrays.binarySearch(purchases,purchase);
+            int requiredElement = Arrays.binarySearch(purchases, purchase);
             if (requiredElement >= 0) {
-                System.out.println("Required element: " +
-                        purchases[requiredElement]);
+                System.out.println("Required element: " + purchases[requiredElement]);
             } else {
                 System.out.println("Required element is not found");
             }
@@ -63,9 +67,10 @@ public class Runner {
     private static void showInfo(Purchase[] purchases) {
         System.out.printf("Name: %s\nPrice: %s\n",
                 Purchase.PRODUCT_NAME, Converter.convert(Purchase.PRICE));
-        for (Purchase purchase: purchases) {
+        for (Purchase purchase : purchases) {
             System.out.println(purchase);
         }
     }
 
 }
+

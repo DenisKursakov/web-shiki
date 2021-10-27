@@ -2,7 +2,7 @@ package by.gsu.epamlab;
 
 public class Purchase implements Comparable<Purchase> {
     public final static String PRODUCT_NAME = "Coffee";
-    public final static int PRICE = 782;                           //bunks
+    public final static int PRICE = 782;
     private int numberOfUnits;
     private double discountPercent;
     private WeekDay weekDay;
@@ -16,6 +16,10 @@ public class Purchase implements Comparable<Purchase> {
         this.numberOfUnits = numberOfUnits;
         this.discountPercent = discountPercent;
         this.weekDay = weekDay;
+    }
+
+    public Purchase(int numberOfUnits, double discountPercent, int day) {
+        this(numberOfUnits, discountPercent, WeekDay.values()[day]);
     }
 
 
@@ -57,7 +61,7 @@ public class Purchase implements Comparable<Purchase> {
 
     @Override
     public int compareTo(Purchase purchase) {
-        return Integer.compare(numberOfUnits, purchase.numberOfUnits);
+        return numberOfUnits - purchase.numberOfUnits;
     }
 
 }
