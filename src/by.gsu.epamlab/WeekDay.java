@@ -11,12 +11,9 @@ public enum WeekDay {
     FRIDAY,
     SATURDAY;
 
-    public String getName() {
-        return name().toLowerCase(Locale.ROOT);
-    }
 
     @Override
     public String toString() {
-        return getName();
+        return name().toLowerCase(Locale.ROOT);
     }
 }
