@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class WholesalePurchase extends Purchase {
     private final static int UNIT_NUMBER = 15;
     private double discountPercent;
+    public WholesalePurchase(){
 
-
+    }
     public WholesalePurchase(String productName, Byn price,
                              int numberOfUnits, double discountPercent) {
         super(productName, price, numberOfUnits);
@@ -38,6 +39,6 @@ public class WholesalePurchase extends Purchase {
 
 
     protected String fieldsToString() {
-        return super.fieldsToString() + ";" + discount;
+        return super.fieldsToString() + ";" + discountPercent;
     }
 }
