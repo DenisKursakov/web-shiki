@@ -12,32 +12,27 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn diff(Byn byn) {
-        this.valueInKopecks = valueInKopecks - byn.valueInKopecks;
+        valueInKopecks = valueInKopecks - byn.valueInKopecks;
         return this;
     }
 
     public Byn increase(double a) {
-        this.valueInKopecks = (int) Math.round(valueInKopecks * a);
+        valueInKopecks = (int) Math.round(valueInKopecks * a);
         return this;
     }
 
     public Byn increase(int a) {
-        this.valueInKopecks = valueInKopecks * a;
+        valueInKopecks = valueInKopecks * a;
         return this;
     }
 
     public Byn increase(Byn byn) {
-        this.valueInKopecks = valueInKopecks * byn.valueInKopecks;
+        valueInKopecks = valueInKopecks * byn.valueInKopecks;
         return this;
     }
 
     public Byn sum(Byn byn) {
-        this.valueInKopecks = valueInKopecks + byn.valueInKopecks;
-        return this;
-    }
-
-    public Byn division(Byn byn) {
-        this.valueInKopecks = valueInKopecks / byn.valueInKopecks;
+        valueInKopecks = valueInKopecks + byn.valueInKopecks;
         return this;
     }
 

@@ -21,20 +21,17 @@ public class Runner {
                     maxCost = cost;
                     purchaseWithMaxCost = purchases[i];
                 }
-                if (i > 0 && !purchases[i].equals(purchases[i - 1])) {
+                if (!purchases[0].equals(purchases[i])) {
                     equal = false;
                 }
                 System.out.println(purchases[i]);
-                if (i == purchases.length - 1) {
-                    if (equal) {
-                        System.out.println("Purchases are equal");
-                    } else {
-                        System.out.println("Purchases are not equal");
-                    }
-                    System.out.println("Purchase with max cost: " + purchaseWithMaxCost);
-                }
-
             }
+            if (equal) {
+                System.out.println("Purchases are equal");
+            } else {
+                System.out.println("Purchases are not equal");
+            }
+            System.out.println("Purchase with max cost: " + purchaseWithMaxCost);
 
 
         } catch (FileNotFoundException e) {

@@ -27,12 +27,10 @@ public class RetailPurchase extends Purchase {
     }
     @Override
     public Byn getCost() {
-        return new Byn().sum(this.getPrice()).diff(discount).increase(getNumberOfUnits());
+        return new Byn().sum(getPrice()).diff(discount).increase(getNumberOfUnits());
     }
 
-    @Override
-    public String toString() {
-        return fieldsToString() + ";" + discount + ";" + getCost();
+    protected String fieldsToString() {
+        return super.fieldsToString() + ";" + discount;
     }
-
 }
