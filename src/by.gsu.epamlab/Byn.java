@@ -1,6 +1,5 @@
 package by.gsu.epamlab;
 
-import java.util.Objects;
 
 public class Byn implements Comparable<Byn> {
     private int valueInKopecks;
@@ -12,27 +11,37 @@ public class Byn implements Comparable<Byn> {
         this.valueInKopecks = valueInKopecks;
     }
 
-    public int diff(int a) {
-        if (valueInKopecks >= a) {
-            return valueInKopecks - a;
+    public Byn diff(Byn byn) {
+        if (valueInKopecks >= byn.valueInKopecks) {
+            this.valueInKopecks = valueInKopecks - byn.valueInKopecks;
+        } else {
+            this.valueInKopecks = byn.valueInKopecks - valueInKopecks;
         }
-        return a - valueInKopecks;
+        return this;
     }
 
-    public int increase(double a) {
-        return (int) Math.round(valueInKopecks * a);
+    public Byn increase(double a) {
+        this.valueInKopecks = (int) Math.round(valueInKopecks * a);
+        return this;
     }
 
-    public int sum(int a) {
-        return valueInKopecks + a;
+    public Byn increase(int a) {
+        this.valueInKopecks = valueInKopecks * a;
+        return this;
+    }
+
+    public Byn increase(Byn byn) {
+        this.valueInKopecks = valueInKopecks * byn.valueInKopecks;
+        return this;
+    }
+
+    public Byn sum(Byn byn) {
+        this.valueInKopecks = valueInKopecks + byn.valueInKopecks;
+        return this;
     }
 
     public int division(int a) {
         return valueInKopecks / a;
-    }
-
-    public int increase(int a) {
-        return valueInKopecks * a;
     }
 
     @Override

@@ -20,11 +20,16 @@ public class Purchase {
     }
 
     public Purchase(Scanner scanner) {
-        this.productName = scanner.next();
-        this.price = new Byn(scanner.nextInt());
-        this.numberOfUnits = scanner.nextInt();
+        this(scanner.next(), new Byn(scanner.nextInt()), scanner.nextInt());
     }
 
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public void setPrice(Byn price) {
+        this.price = price;
+    }
 
     public String getProductName() {
         return productName;
@@ -44,12 +49,12 @@ public class Purchase {
 
 
     public Byn getCost() {
-        return new Byn(price.increase(numberOfUnits));
+        return new Byn().sum(price).increase(getNumberOfUnits());
     }
 
     @Override
     public String toString() {
-        return productName + ";" + price + ";" + numberOfUnits + ";" + getCost();
+        return fieldsToString() + ";" + getCost();
     }
 
     @Override

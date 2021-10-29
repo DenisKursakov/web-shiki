@@ -2,7 +2,6 @@ import by.gsu.epamlab.*;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -12,24 +11,22 @@ public class Runner {
             scanner.useLocale(Locale.ENGLISH);
             final int PURCHASES_NUMBER = 6;
             Purchase[] purchases = new Purchase[PURCHASES_NUMBER];
-            for (int i = 0; i < purchases.length; i++) {
-                purchases[i] = PurchasesFactory.getPurchaseFromFactory(scanner);
-                if (i == purchases.length - 1) {
-                    comparePurchases(purchases);
-                }
-            }
             Byn maxCost = new Byn();
             Purchase purchaseWithMaxCost = new Purchase();
-            for (Purchase purchase : purchases) {
-                Byn cost = purchase.getCost();
+            for (int i = 0; i < purchases.length; i++) {
+                purchases[i] = PurchasesFactory.getPurchaseFromFactory(scanner);
+                Byn cost = purchases[i].getCost();
                 if (maxCost.compareTo(cost) < 0) {
                     maxCost = cost;
-                    purchaseWithMaxCost = purchase;
-
+                    purchaseWithMaxCost = purchases[i];
                 }
-                System.out.println(purchase);
+                System.out.println(purchases[i]);
+                if (i == purchases.length - 1) {
+                    comparePurchases(purchases);
+                    System.out.println("Purchase with max cost: " + purchaseWithMaxCost);
+                }
+
             }
-            System.out.println("Purchase with max cost: " + purchaseWithMaxCost);
 
 
         } catch (FileNotFoundException e) {

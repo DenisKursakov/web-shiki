@@ -3,28 +3,23 @@ package by.gsu.epamlab;
 import java.util.Scanner;
 
 public class RetailPurchase extends Purchase {
-    private int discount;
+    private static Byn discount;
 
     public RetailPurchase() {
     }
 
-    public RetailPurchase(String productName, Byn price, int numberOfUnits) {
+    public RetailPurchase(String productName, Byn price, int numberOfUnits, Byn discount) {
         super(productName, price, numberOfUnits);
     }
 
     public RetailPurchase(Scanner scanner) {
         super(scanner);
-        this.discount = scanner.nextInt();
+        discount = new Byn(scanner.nextInt());
     }
 
     @Override
     public Byn getCost() {
-        return new Byn(super.getPrice().diff(discount) * super.getNumberOfUnits());
-    }
-
-    @Override
-    public String toString() {
-        return super.fieldsToString() + ";" + discount + ";" + getCost();
+        return new Byn().sum(this.getPrice()).diff(discount).increase(getNumberOfUnits());
     }
 
     protected String fieldsToString() {
