@@ -6,12 +6,18 @@ public class WholesalePurchase extends Purchase {
     private final static int UNIT_NUMBER = 15;
     private double discountPercent;
 
-    public WholesalePurchase(String productName, Byn price, int numberOfUnits) {
+
+    public WholesalePurchase(String productName, Byn price,
+                             int numberOfUnits, double discountPercent ) {
         super(productName, price, numberOfUnits);
+        this.discountPercent = discountPercent;
     }
 
     public int getUnitNumber() {
         return UNIT_NUMBER;
+    }
+    public void setDiscountPercent(double discountPercent) {
+        this.discountPercent = discountPercent;
     }
 
     public double getDiscountPercent() {
@@ -31,8 +37,9 @@ public class WholesalePurchase extends Purchase {
                 : super.getCost();
     }
 
-
-    protected String fieldsToString() {
-        return super.fieldsToString() + ";" + discountPercent;
+    @Override
+    public String toString() {
+        return fieldsToString() + ";" + discountPercent + ";" + getCost();
     }
+
 }

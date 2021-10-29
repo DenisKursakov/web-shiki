@@ -12,11 +12,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn diff(Byn byn) {
-        if (valueInKopecks >= byn.valueInKopecks) {
-            this.valueInKopecks = valueInKopecks - byn.valueInKopecks;
-        } else {
-            this.valueInKopecks = byn.valueInKopecks - valueInKopecks;
-        }
+        this.valueInKopecks = valueInKopecks - byn.valueInKopecks;
         return this;
     }
 
@@ -40,8 +36,9 @@ public class Byn implements Comparable<Byn> {
         return this;
     }
 
-    public int division(int a) {
-        return valueInKopecks / a;
+    public Byn division(Byn byn) {
+        this.valueInKopecks = valueInKopecks / byn.valueInKopecks;
+        return this;
     }
 
     @Override
