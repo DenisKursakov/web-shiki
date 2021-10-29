@@ -14,10 +14,11 @@ public class RetailPurchase extends Purchase {
         this.discount = discount;
     }
 
-    public RetailPurchase(Scanner scanner){
+    public RetailPurchase(Scanner scanner) {
         super(scanner);
         discount = new Byn(scanner.nextInt());
     }
+
     public Byn getDiscount() {
         return discount;
     }
@@ -25,6 +26,7 @@ public class RetailPurchase extends Purchase {
     public void setDiscount(Byn discount) {
         this.discount = discount;
     }
+
     @Override
     public Byn getCost() {
         return new Byn().sum(getPrice()).diff(discount).increase(getNumberOfUnits());

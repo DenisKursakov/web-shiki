@@ -8,7 +8,6 @@ public class Purchase {
     private Byn price;
     private int numberOfUnits;
 
-
     public Purchase() {
 
     }
