@@ -3,25 +3,27 @@ package by.gsu.epamlab;
 import java.util.Scanner;
 
 public class PurchasesFactory {
-    private static enum PurchaseKind {
-        GENERAL_PURCHASE,
-        WHOLESALE_PURCHASE,
-        RETAIL_PURCHASE
+    private enum PurchaseKind {
+        GENERAL_PURCHASE {
+            Purchase getPurchase(Scanner scanner) {
+                return new Purchase(scanner);
+            }
+        },
+        WHOLESALE_PURCHASE {
+            Purchase getPurchase(Scanner scanner) {
+                return new WholesalePurchase(scanner);
+            }
+        },
+        RETAIL_PURCHASE {
+            Purchase getPurchase(Scanner scanner) {
+                return new RetailPurchase(scanner);
+            }
+        };
+
+        abstract Purchase getPurchase(Scanner scanner);
     }
 
     public static Purchase getPurchaseFromFactory(Scanner scanner) {
-        String id = scanner.next();
-        PurchaseKind kind = PurchaseKind.valueOf(id);
-        switch (kind) {
-            case GENERAL_PURCHASE:
-                return new Purchase(scanner);
-            case WHOLESALE_PURCHASE:
-                return new WholesalePurchase(scanner);
-            case RETAIL_PURCHASE:
-                return new RetailPurchase(scanner);
-            default:
-                throw new IllegalArgumentException();
-
-        }
+        return PurchaseKind.valueOf(scanner.next()).getPurchase(scanner);
     }
 }

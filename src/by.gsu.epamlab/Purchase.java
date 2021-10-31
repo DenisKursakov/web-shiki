@@ -19,7 +19,9 @@ public class Purchase {
     }
 
     public Purchase(Scanner scanner) {
-        this(scanner.next(), new Byn(scanner.nextInt()), scanner.nextInt());
+        this.productName = scanner.next();
+        this.price = new Byn(scanner.nextInt());
+        this.numberOfUnits = scanner.nextInt());
     }
 
     public void setProductName(String productName) {
@@ -48,7 +50,7 @@ public class Purchase {
 
 
     public Byn getCost() {
-        return new Byn().sum(price).increase(getNumberOfUnits());
+        return new Byn().add(price).increase(getNumberOfUnits());
     }
 
     @Override
