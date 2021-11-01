@@ -16,6 +16,11 @@ public class WholesalePurchase extends Purchase {
         this.discountPercent = discountPercent;
     }
 
+    public WholesalePurchase(Scanner scanner) {
+        super(scanner);
+        this.discountPercent = scanner.nextDouble();
+    }
+
 
     public void setDiscountPercent(double discountPercent) {
         this.discountPercent = discountPercent;
@@ -25,17 +30,12 @@ public class WholesalePurchase extends Purchase {
         return discountPercent;
     }
 
-    public WholesalePurchase(Scanner scanner) {
-        super(scanner);
-        this.discountPercent = scanner.nextDouble();
-    }
-
 
     @Override
     public Byn getCost() {
         Byn byn = new Byn(super.getCost());
-        if (UNIT_NUMBER <= super.getNumberOfUnits()) {
-            byn = byn.mul(1 - discountPercent / 100, RoundMethod.ROUND, 0);
+        if (super.getNumberOfUnits() > UNIT_NUMBER ) {
+            byn.mul(1 - discountPercent / 100, RoundMethod.ROUND, 0);
         }
         return byn;
     }
