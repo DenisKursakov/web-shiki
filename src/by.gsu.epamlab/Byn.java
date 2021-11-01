@@ -26,7 +26,7 @@ public class Byn implements Comparable<Byn> {
 
     public Byn add(Byn byn) {
         valueInKopecks = valueInKopecks + byn.valueInKopecks;
-        return byn;
+        return this;
     }
 
     public int getRubs() {
@@ -57,15 +57,6 @@ public class Byn implements Comparable<Byn> {
         return this;
     }
 
-    public Byn increase(Byn byn) {
-        valueInKopecks = valueInKopecks * byn.valueInKopecks;
-        return this;
-    }
-
-    public Byn sum(Byn byn) {
-        valueInKopecks = valueInKopecks + byn.valueInKopecks;
-        return this;
-    }
 
     @Override
     public String toString() {
