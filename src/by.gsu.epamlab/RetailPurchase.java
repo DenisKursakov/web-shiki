@@ -29,7 +29,7 @@ public class RetailPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        return new Byn().sum(getPrice()).diff(discount).increase(getNumberOfUnits());
+        return new Byn(getPrice()).diff(discount).increase(getNumberOfUnits());
     }
 
     protected String fieldsToString() {

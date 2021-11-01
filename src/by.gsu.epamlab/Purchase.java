@@ -8,6 +8,7 @@ public class Purchase {
     private Byn price;
     private int numberOfUnits;
 
+
     public Purchase() {
 
     }
@@ -20,8 +21,8 @@ public class Purchase {
 
     public Purchase(Scanner scanner) {
         this.productName = scanner.next();
-        this.price = new Byn(scanner.nextInt());
-        this.numberOfUnits = scanner.nextInt());
+        this.price = new Byn(scanner);
+        this.numberOfUnits = scanner.nextInt();
     }
 
     public void setProductName(String productName) {
@@ -50,7 +51,7 @@ public class Purchase {
 
 
     public Byn getCost() {
-        return new Byn().add(price).increase(getNumberOfUnits());
+        return new Byn(price).increase(getNumberOfUnits());
     }
 
     @Override
@@ -63,7 +64,7 @@ public class Purchase {
         if (this == obj) {
             return true;
         }
-        if (obj == null || getClass() != obj.getClass()) {
+        if (!(obj instanceof Purchase)) {
             return false;
         }
         Purchase purchase = (Purchase) obj;
