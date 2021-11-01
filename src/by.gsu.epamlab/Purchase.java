@@ -64,7 +64,7 @@ public class Purchase {
         if (this == o) {
             return true;
         }
-        if (o == null || o instanceof Purchase) {
+        if (o == null || !(o instanceof Purchase)) {
             return false;
         }
         Purchase purchase = (Purchase) o;
