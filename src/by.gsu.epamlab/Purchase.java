@@ -60,15 +60,15 @@ public class Purchase {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
+    public boolean equals(Object o) {
+        if (this == o) {
             return true;
         }
-        if (!(obj instanceof Purchase)) {
+        if (o == null || o instanceof Purchase) {
             return false;
         }
-        Purchase purchase = (Purchase) obj;
-        return price.equals(purchase.price) && productName.equals(purchase.productName);
+        Purchase purchase = (Purchase) o;
+        return productName.equals(purchase.productName) && price.equals(purchase.price);
     }
 
     protected String fieldsToString() {
