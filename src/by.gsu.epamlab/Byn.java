@@ -17,7 +17,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn(int rubs, int coins) {
-        this(rubs * * 100 + coins);
+        this(rubs * 100 + coins);
     }
 
     public Byn(Byn byn) {
