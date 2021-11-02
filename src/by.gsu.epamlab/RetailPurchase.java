@@ -16,7 +16,7 @@ public class RetailPurchase extends Purchase {
 
     public RetailPurchase(Scanner scanner) {
         super(scanner);
-        discount = new Byn(scanner.nextInt());
+        discount = new Byn(scanner);
     }
 
     public Byn getDiscount() {
@@ -29,7 +29,7 @@ public class RetailPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        return new Byn(getPrice()).diff(discount).increase(getNumberOfUnits());
+        return new Byn(getPrice()).diff(discount).mul(getNumberOfUnits());
     }
 
     protected String fieldsToString() {

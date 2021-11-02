@@ -51,7 +51,7 @@ public class Purchase {
 
 
     public Byn getCost() {
-        return new Byn(price).increase(getNumberOfUnits());
+        return new Byn(price).mul(getNumberOfUnits());
     }
 
     @Override

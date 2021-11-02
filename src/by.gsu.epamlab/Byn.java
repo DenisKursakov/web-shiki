@@ -17,7 +17,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn(int rubs, int coins) {
-        this(Integer.parseInt(String.format("%d%d", rubs, coins)));
+        this(rubs * * 100 + coins);
     }
 
     public Byn(Byn byn) {
@@ -25,7 +25,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn add(Byn byn) {
-        valueInKopecks = valueInKopecks + byn.valueInKopecks;
+        valueInKopecks += byn.valueInKopecks;
         return this;
     }
 
@@ -48,12 +48,12 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn diff(Byn byn) {
-        valueInKopecks = valueInKopecks - byn.valueInKopecks;
+        valueInKopecks -= byn.valueInKopecks;
         return this;
     }
 
-    public Byn increase(int a) {
-        valueInKopecks = valueInKopecks * a;
+    public Byn mul(int a) {
+        valueInKopecks *= a;
         return this;
     }
 

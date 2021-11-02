@@ -33,7 +33,7 @@ public class WholesalePurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        Byn byn = new Byn(super.getCost());
+        Byn byn = super.getCost();
         if (getNumberOfUnits() > UNIT_NUMBER) {
             byn.mul(1 - discountPercent / 100, RoundMethod.ROUND, 0);
         }
