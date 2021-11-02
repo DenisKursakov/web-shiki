@@ -25,7 +25,7 @@ public enum RoundMethod {
     }
 
     private static int pow10(int d) {
-        int required = 10;
+        int required = 1;
         int[] tenPowD = {1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};
         if (d >= 0 && d <= 8) {
             required = tenPowD[d];
