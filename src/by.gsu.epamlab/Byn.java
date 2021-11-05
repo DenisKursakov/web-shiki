@@ -1,19 +1,14 @@
 package by.gsu.epamlab;
 
-import java.util.Scanner;
 
 public class Byn implements Comparable<Byn> {
-    private int valueInKopecks;
+    private int value;
 
     public Byn() {
     }
 
-    public Byn(int valueInKopecks) {
-        this.valueInKopecks = valueInKopecks;
-    }
-
-    public Byn(Scanner scanner) {
-        this(scanner.nextInt());
+    public Byn(int value) {
+        this.value = value;
     }
 
     public Byn(int rubs, int coins) {
@@ -21,45 +16,45 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn(Byn byn) {
-        this(byn.valueInKopecks);
+        this(byn.value);
     }
 
     public Byn add(Byn byn) {
-        valueInKopecks += byn.valueInKopecks;
+        value += byn.value;
         return this;
     }
 
     public int getRubs() {
-        return valueInKopecks / 100;
+        return value / 100;
     }
 
     public int getCoins() {
-        return valueInKopecks;
+        return value;
     }
 
     public Byn mul(double k, RoundMethod roundMethod, int d) {
-        valueInKopecks = roundMethod.round(valueInKopecks * k, d);
+        value = roundMethod.round(value * k, d);
         return this;
     }
 
     public Byn round(RoundMethod roundMethod, int d) {
-        valueInKopecks = roundMethod.round(valueInKopecks, d);
+        value = roundMethod.round(value, d);
         return this;
     }
 
     public Byn diff(Byn byn) {
-        valueInKopecks -= byn.valueInKopecks;
+        value -= byn.value;
         return this;
     }
 
     public Byn mul(int a) {
-        valueInKopecks *= a;
+        value *= a;
         return this;
     }
 
     @Override
     public String toString() {
-        return String.format("%d.%02d", valueInKopecks / 100, valueInKopecks % 100);
+        return String.format("%d.%02d", value / 100, value % 100);
     }
 
     public boolean equals(Object obj) {
@@ -70,12 +65,12 @@ public class Byn implements Comparable<Byn> {
             return false;
         }
         Byn byn = (Byn) obj;
-        return valueInKopecks == byn.valueInKopecks;
+        return value == byn.value;
     }
 
     @Override
     public int compareTo(Byn byn) {
-        return valueInKopecks - byn.valueInKopecks;
+        return value - byn.value;
     }
 
 }

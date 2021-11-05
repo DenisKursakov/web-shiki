@@ -28,7 +28,7 @@ public class RetailPurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn costMethod() {
-        return new Byn(getProduct().diffPrice(discount)).mul(getNumberOfUnits());
+    protected Byn costCalculation() {
+        return new Byn(getProduct().getPrice()).diff(discount).mul(getNumberOfUnits());
     }
 }

@@ -27,8 +27,8 @@ public class DeliveredPurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn costMethod() {
-        return new Byn(getProduct().mulPrice(getNumberOfUnits())).add(transportCosts);
+    protected Byn costCalculation() {
+        return new Byn(getProduct().getPrice()).mul(getNumberOfUnits()).add(transportCosts);
     }
 }
 

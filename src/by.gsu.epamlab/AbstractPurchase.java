@@ -1,6 +1,5 @@
 package by.gsu.epamlab;
 
-import java.util.Scanner;
 
 public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
     private Product product;
@@ -19,6 +18,10 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
         return product;
     }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public int getNumberOfUnits() {
         return numberOfUnits;
     }
@@ -28,7 +31,7 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
     }
 
     public Byn getCost() {
-        return costMethod().round(RoundMethod.FLOOR, 2);
+        return costCalculation().round(RoundMethod.FLOOR, 2);
     }
 
     @Override
@@ -45,5 +48,5 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
         return product + ";" + numberOfUnits;
     }
 
-    protected abstract Byn costMethod();
+    protected abstract Byn costCalculation();
 }

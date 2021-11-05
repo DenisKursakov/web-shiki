@@ -29,8 +29,8 @@ public class WholesalePurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn costMethod() {
-        Byn byn = new Byn(getProduct().mulPrice(getNumberOfUnits()));
+    protected Byn costCalculation() {
+        Byn byn = new Byn(getProduct().getPrice()).mul(getNumberOfUnits());
         if (getNumberOfUnits() > UNIT_NUMBER) {
             byn.mul(1 - discountPercent / 100, RoundMethod.FLOOR, 2);
         }

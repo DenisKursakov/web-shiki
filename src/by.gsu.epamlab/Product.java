@@ -1,33 +1,32 @@
 package by.gsu.epamlab;
 
 public class Product {
-    private String productName;
+    private String name;
     private Byn price;
 
     public Product() {
 
     }
 
-    public Product(String productName, Byn price) {
-        this.productName = productName;
+    public Product(String name, Byn price) {
+        this.name = name;
         this.price = price;
     }
 
     public Product(Product product) {
-        this(product.productName, product.price);
+        this(product.name, product.price);
     }
 
-    public Byn mulPrice(int a) {
-        return new Byn(price).mul(a);
+    public String getName() {
+        return name;
     }
 
-    public Byn diffPrice(Byn byn) {
-        return new Byn(price).diff(byn);
+    public Byn getPrice() {
+        return price;
     }
-
 
     @Override
     public String toString() {
-        return productName + ";" + price;
+        return name + ";" + price;
     }
 }
