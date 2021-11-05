@@ -32,7 +32,7 @@ public class WholesalePurchase extends AbstractPurchase {
     protected Byn costCalculation() {
         Byn byn = new Byn(getProduct().getPrice()).mul(getNumberOfUnits());
         if (getNumberOfUnits() > UNIT_NUMBER) {
-            byn.mul(1 - discountPercent / 100, RoundMethod.FLOOR, 2);
+            byn.mul(1 - discountPercent / 100, RoundMethod.FLOOR, 0);
         }
         return byn;
     }

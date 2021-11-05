@@ -41,7 +41,7 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
 
     @Override
     public int compareTo(AbstractPurchase abstractPurchase) {
-        return abstractPurchase.getCost().getCoins() - this.getCost().getCoins();
+        return getCost().compareTo(abstractPurchase.getCost());
     }
 
     protected String fieldsToString() {

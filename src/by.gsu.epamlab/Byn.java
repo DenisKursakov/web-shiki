@@ -70,7 +70,7 @@ public class Byn implements Comparable<Byn> {
 
     @Override
     public int compareTo(Byn byn) {
-        return value - byn.value;
+        return byn.value - value;
     }
 
 }
