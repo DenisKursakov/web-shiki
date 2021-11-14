@@ -4,19 +4,15 @@ import java.util.Scanner;
 
 public class WholesalePurchase extends AbstractPurchase {
     private final static int UNIT_NUMBER = 15;
-    private double discountPercent;
+    private final double discountPercent;
 
     public WholesalePurchase() {
-
+        super();
+        this.discountPercent = 0.0;
     }
 
     public WholesalePurchase(Product product, int numberOfUnits, double discountPercent) {
         super(product, numberOfUnits);
-        this.discountPercent = discountPercent;
-    }
-
-
-    public void setDiscountPercent(double discountPercent) {
         this.discountPercent = discountPercent;
     }
 
@@ -29,10 +25,10 @@ public class WholesalePurchase extends AbstractPurchase {
     }
 
     @Override
-    protected Byn costCalculation() {
-        Byn byn = new Byn(getProduct().getPrice()).mul(getNumberOfUnits());
+    protected Byn costCalculation(Byn baseCost) {
+        Byn byn = new Byn(baseCost);
         if (getNumberOfUnits() > UNIT_NUMBER) {
-            byn.mul(1 - discountPercent / 100, RoundMethod.FLOOR, 0);
+            byn = new Byn(baseCost).mul(1 - discountPercent / 100, RoundMethod.FLOOR, 0);
         }
         return byn;
     }

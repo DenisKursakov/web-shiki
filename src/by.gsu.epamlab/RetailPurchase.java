@@ -3,10 +3,11 @@ package by.gsu.epamlab;
 import java.util.Scanner;
 
 public class RetailPurchase extends AbstractPurchase {
-    private Byn discount;
+    private final Byn discount;
 
     public RetailPurchase() {
-
+        super();
+        this.discount = new Byn(0);
     }
 
     public RetailPurchase(Product product, int numberOfUnits, Byn discount) {
@@ -18,17 +19,13 @@ public class RetailPurchase extends AbstractPurchase {
         return discount;
     }
 
-    public void setDiscount(Byn discount) {
-        this.discount = discount;
-    }
-
 
     protected String fieldsToString() {
         return super.fieldsToString() + ";" + discount;
     }
 
     @Override
-    protected Byn costCalculation() {
-        return new Byn(getProduct().getPrice()).diff(discount).mul(getNumberOfUnits());
+    protected Byn costCalculation(Byn baseCost) {
+        return new Byn(baseCost).diff(new Byn(discount).mul(getNumberOfUnits()));
     }
 }

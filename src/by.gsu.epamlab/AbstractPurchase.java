@@ -2,11 +2,11 @@ package by.gsu.epamlab;
 
 
 public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
-    private Product product;
+    private final Product product;
     private int numberOfUnits;
 
     public AbstractPurchase() {
-
+        this(null, 0);
     }
 
     public AbstractPurchase(Product product, int numberOfUnits) {
@@ -18,10 +18,6 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
         return product;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public int getNumberOfUnits() {
         return numberOfUnits;
     }
@@ -31,7 +27,9 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
     }
 
     public Byn getCost() {
-        return costCalculation().round(RoundMethod.FLOOR, 2);
+        Byn baseCost = product.getPrice().mul(numberOfUnits);
+        Byn finalCost = costCalculation(baseCost);
+        return finalCost.round(RoundMethod.FLOOR, 2);
     }
 
     @Override
@@ -48,5 +46,5 @@ public abstract class AbstractPurchase implements Comparable<AbstractPurchase> {
         return product + ";" + numberOfUnits;
     }
 
-    protected abstract Byn costCalculation();
+    protected abstract Byn costCalculation(Byn baseCost);
 }

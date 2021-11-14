@@ -2,9 +2,10 @@ package by.gsu.epamlab;
 
 
 public class Byn implements Comparable<Byn> {
-    private int value;
+    private final int value;
 
     public Byn() {
+        this(0);
     }
 
     public Byn(int value) {
@@ -20,8 +21,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn add(Byn byn) {
-        value += byn.value;
-        return this;
+        return new Byn(value + byn.value);
     }
 
     public int getRubs() {
@@ -33,23 +33,21 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn mul(double k, RoundMethod roundMethod, int d) {
-        value = roundMethod.round(value * k, d);
-        return this;
+        return new Byn(roundMethod.round(value * k, d));
+
     }
 
     public Byn round(RoundMethod roundMethod, int d) {
-        value = roundMethod.round(value, d);
-        return this;
+        return new Byn(roundMethod.round(value, d));
+
     }
 
     public Byn diff(Byn byn) {
-        value -= byn.value;
-        return this;
+        return new Byn(value - byn.value);
     }
 
     public Byn mul(int a) {
-        value *= a;
-        return this;
+        return new Byn(value * a);
     }
 
     @Override
