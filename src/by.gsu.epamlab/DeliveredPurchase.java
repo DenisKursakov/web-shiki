@@ -4,7 +4,7 @@ public class DeliveredPurchase extends AbstractPurchase {
     private Byn transportCosts;
 
     public DeliveredPurchase() {
-
+        super();
     }
 
     public DeliveredPurchase(Product product, int numberOfUnits, Byn transportCosts) {

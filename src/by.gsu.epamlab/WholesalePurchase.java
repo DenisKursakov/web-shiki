@@ -7,7 +7,7 @@ public class WholesalePurchase extends AbstractPurchase {
     private double discountPercent;
 
     public WholesalePurchase() {
-
+        super();
     }
 
     public WholesalePurchase(Product product, int numberOfUnits, double discountPercent) {
@@ -29,10 +29,9 @@ public class WholesalePurchase extends AbstractPurchase {
 
     @Override
     protected Byn costCalculation(Byn baseCost) {
-        Byn byn = baseCost;
         if (getNumberOfUnits() > UNIT_NUMBER) {
-            byn = baseCost.mul(1 - discountPercent / 100, RoundMethod.FLOOR, 0);
+            baseCost = baseCost.mul(1 - discountPercent / 100, RoundMethod.ROUND, 0);
         }
-        return byn;
+        return baseCost;
     }
 }

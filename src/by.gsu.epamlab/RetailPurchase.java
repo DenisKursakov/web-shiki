@@ -6,7 +6,7 @@ public class RetailPurchase extends AbstractPurchase {
     private Byn discount;
 
     public RetailPurchase() {
-
+        super();
     }
 
     public RetailPurchase(Product product, int numberOfUnits, Byn discount) {
