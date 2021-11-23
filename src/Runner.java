@@ -5,14 +5,18 @@ import java.util.Scanner;
 
 public class Runner {
     public static void main(String[] args) {
-        String result = "result(";
         double sumOfElements = 0;
         int errorLinesCount = 0;
         final String INPUT_CSV = "src/in.csv";
         final String PLUS = " + ";
-        final String MINUS = " - ";
+        final String MINUS_WITH_SPACES = " - ";
+        final String MINUS = "-";
         final String SEMICOLON = ";";
-        final String FIRST_WORD = "result(";
+        final String EQUAL_SIGN = " = ";
+        final String LEFT_BRACKET = "(";
+        final String RIGHT_BRACKET = ")";
+        final String FIRST_WORD = "result" + LEFT_BRACKET;
+        String result = FIRST_WORD;
         try (Scanner scanner = new Scanner(new FileReader(INPUT_CSV))) {
             scanner.useLocale(Locale.ENGLISH);
             while (scanner.hasNext()) {
@@ -26,10 +30,10 @@ public class Runner {
                         result += currentElement;
                         continue;
                     }
-                    if (!element.contains("-")) {
+                    if (!element.contains(MINUS)) {
                         result += PLUS + currentElement;
                     } else {
-                        element = MINUS + String.valueOf(currentElement).substring(1);
+                        element = MINUS_WITH_SPACES + String.valueOf(currentElement).substring(1);
                         result += element;
                     }
 
@@ -41,6 +45,7 @@ public class Runner {
         } catch (FileNotFoundException e1) {
             System.out.println("File is not found");
         }
-        System.out.printf("%s) = %.2f\nerror-lines = %d", result, sumOfElements, errorLinesCount);
+        System.out.println(result + RIGHT_BRACKET + EQUAL_SIGN + sumOfElements +
+                "\n" + "error-lines" + EQUAL_SIGN + errorLinesCount);
     }
 }
