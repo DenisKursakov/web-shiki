@@ -18,6 +18,7 @@ public class Runner {
         final String FIRST_WORD = "result" + LEFT_BRACKET;
         final String ERROR_LINES = "error" + MINUS + "lines";
         final String FILE_IS_NOT_FOUND = "File is not found";
+        final String TABULATION = "\n";
         String result = FIRST_WORD;
         try (Scanner scanner = new Scanner(new FileReader(INPUT_CSV))) {
             scanner.useLocale(Locale.ENGLISH);
@@ -48,6 +49,6 @@ public class Runner {
             System.out.println(FILE_IS_NOT_FOUND);
         }
         System.out.println(result + RIGHT_BRACKET + EQUAL_SIGN + sumOfElements +
-                "\n" + ERROR_LINES + EQUAL_SIGN + errorLinesCount);
+                TABULATION + ERROR_LINES + EQUAL_SIGN + errorLinesCount);
     }
 }
