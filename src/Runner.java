@@ -11,11 +11,13 @@ public class Runner {
         final String INPUT_CSV = "src/in.csv";
         final String PLUS = " + ";
         final String MINUS = " - ";
+        final String SEMICOLON = ";";
+        final String FIRST_WORD = "result(";
         try (Scanner scanner = new Scanner(new FileReader(INPUT_CSV))) {
             scanner.useLocale(Locale.ENGLISH);
             while (scanner.hasNext()){
-                String line = scanner.nextLine();
-                String[] st = line.split(";");
+                String LINE = scanner.nextLine();
+                String[] st = LINE.split(SEMICOLON);
                 try {
                     String element = st[Integer.parseInt(st[0])];
                     double currentElement = Double.parseDouble(element);
@@ -37,8 +39,8 @@ public class Runner {
             }
 
         } catch (FileNotFoundException e1) {
-            System.out.println("Required element is not found");
+            System.out.println("File is not found");
         }
-        System.out.println(result + ") = " + sumOfElements + "\n" + "Error-lines = " + errorLinesCount);
+        System.out.printf("%s) = %.2f\nerror-lines = %d",result,sumOfElements,errorLinesCount);
     }
 }
