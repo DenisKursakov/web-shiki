@@ -24,9 +24,9 @@ public class Runner {
             scanner.useLocale(Locale.ENGLISH);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
-                String[] st = line.split(SEMICOLON);
+                String[] stringElements = line.split(SEMICOLON);
                 try {
-                    String element = st[Integer.parseInt(st[0])];
+                    String element = stringElements[Integer.parseInt(stringElements[0])];
                     double currentElement = Double.parseDouble(element);
                     sumOfElements += currentElement;
                     if (result.equals(FIRST_WORD)) {
