@@ -22,7 +22,7 @@ public class Runner {
                     String element = st[Integer.parseInt(st[0])];
                     double currentElement = Double.parseDouble(element);
                     sumOfElements += currentElement;
-                    if (result.equals("result(")) {
+                    if (result.equals(FIRST_WORD)) {
                         result += currentElement;
                         continue;
                     }
