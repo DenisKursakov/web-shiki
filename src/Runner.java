@@ -16,8 +16,8 @@ public class Runner {
         try (Scanner scanner = new Scanner(new FileReader(INPUT_CSV))) {
             scanner.useLocale(Locale.ENGLISH);
             while (scanner.hasNext()) {
-                String LINE = scanner.nextLine();
-                String[] st = LINE.split(SEMICOLON);
+                String line = scanner.nextLine();
+                String[] st = line.split(SEMICOLON);
                 try {
                     String element = st[Integer.parseInt(st[0])];
                     double currentElement = Double.parseDouble(element);
