@@ -42,10 +42,10 @@ public class Runner {
             if (strResult.length() > 0) {
                 final int SIGN_LENGTH = MINUS.length();
                 final char CHAR_MINUS = '-';
-                boolean haveMinus = strResult.substring(0, SIGN_LENGTH).equals(MINUS);
+                final String SUBSTRING = strResult.substring(0, SIGN_LENGTH);
                 strResult.delete(0, SIGN_LENGTH);
-                if (haveMinus) {
-                    strResult.insert(0, MINUS);
+                if (SUBSTRING.equals(MINUS)) {
+                    strResult.insert(0, CHAR_MINUS);
                 }
             }
 
