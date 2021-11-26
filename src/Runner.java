@@ -41,9 +41,9 @@ public class Runner {
             if (strResult.length() > 0) {
                 final int SIGN_LENGTH = MINUS.length();
                 final char CHAR_MINUS = '-';
-                String substr = strResult.substring(0, SIGN_LENGTH);
+                String firstCharacter = strResult.substring(0, SIGN_LENGTH);
                 strResult.delete(0, SIGN_LENGTH);
-                if (substr.equals(MINUS)) {
+                if (firstCharacter.equals(MINUS)) {
                     strResult.insert(0, CHAR_MINUS);
                 }
             }
