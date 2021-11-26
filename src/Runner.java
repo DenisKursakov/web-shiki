@@ -32,23 +32,20 @@ public class Runner {
                     int elementId = Integer.parseInt(stringElements[0]);
                     double currentElement = Double.parseDouble(stringElements[elementId]);
                     sumOfElements += currentElement;
-                    if (currentElement < 0) {
-                        strResult.append(MINUS).append(currentElement * (-1));
-                    } else {
-                        strResult.append(PLUS).append(currentElement);
-                    }
+                    strResult.append(currentElement < 0 ? MINUS : PLUS)
+                            .append(Math.abs(currentElement));
 
                 } catch (IndexOutOfBoundsException | NumberFormatException e0) {
                     errorLinesCount++;
                 }
             }
-            if(strResult.length() > 0){
+            if (strResult.length() > 0) {
                 final int SIGN_LENGTH = MINUS.length();
                 final char CHAR_MINUS = '-';
-                if(strResult.substring(0,SIGN_LENGTH).equals(MINUS)){
-                    strResult.delete(0, SIGN_LENGTH).insert(0,CHAR_MINUS);
-                } else {
-                    strResult.delete(0, SIGN_LENGTH);
+                boolean haveMinus = strResult.substring(0, SIGN_LENGTH).equals(MINUS);
+                strResult.delete(0, SIGN_LENGTH);
+                if (haveMinus) {
+                    strResult.insert(0, MINUS);
                 }
             }
 
