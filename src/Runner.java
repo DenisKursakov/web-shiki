@@ -26,8 +26,7 @@ public class Runner {
         try (Scanner scanner = new Scanner(new FileReader(INPUT_CSV))) {
             scanner.useLocale(Locale.ENGLISH);
             while (scanner.hasNext()) {
-                String line = scanner.nextLine();
-                String[] stringElements = line.split(SEMICOLON);
+                String[] stringElements = scanner.nextLine().split(SEMICOLON);
                 try {
                     int elementId = Integer.parseInt(stringElements[0]);
                     double currentElement = Double.parseDouble(stringElements[elementId]);
@@ -35,24 +34,24 @@ public class Runner {
                     strResult.append(currentElement < 0 ? MINUS : PLUS)
                             .append(Math.abs(currentElement));
 
-                } catch (IndexOutOfBoundsException | NumberFormatException e0) {
+                } catch (IndexOutOfBoundsException | NumberFormatException e) {
                     errorLinesCount++;
                 }
             }
             if (strResult.length() > 0) {
                 final int SIGN_LENGTH = MINUS.length();
                 final char CHAR_MINUS = '-';
-                final String SUBSTRING = strResult.substring(0, SIGN_LENGTH);
+                String substr = strResult.substring(0, SIGN_LENGTH);
                 strResult.delete(0, SIGN_LENGTH);
-                if (SUBSTRING.equals(MINUS)) {
+                if (substr.equals(MINUS)) {
                     strResult.insert(0, CHAR_MINUS);
                 }
             }
+            System.out.println(FIRST_WORD + strResult + RESULT_TAIL + sumOfElements +
+                    TABULATION + ERROR_LINES + errorLinesCount);
 
-        } catch (FileNotFoundException e1) {
+        } catch (FileNotFoundException e) {
             System.out.println(FILE_IS_NOT_FOUND);
         }
-        System.out.println(FIRST_WORD + strResult + RESULT_TAIL + sumOfElements +
-                TABULATION + ERROR_LINES + errorLinesCount);
     }
 }
