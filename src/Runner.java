@@ -22,36 +22,40 @@ public class Runner {
         final String ERROR_LINES = "error" + MINUS_WITHOUT_SPACES + "lines" + EQUAL_SIGN;
         final String FILE_IS_NOT_FOUND = "File is not found";
         final String TABULATION = "\n";
-        StringBuilder strResult = new StringBuilder(FIRST_WORD);
+        StringBuilder strResult = new StringBuilder();
         try (Scanner scanner = new Scanner(new FileReader(INPUT_CSV))) {
             scanner.useLocale(Locale.ENGLISH);
             while (scanner.hasNext()) {
                 String line = scanner.nextLine();
                 String[] stringElements = line.split(SEMICOLON);
                 try {
-                    String element = stringElements[Integer.parseInt(stringElements[0])];
-                    double currentElement = Double.parseDouble(element);
+                    int elementId = Integer.parseInt(stringElements[0]);
+                    double currentElement = Double.parseDouble(stringElements[elementId]);
                     sumOfElements += currentElement;
-                    if (strResult.toString().equals(FIRST_WORD)) {
-                        strResult.append(currentElement);
-                        continue;
-                    }
-                    if (!element.contains(MINUS_WITHOUT_SPACES)) {
-                        strResult.append(PLUS).append(currentElement);
+                    if (currentElement < 0) {
+                        strResult.append(MINUS).append(currentElement * (-1));
                     } else {
-                        element = MINUS + String.valueOf(currentElement).substring(1);
-                        strResult.append(element);
+                        strResult.append(PLUS).append(currentElement);
                     }
 
                 } catch (IndexOutOfBoundsException | NumberFormatException e0) {
                     errorLinesCount++;
                 }
             }
+            if(strResult.length() > 0){
+                final int SIGN_LENGTH = MINUS.length();
+                final char CHAR_MINUS = '-';
+                if(strResult.substring(0,SIGN_LENGTH).equals(MINUS)){
+                    strResult.delete(0, SIGN_LENGTH).insert(0,CHAR_MINUS);
+                } else {
+                    strResult.delete(0, SIGN_LENGTH);
+                }
+            }
 
         } catch (FileNotFoundException e1) {
             System.out.println(FILE_IS_NOT_FOUND);
         }
-        System.out.println(strResult + RESULT_TAIL + sumOfElements +
+        System.out.println(FIRST_WORD + strResult + RESULT_TAIL + sumOfElements +
                 TABULATION + ERROR_LINES + errorLinesCount);
     }
 }
