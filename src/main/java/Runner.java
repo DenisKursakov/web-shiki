@@ -9,10 +9,11 @@ public class Runner {
         final String EQUAL_SIGN = AFTER_SIGN + "=" + BEFORE_SIGN;
         final String ERROR_LINES = "error-lines";
         final String SUM = "sum";
+        final String BASE_NAME = "in";
         final String KEY_VALUE_REGEX = "[1-9](\\d*)";
         final String NUMBER_REGEX = "(.*)";
         int errorLineCount = 0;
-        ResourceBundle rb = ResourceBundle.getBundle("in", Locale.ENGLISH);
+        ResourceBundle rb = ResourceBundle.getBundle(BASE_NAME, Locale.ENGLISH);
         Enumeration<String> keys = rb.getKeys();
         String key;
         double sum = 0.0;
