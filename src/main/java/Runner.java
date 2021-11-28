@@ -10,6 +10,7 @@ public class Runner {
         final String ERROR_LINES = "error-lines";
         final String SUM = "sum";
         final String KEY_VALUE_REGEX = "[1-9](\\d*)";
+        final String NUMBER_REGEX = "(.*)";
         int errorLineCount = 0;
         ResourceBundle rb = ResourceBundle.getBundle("in", Locale.ENGLISH);
         Enumeration<String> keys = rb.getKeys();
@@ -17,15 +18,19 @@ public class Runner {
         double sum = 0.0;
         while (keys.hasMoreElements()) {
             key = keys.nextElement();
-            try {
-                if (key.matches(INDEX + KEY_VALUE_REGEX) &&
-                        rb.getString(key).trim().matches(KEY_VALUE_REGEX)) {
-                    String i = key.substring(INDEX.length());
-                    String j = rb.getString(key);
-                    sum += Double.parseDouble(rb.getString(VALUE + i + j));
+            if (key.matches(INDEX + NUMBER_REGEX)) {
+                try {
+                    if (key.matches(INDEX + KEY_VALUE_REGEX) &&
+                            rb.getString(key).trim().matches(KEY_VALUE_REGEX)) {
+                        String i = key.substring(INDEX.length());
+                        String j = rb.getString(key);
+                        sum += Double.parseDouble(rb.getString(VALUE + i + j));
+                    } else {
+                        errorLineCount++;
+                    }
+                } catch (NumberFormatException | MissingResourceException e) {
+                    errorLineCount++;
                 }
-            } catch (IndexOutOfBoundsException | NumberFormatException | MissingResourceException e) {
-                errorLineCount++;
             }
         }
         System.out.println(SUM + EQUAL_SIGN + sum);
