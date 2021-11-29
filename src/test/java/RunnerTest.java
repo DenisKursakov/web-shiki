@@ -17,16 +17,14 @@ public class RunnerTest {
         final int TAIL_INDEX = 1;
         final String EQUAL_SIGN = AFTER_SIGN + "=" + BEFORE_SIGN;
         final String SUM = "sum";
-//      final String BASE_NAME = "in1";
         final String KEY_VALUE_REGEX = "[1-9](\\d*)";
         final String INDEX_REGEX = "index(.*)";
         int errorLineCount = 0;
         ResourceBundle rb = ResourceBundle.getBundle(baseName, Locale.ENGLISH);
         Enumeration<String> keys = rb.getKeys();
-        String key;
         double sum = 0.0;
         while (keys.hasMoreElements()) {
-            key = keys.nextElement();
+            String key = keys.nextElement();
             Pattern pattern = Pattern.compile(INDEX_REGEX);
             Matcher keyMatcher = pattern.matcher(key);
             if (keyMatcher.matches()) {
