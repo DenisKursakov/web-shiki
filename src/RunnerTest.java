@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RunnerTest {
-    private static int getResult(String baseName, StringBuilder strResult) throws FileNotFoundException {
+    private static int getResult(String baseName,SumResult sumResult) throws FileNotFoundException {
         final String VALUE = "value";
         final String AFTER_SIGN = " ";
         final String BEFORE_SIGN = " ";
@@ -45,41 +45,72 @@ public class RunnerTest {
                 }
             }
         }
-        strResult = strResult.append(SUM + EQUAL_SIGN + sum);
+        sumResult.setResult(sum);
+        sumResult.setStrResult(SUM + EQUAL_SIGN + sum);
         return errorLineCount;
+    }
+
+    static class SumResult {
+        private double result;
+        private String strResult;
+
+        public SumResult (){
+            this(0.0,null);
+        }
+        public SumResult(double result, String strResult) {
+            this.result = result;
+        }
+
+        public double getResult() {
+            return result;
+        }
+
+        public void setResult(double result) {
+            this.result = result;
+        }
+
+        public String getStrResult() {
+            return strResult;
+        }
+
+        public void setStrResult(String strResult) {
+            this.strResult = strResult;
+        }
     }
 
     @Test
     public void testMainScenarioWhenBaseNameIsIn1() throws FileNotFoundException {
-        StringBuilder result = new StringBuilder();
-        int errorLines = getResult("in1", result);
+        SumResult sumResult = new SumResult();
+        int errorLines = getResult("in1", sumResult);
         int expectedNine = 9;
         Assert.assertEquals(expectedNine, errorLines);
-        String expectedResultIn1 = "sum = 30.242";
-        Assert.assertEquals(expectedResultIn1, result.toString());
+        double expectedResultIn1 = 30.242;
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(),3);
+        String expectedStringResult1 = "sum = " + expectedResultIn1;
+        Assert.assertEquals(expectedStringResult1, sumResult.getStrResult());
     }
 
     @Test
     public void testMainScenarioWhenBaseNameIsIn2() throws FileNotFoundException {
-        StringBuilder result = new StringBuilder();
-        int errorLines = getResult("in2", result);
+        SumResult sumResult = new SumResult();
+        int errorLines = getResult("in2", sumResult);
         int expectedNine = 3;
         Assert.assertEquals(expectedNine, errorLines);
-        String expectedResultIn1 = "sum = 8.24";
-        Assert.assertEquals(expectedResultIn1, result.toString());
+        double expectedResultIn1 = 8.24;
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(),2);
+        String expectedStringResult1 = "sum = " + expectedResultIn1;
+        Assert.assertEquals(expectedStringResult1, sumResult.getStrResult());
     }
 
     @Test(expected = MissingResourceException.class)
     public void testWrongBaseNameWhenBaseNameIsIn1() throws FileNotFoundException {
-        StringBuilder result = new StringBuilder();
         String baseName = "in5";
-        getResult(baseName, result);
+        getResult(baseName,null);
     }
 
     @Test(expected = MissingResourceException.class)
     public void testWrongBaseNameWhenBaseNameIsIn2() throws FileNotFoundException {
-        StringBuilder result = new StringBuilder();
         String baseName = "in4";
-        getResult(baseName, result);
+        getResult(baseName, null);
     }
 }
