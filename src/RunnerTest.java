@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RunnerTest {
-    private static int getResult(String baseName,SumResult sumResult) throws FileNotFoundException {
+    private static int getResult(String baseName, SumResult sumResult) throws FileNotFoundException {
         final String VALUE = "value";
         final String AFTER_SIGN = " ";
         final String BEFORE_SIGN = " ";
@@ -54,9 +54,10 @@ public class RunnerTest {
         private double result;
         private String strResult;
 
-        public SumResult (){
-            this(0.0,null);
+        public SumResult() {
+            this(0.0, null);
         }
+
         public SumResult(double result, String strResult) {
             this.result = result;
         }
@@ -85,7 +86,7 @@ public class RunnerTest {
         int expectedNine = 9;
         Assert.assertEquals(expectedNine, errorLines);
         double expectedResultIn1 = 30.242;
-        Assert.assertEquals(expectedResultIn1, sumResult.getResult(),3);
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(), 3);
         String expectedStringResult1 = "sum = " + expectedResultIn1;
         Assert.assertEquals(expectedStringResult1, sumResult.getStrResult());
     }
@@ -97,7 +98,7 @@ public class RunnerTest {
         int expectedNine = 3;
         Assert.assertEquals(expectedNine, errorLines);
         double expectedResultIn1 = 8.24;
-        Assert.assertEquals(expectedResultIn1, sumResult.getResult(),2);
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(), 2);
         String expectedStringResult1 = "sum = " + expectedResultIn1;
         Assert.assertEquals(expectedStringResult1, sumResult.getStrResult());
     }
@@ -105,7 +106,7 @@ public class RunnerTest {
     @Test(expected = MissingResourceException.class)
     public void testWrongBaseNameWhenBaseNameIsIn1() throws FileNotFoundException {
         String baseName = "in5";
-        getResult(baseName,null);
+        getResult(baseName, null);
     }
 
     @Test(expected = MissingResourceException.class)
