@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RunnerTest {
-    private static int getResult(String baseName, SumResult sumResult) throws FileNotFoundException {
+    private static int getResult(String baseName,SumResult sumResult) throws FileNotFoundException {
         final String VALUE = "value";
         final String AFTER_SIGN = " ";
         final String BEFORE_SIGN = " ";
@@ -20,9 +20,9 @@ public class RunnerTest {
         final String KEY_VALUE_REGEX = "[1-9](\\d*)";
         final String INDEX_REGEX = "index(.*)";
         int errorLineCount = 0;
+        double sum = 0.0;
         ResourceBundle rb = ResourceBundle.getBundle(baseName, Locale.ENGLISH);
         Enumeration<String> keys = rb.getKeys();
-        double sum = 0.0;
         while (keys.hasMoreElements()) {
             String key = keys.nextElement();
             Pattern pattern = Pattern.compile(INDEX_REGEX);
@@ -36,7 +36,7 @@ public class RunnerTest {
                 if (iMatcher.matches() && jMatcher.matches()) {
                     String valueIJ = VALUE + i + j;
                     try {
-                        sum += Double.parseDouble(rb.getString(valueIJ));
+                        sumResult.mul(Double.parseDouble(rb.getString(valueIJ)));
                     } catch (NumberFormatException | MissingResourceException e) {
                         errorLineCount++;
                     }
@@ -45,37 +45,28 @@ public class RunnerTest {
                 }
             }
         }
-        sumResult.setResult(sum);
-        sumResult.setStrResult(SUM + EQUAL_SIGN + sum);
         return errorLineCount;
     }
 
     static class SumResult {
         private double result;
-        private String strResult;
 
-        public SumResult() {
-            this(0.0, null);
+        public SumResult (){
+            this(0.0);
         }
-
-        public SumResult(double result, String strResult) {
+        public SumResult(double result) {
             this.result = result;
         }
-
-        public double getResult() {
+        public SumResult mul(double d){
+            result += d;
+            return this;
+        }
+        public double getResult (){
             return result;
         }
-
-        public void setResult(double result) {
-            this.result = result;
-        }
-
-        public String getStrResult() {
-            return strResult;
-        }
-
-        public void setStrResult(String strResult) {
-            this.strResult = strResult;
+        @Override
+        public String toString() {
+            return String.valueOf(result);
         }
     }
 
@@ -86,9 +77,7 @@ public class RunnerTest {
         int expectedNine = 9;
         Assert.assertEquals(expectedNine, errorLines);
         double expectedResultIn1 = 30.242;
-        Assert.assertEquals(expectedResultIn1, sumResult.getResult(), 3);
-        String expectedStringResult1 = "sum = " + expectedResultIn1;
-        Assert.assertEquals(expectedStringResult1, sumResult.getStrResult());
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(), 0.000);
     }
 
     @Test
@@ -98,15 +87,13 @@ public class RunnerTest {
         int expectedNine = 3;
         Assert.assertEquals(expectedNine, errorLines);
         double expectedResultIn1 = 8.24;
-        Assert.assertEquals(expectedResultIn1, sumResult.getResult(), 2);
-        String expectedStringResult1 = "sum = " + expectedResultIn1;
-        Assert.assertEquals(expectedStringResult1, sumResult.getStrResult());
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(),0.00);
     }
 
     @Test(expected = MissingResourceException.class)
     public void testWrongBaseNameWhenBaseNameIsIn1() throws FileNotFoundException {
         String baseName = "in5";
-        getResult(baseName, null);
+        getResult(baseName,null);
     }
 
     @Test(expected = MissingResourceException.class)
