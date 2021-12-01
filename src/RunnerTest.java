@@ -12,11 +12,8 @@ import java.util.regex.Pattern;
 public class RunnerTest {
     private static int getResult(String baseName,SumResult sumResult) throws FileNotFoundException {
         final String VALUE = "value";
-        final String AFTER_SIGN = " ";
-        final String BEFORE_SIGN = " ";
         final int TAIL_INDEX = 1;
         final String EQUAL_SIGN = AFTER_SIGN + "=" + BEFORE_SIGN;
-        final String SUM = "sum";
         final String KEY_VALUE_REGEX = "[1-9](\\d*)";
         final String INDEX_REGEX = "index(.*)";
         int errorLineCount = 0;
