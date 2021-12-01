@@ -20,7 +20,6 @@ public class RunnerTest {
         final String KEY_VALUE_REGEX = "[1-9](\\d*)";
         final String INDEX_REGEX = "index(.*)";
         int errorLineCount = 0;
-        double sum = 0.0;
         ResourceBundle rb = ResourceBundle.getBundle(baseName, Locale.ENGLISH);
         Enumeration<String> keys = rb.getKeys();
         while (keys.hasMoreElements()) {
@@ -77,7 +76,7 @@ public class RunnerTest {
         int expectedNine = 9;
         Assert.assertEquals(expectedNine, errorLines);
         double expectedResultIn1 = 30.242;
-        Assert.assertEquals(expectedResultIn1, sumResult.getResult(), 0.000);
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(), 0.0001);
     }
 
     @Test
@@ -87,7 +86,7 @@ public class RunnerTest {
         int expectedNine = 3;
         Assert.assertEquals(expectedNine, errorLines);
         double expectedResultIn1 = 8.24;
-        Assert.assertEquals(expectedResultIn1, sumResult.getResult(),0.00);
+        Assert.assertEquals(expectedResultIn1, sumResult.getResult(),0.001);
     }
 
     @Test(expected = MissingResourceException.class)
