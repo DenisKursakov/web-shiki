@@ -2,14 +2,13 @@ package by.epam.lab;
 
 public class Constants {
     public static final String EXCEPTION = "some exception was caught";
-    public static final int IN_LINE_ZERO = 0;
-    public static final int IN_LINE_ONE = 1;
-    public static final int IN_LINE_TWO = 2;
-    public static final int IN_LINE_THREE = 3;
+    public static final int IN_LINE_NAME = 0;
+    public static final int IN_LINE_PRICE = 1;
+    public static final int IN_LINE_NUMBER = 2;
+    public static final int IN_LINE_DISCOUNT = 3;
     public static final int DISCOUNT_PURCHASE_LENGTH = 5;
-    public static final int ZERO = 0;
-    public static final int ONE = 1;
     public static final int HUNDRED = 100;
+    public static final String SEARCH_RESULT = "Search results: ";
     public static final String NAME = "Name";
     public static final String TOTAL_COST = "Total cost";
     public static final String PRICE = "Price";

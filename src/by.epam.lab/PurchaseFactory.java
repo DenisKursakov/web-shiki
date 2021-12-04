@@ -30,14 +30,14 @@ public class PurchaseFactory {
         final String DISCOUNT_PURCHASE_REGEX = GENERAL_PURCHASE_REGEX + Constants.SEMICOLON
                 + Constants.NUMBER_REGEX;
         String[] elements = currentLine.split(Constants.SEMICOLON);
-        for (int i = Constants.ZERO; i < elements.length; i++) {
+        for (int i = 0; i < elements.length; i++) {
             if (elements[i].contains(Constants.POINT)) {
                 System.err.println(WRONG_NUMBER);
                 break;
             }
             switch (i) {
-                case Constants.IN_LINE_ZERO:
-                    if (elements.length <= Constants.IN_LINE_TWO) {
+                case Constants.IN_LINE_NAME:
+                    if (elements.length <= Constants.IN_LINE_NUMBER) {
                         System.err.println(WRONG_NAME);
                     }
                     if (elements[i].matches(Constants.NON_WORDS_REGEX)) {
@@ -47,7 +47,7 @@ public class PurchaseFactory {
                         System.err.println(EMPTY_NAME);
                     }
                     break;
-                case Constants.IN_LINE_ONE:
+                case Constants.IN_LINE_PRICE:
                     if (elements[i].contains(Constants.MINUS)
                             || elements[i].equals(Constants.ZERO_STRING)) {
                         System.err.println(NON_POSITIVE + elements[i] + Constants.IN_PRICE);
@@ -57,7 +57,7 @@ public class PurchaseFactory {
                         System.err.println(WRONG_NUMBER);
                     }
                     break;
-                case Constants.IN_LINE_TWO:
+                case Constants.IN_LINE_NUMBER:
                     if (elements[i].contains(Constants.MINUS)
                             || elements[i].equals(Constants.ZERO_STRING)) {
                         System.err.println(NON_POSITIVE + elements[i] + Constants.IN_NUMBER);
@@ -67,7 +67,7 @@ public class PurchaseFactory {
                         System.err.println(WRONG_NUMBER);
                     }
                     break;
-                case Constants.IN_LINE_THREE:
+                case Constants.IN_LINE_DISCOUNT:
                     if (elements[i].contains(Constants.MINUS)
                             || elements[i].equals(Constants.ZERO_STRING)) {
                         System.err.println(NON_POSITIVE + Constants.IN_DISCOUNT);
@@ -83,8 +83,8 @@ public class PurchaseFactory {
         //check the string by discount purchase regex
         if (currentLine.matches(DISCOUNT_PURCHASE_REGEX)) {
             //check the string by discount > price
-            if (Integer.parseInt(elements[Constants.IN_LINE_ONE])
-                    <= Integer.parseInt(elements[Constants.IN_LINE_THREE])) {
+            if (Integer.parseInt(elements[Constants.IN_LINE_PRICE])
+                    <= Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT])) {
                 System.err.println(ERROR_DISCOUNT_MORE);
             } else {
                 currentPurchase = PurchaseKind.DISCOUNT_PURCHASE.getPurchase(elements);

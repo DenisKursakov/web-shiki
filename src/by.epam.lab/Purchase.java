@@ -16,9 +16,9 @@ public class Purchase {
     }
 
     public Purchase(String[] elements) {
-        this.name = elements[Constants.IN_LINE_ZERO];
-        this.price = new Byn(Integer.parseInt(elements[Constants.IN_LINE_ONE]));
-        this.numberOfUnits = Integer.parseInt(elements[Constants.IN_LINE_TWO]);
+        this.name = elements[Constants.IN_LINE_NAME];
+        this.price = new Byn(Integer.parseInt(elements[Constants.IN_LINE_PRICE]));
+        this.numberOfUnits = Integer.parseInt(elements[Constants.IN_LINE_NUMBER]);
     }
 
 

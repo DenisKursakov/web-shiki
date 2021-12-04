@@ -6,13 +6,9 @@ import java.util.Comparator;
 public class Runner {
     public static void main(String[] args) {
         try {
-            final String CSV_NAME = Constants.WAY_TO_FILES + args[0]
-                    + Constants.CSV_TYPE;
-            final String ADDON_FILE_NAME = Constants.WAY_TO_FILES + args[1]
-                    + Constants.CSV_TYPE;
             final String COMPARATOR_NAME = Constants.WAY_COMPARATOR + args[2];
-            PurchasesList purchasesList = new PurchasesList(CSV_NAME);
-            PurchasesList addonList = new PurchasesList(ADDON_FILE_NAME);
+            PurchasesList purchasesList = new PurchasesList(args[0]);
+            PurchasesList addonList = new PurchasesList(args[1]);
             Comparator<Purchase> comparator =
                     (Comparator<Purchase>) Class.forName(COMPARATOR_NAME).newInstance();
             purchasesList.showPurchases();
@@ -31,6 +27,7 @@ public class Runner {
                     .get(1), comparator);
             int indexSearch2 = purchasesList.searchPurchase(addonList.getPurchases()
                     .get(3), comparator);
+            System.out.println(Constants.SEARCH_RESULT);
             showSearchResult(indexSearch1, addonList, 1);
             showSearchResult(indexSearch2, addonList, 3);
         } catch (Exception e) {
@@ -41,7 +38,7 @@ public class Runner {
 
     private static void showSearchResult(int index, PurchasesList purchasesList, int indexByList) {
 
-        if (index > Constants.ZERO) {
+        if (index > 0) {
             System.out.println(Constants.PURCHASE_FOUND + purchasesList.getPurchases()
                     .get(indexByList) + Constants.IS_FOUND + Constants.POSITION + index);
         } else {

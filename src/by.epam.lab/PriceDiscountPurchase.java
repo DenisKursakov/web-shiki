@@ -14,7 +14,7 @@ public class PriceDiscountPurchase extends Purchase {
 
     public PriceDiscountPurchase(String[] elements) {
         super(elements);
-        discount = new Byn(Integer.parseInt(elements[Constants.IN_LINE_THREE]));
+        discount = new Byn(Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT]));
     }
 
     public Byn getDiscount() {

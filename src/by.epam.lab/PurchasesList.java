@@ -16,7 +16,9 @@ public class PurchasesList {
     }
 
     public PurchasesList(String csvName) {
-        try (Scanner scanner = new Scanner(new FileReader(csvName))) {
+        final String CSV_NAME = Constants.WAY_TO_FILES + csvName
+                + Constants.CSV_TYPE;
+        try (Scanner scanner = new Scanner(new FileReader(CSV_NAME))) {
             scanner.useLocale(Locale.ENGLISH);
             scanner.useDelimiter(Constants.SEMICOLON);
             purchases = new ArrayList<>();
@@ -44,15 +46,15 @@ public class PurchasesList {
     public void addPurchase(int index, Purchase purchase) {
         if (index >= purchases.size()) {
             purchases.add(purchase);
-        } else if (index < Constants.IN_LINE_ZERO) {
-            purchases.add(Constants.IN_LINE_ZERO, purchase);
+        } else if (index < 0) {
+            purchases.add(0, purchase);
         } else {
             purchases.add(index, purchase);
         }
     }
 
     public void removePurchase(int index) {
-        if (index >= purchases.size() || index < Constants.IN_LINE_ZERO) {
+        if (index >= purchases.size() || index < 0) {
             System.out.printf(Constants.INDEX_NOT_FOUND, index);
         } else {
             purchases.remove(index);
@@ -81,11 +83,11 @@ public class PurchasesList {
             String[] elements = purchase.toString().split(Constants.SEMICOLON);
             String discount = Constants.MINUS;
             if (elements.length == Constants.DISCOUNT_PURCHASE_LENGTH) {
-                discount = elements[Constants.IN_LINE_THREE];
+                discount = elements[Constants.IN_LINE_DISCOUNT];
             }
-            System.out.printf(Constants.FORMAT_TO_TABLE, elements[Constants.IN_LINE_ZERO]
-                    , elements[Constants.IN_LINE_ONE], elements[Constants.IN_LINE_TWO]
-                    , discount, elements[elements.length - Constants.ONE]);
+            System.out.printf(Constants.FORMAT_TO_TABLE, elements[Constants.IN_LINE_NAME]
+                    , elements[Constants.IN_LINE_PRICE], elements[Constants.IN_LINE_NUMBER]
+                    , discount, elements[elements.length - 1]);
         }
         System.out.printf(Constants.TABLE_TOTAL_COST_FORMAT, Constants.TOTAL_COST, getTotalCost());
 
