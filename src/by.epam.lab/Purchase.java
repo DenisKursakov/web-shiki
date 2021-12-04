@@ -3,7 +3,7 @@ package by.epam.lab;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Purchase implements Comparable<Purchase>{
+public class Purchase{
     private String name;
     private Byn price;
     private int numberOfUnits;
@@ -18,20 +18,11 @@ public class Purchase implements Comparable<Purchase>{
         this.numberOfUnits = numberOfUnits;
     }
     public Purchase(String[] elements){
-        this.name = elements[0];
-        this.price = new Byn(Integer.parseInt(elements[1]));
-        this.numberOfUnits = Integer.parseInt(elements[2]);
+        this.name = elements[Constants.ZERO];
+        this.price = new Byn(Integer.parseInt(elements[Constants.ONE]));
+        this.numberOfUnits = Integer.parseInt(elements[Constants.TWO]);
     }
 
-    public Purchase (Scanner scanner){
-        try {
-            this.name = scanner.next();
-            this.price = new Byn(scanner);
-            this.numberOfUnits = scanner.nextInt();
-        }catch (NumberFormatException | InputMismatchException e){
-            System.out.println("err Purchase");
-        }
-    }
 
     public String getName() {
         return name;
@@ -62,34 +53,10 @@ public class Purchase implements Comparable<Purchase>{
 
     @Override
     public String toString() {
-        return name + ";" + price + ";" + numberOfUnits + ";" + getCost();
+        return fieldsToString() + Constants.SEMICOLON + getCost();
     }
-
-    @Override
-    public int compareTo(Purchase o) {
-        if(this.name.equals(o.getName())){
-            if(o instanceof PriceDiscountPurchase && !(this instanceof PriceDiscountPurchase)){
-                return -1;
-            }
-            if(this instanceof PriceDiscountPurchase && !(o instanceof PriceDiscountPurchase)){
-                return 1;
-            }
-            return this.getCost().compareTo(o.getCost());
-        }
-        return this.name.compareTo(o.getName());
-    }
-    public int compareTo2(Purchase o){
-        if(this.name.equals(o.getName())){
-            if(o.getClass() == this.getClass()){
-                return this.getCost().compareTo(o.getCost());
-            }
-            if(o.getClass() == PriceDiscountPurchase.class){
-                return -1;
-            } else {
-                return 1;
-            }
-        }
-        return this.name.compareTo(o.getName());
+    protected String fieldsToString(){
+        return name + Constants.SEMICOLON + price + Constants.SEMICOLON + numberOfUnits;
     }
 
 }

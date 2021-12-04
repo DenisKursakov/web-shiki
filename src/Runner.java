@@ -1,62 +1,50 @@
-import by.epam.lab.Byn;
-import by.epam.lab.PriceDiscountPurchase;
-import by.epam.lab.Purchase;
-import by.epam.lab.PurchasesList;
+import by.epam.lab.*;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
 
 public class Runner {
-    public static void main(String[] args) {
-        final String EXCEPTION = "some exception was caught";
-        final String PURCHASE_FOUND = "Purchase: ";
-        final String POSITION = " at position ";
-        final String IS_FOUND = " is found";
-        final String IS_NOT_FOUND = " is not found";
-        final String SRC = "src/";
+    public static void main( String[] args) {
         try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter file name");
-            final String CSV_NAME = SRC + scanner.nextLine();
-            System.out.println("Enter additional file name");
-            final String ADDON_FILE_NAME = SRC + scanner.nextLine();
-            System.out.println("Enter comparator version name"); //ComparatorV1 or ComparatorV2
-            final String COMPARATOR_NAME = scanner.nextLine();
+            final String CSV_NAME = Constants.WAY_TO_FILES + args[Constants.ZERO]
+                    + Constants.CSV_TYPE;
+            final String ADDON_FILE_NAME = Constants.WAY_TO_FILES + args[Constants.ONE]
+                    + Constants.CSV_TYPE;
+            final String COMPARATOR_NAME = Constants.WAY_COMPARATOR + args[Constants.TWO];
             PurchasesList purchasesList = new PurchasesList(CSV_NAME);
             PurchasesList addonList = new PurchasesList(ADDON_FILE_NAME);
-            System.err.println(purchasesList.getErrorInfo().toString() +
-                    addonList.getErrorInfo().toString());
+            Comparator comparator = (Comparator) Class.forName(COMPARATOR_NAME).newInstance();
             purchasesList.showPurchases();
-            purchasesList.addPurchase(0, addonList.getPurchases()
-                    .get(addonList.getPurchases().size() - 1));
-            purchasesList.addPurchase(1000, addonList.getPurchases().get(0));
-            purchasesList.addPurchase(2, addonList.getPurchases().get(2));
-            purchasesList.removePurchase(3);
-            purchasesList.removePurchase(10);
-            purchasesList.removePurchase(-5);
+            purchasesList.addPurchase(Constants.ZERO, addonList.getPurchases()
+                    .get(addonList.getPurchases().size() - Constants.ONE));
+            purchasesList.addPurchase(Constants.THOUSAND, addonList.getPurchases()
+                    .get(Constants.ZERO));
+            purchasesList.addPurchase(Constants.TWO, addonList.getPurchases().get(Constants.TWO));
+            purchasesList.removePurchase(Constants.THREE);
+            purchasesList.removePurchase(Constants.TEN);
+            purchasesList.removePurchase(Constants.MINUS_FIVE);
             purchasesList.showPurchases();
-            purchasesList.sortList(COMPARATOR_NAME);
+            purchasesList.sortList(comparator);
             purchasesList.showPurchases();
-            int indexSearch1 = purchasesList.searchPurchase(addonList.getPurchases().get(1));
-            int indexSearch2 = purchasesList.searchPurchase(addonList.getPurchases().get(3));
-            if (indexSearch1 > 0) {
-                System.out.println(PURCHASE_FOUND + addonList.getPurchases().get(1) +
-                        IS_FOUND + POSITION + indexSearch1);
-            } else {
-                System.out.println(PURCHASE_FOUND + addonList.getPurchases().get(1) + IS_NOT_FOUND);
-            }
-            if (indexSearch2 > 0) {
-                System.out.println(PURCHASE_FOUND + addonList.getPurchases().get(3) +
-                        IS_FOUND + POSITION + indexSearch2);
-            } else {
-                System.out.println(PURCHASE_FOUND + addonList.getPurchases().get(3) + IS_NOT_FOUND);
-            }
-        } catch (Exception e) {
-            System.err.println(EXCEPTION);
+            int indexSearch1 = purchasesList.searchPurchase(addonList.getPurchases()
+                    .get(Constants.ONE),comparator);
+            int indexSearch2 = purchasesList.searchPurchase(addonList.getPurchases()
+                    .get(Constants.THREE),comparator);
+            showSearchResult(indexSearch1, addonList, Constants.ONE);
+            showSearchResult(indexSearch2, addonList, Constants.THREE);
+        }catch (Exception e){
+            System.err.println(Constants.EXCEPTION);
         }
 
+    }
+    private static void showSearchResult (int index, PurchasesList purchasesList, int indexByList){
+
+        if (index > Constants.ZERO) {
+            System.out.println(Constants.PURCHASE_FOUND + purchasesList.getPurchases()
+                    .get(indexByList) + Constants.IS_FOUND + Constants.POSITION + index);
+        } else {
+            System.out.println(Constants.PURCHASE_FOUND +
+                    purchasesList.getPurchases().get(indexByList) + Constants.IS_NOT_FOUND);
+        }
     }
 
 }

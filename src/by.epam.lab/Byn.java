@@ -17,7 +17,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn(int rubs, int coins) {
-        this(rubs * 100 + coins);
+        this(rubs * Constants.HUNDRED + coins);
     }
 
     public Byn(Byn byn) {
@@ -30,22 +30,12 @@ public class Byn implements Comparable<Byn> {
     }
 
     public int getRubs() {
-        return valueInKopecks / 100;
+        return valueInKopecks / Constants.HUNDRED;
     }
 
     public int getCoins() {
         return valueInKopecks;
     }
-
-//    public Byn mul(double k, RoundMethod roundMethod, int d) {
-//        valueInKopecks = roundMethod.round(valueInKopecks * k, d);
-//        return this;
-//    }
-//
-//    public Byn round(RoundMethod roundMethod, int d) {
-//        valueInKopecks = roundMethod.round(valueInKopecks, d);
-//        return this;
-//    }
 
     public Byn diff(Byn byn) {
         valueInKopecks -= byn.valueInKopecks;
@@ -60,7 +50,8 @@ public class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-        return String.format("%d.%02d", valueInKopecks / 100, valueInKopecks % 100);
+        return String.format(Constants.CONVERT_FORMAT,
+                valueInKopecks / Constants.HUNDRED, valueInKopecks % Constants.HUNDRED);
     }
 
     public boolean equals(Object obj) {
