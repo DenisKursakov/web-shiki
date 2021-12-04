@@ -43,7 +43,7 @@ public class PurchaseFactory {
                     if (elements[i].matches(Constants.NON_WORDS_REGEX)) {
                         System.err.println(WRONG_NAME);
                         break;
-                    } else if (elements[i].equals(Constants.EMPTY_STR)) {
+                    } else if (elements[i].isEmpty()) {
                         System.err.println(EMPTY_NAME);
                     }
                     break;
@@ -53,7 +53,7 @@ public class PurchaseFactory {
                         System.err.println(NON_POSITIVE + elements[i] + Constants.IN_PRICE);
                         break;
                     } else if (elements[i].matches(Constants.NAME_REGEX)
-                            || elements[i].equals(Constants.EMPTY_STR)) {
+                            || elements[i].isEmpty()) {
                         System.err.println(WRONG_NUMBER);
                     }
                     break;
@@ -63,7 +63,7 @@ public class PurchaseFactory {
                         System.err.println(NON_POSITIVE + elements[i] + Constants.IN_NUMBER);
                         break;
                     } else if (elements[i].matches(Constants.NAME_REGEX)
-                            || elements[i].equals(Constants.EMPTY_STR)) {
+                            || elements[i].isEmpty()) {
                         System.err.println(WRONG_NUMBER);
                     }
                     break;
@@ -73,7 +73,7 @@ public class PurchaseFactory {
                         System.err.println(NON_POSITIVE + Constants.IN_DISCOUNT);
                         break;
                     } else if (elements[i].matches(Constants.NAME_REGEX)
-                            || elements[i].equals(Constants.EMPTY_STR)) {
+                            || elements[i].isEmpty()) {
                         System.err.println(WRONG_NUMBER);
                     }
                     break;

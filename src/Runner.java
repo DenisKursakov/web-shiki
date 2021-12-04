@@ -37,8 +37,7 @@ public class Runner {
     }
 
     private static void showSearchResult(int index, PurchasesList purchasesList, int indexByList) {
-
-        if (index > 0) {
+        if (index >= 0) {
             System.out.println(Constants.PURCHASE_FOUND + purchasesList.getPurchases()
                     .get(indexByList) + Constants.IS_FOUND + Constants.POSITION + index);
         } else {

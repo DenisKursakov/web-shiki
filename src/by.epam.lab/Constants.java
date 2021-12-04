@@ -31,7 +31,6 @@ public class Constants {
     public static final String MINUS = "-";
     public static final String POINT = ".";
     public static final String ZERO_STRING = "0";
-    public static final String EMPTY_STR = "";
     public static final String ARROW = "\t-> ";
     public static final String NUMBER_REGEX = "[1-9]\\d*";
     public static final String NAME_REGEX = "[A-Za-z].*";
