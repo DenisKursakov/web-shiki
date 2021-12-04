@@ -1,8 +1,5 @@
 package by.epam.lab;
 
-import by.epam.lab.comparators.AbstractPurchaseComparator;
-import by.epam.lab.comparators.PurchaseComparatorV1;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
@@ -23,10 +20,9 @@ public class PurchasesList {
             scanner.useLocale(Locale.ENGLISH);
             scanner.useDelimiter(Constants.SEMICOLON);
             purchases = new ArrayList<>();
-
             do {
                 Purchase currentPurchase =
-                        PurchaseFactory.getPurchaseFromFactory(scanner);
+                        PurchaseFactory.getPurchaseFromFactory(scanner.nextLine());
                 if (currentPurchase != null) {
                     purchases.add(currentPurchase);
                 }
@@ -46,35 +42,35 @@ public class PurchasesList {
     }
 
     public void addPurchase(int index, Purchase purchase) {
-        if(index >= purchases.size()){
+        if (index >= purchases.size()) {
             purchases.add(purchase);
-        } else if(index < Constants.ZERO) {
-            purchases.add(0,purchase);
+        } else if (index < Constants.IN_LINE_ZERO) {
+            purchases.add(Constants.IN_LINE_ZERO, purchase);
         } else {
-            purchases.add(index,purchase);
+            purchases.add(index, purchase);
         }
     }
-    public void removePurchase(int index){
-        if(index >= purchases.size() || index < Constants.ZERO){
-            System.out.printf(Constants.INDEX_NOT_FOUND,index);
+
+    public void removePurchase(int index) {
+        if (index >= purchases.size() || index < Constants.IN_LINE_ZERO) {
+            System.out.printf(Constants.INDEX_NOT_FOUND, index);
         } else {
             purchases.remove(index);
         }
     }
-    public void sortList (Comparator<Purchase> comparator){
 
+    public void sortList(Comparator<Purchase> comparator) {
         Collections.sort(purchases, comparator);
     }
-    public int searchPurchase (Purchase purchase, Comparator<Purchase> comparator){
-       return Collections.binarySearch(purchases, purchase, comparator);
+
+    public int searchPurchase(Purchase purchase, Comparator<Purchase> comparator) {
+        return Collections.binarySearch(purchases, purchase, comparator);
     }
 
     public Byn getTotalCost() {
         Byn totalCost = new Byn();
         for (Purchase purchase : purchases) {
-            if (purchase != null) {
-                totalCost.add(purchase.getCost());
-            }
+            totalCost.add(purchase.getCost());
         }
         return totalCost;
     }
@@ -84,14 +80,14 @@ public class PurchasesList {
         for (Purchase purchase : purchases) {
             String[] elements = purchase.toString().split(Constants.SEMICOLON);
             String discount = Constants.MINUS;
-            if (elements.length == Constants.FIVE) {
-                discount = elements[Constants.FOUR];
+            if (elements.length == Constants.DISCOUNT_PURCHASE_LENGTH) {
+                discount = elements[Constants.IN_LINE_THREE];
             }
-            System.out.printf(Constants.FORMAT_TO_TABLE, elements[Constants.ZERO]
-                    , elements[Constants.ONE], elements[Constants.TWO]
-                    , discount, elements[Constants.THREE]);
+            System.out.printf(Constants.FORMAT_TO_TABLE, elements[Constants.IN_LINE_ZERO]
+                    , elements[Constants.IN_LINE_ONE], elements[Constants.IN_LINE_TWO]
+                    , discount, elements[elements.length - Constants.ONE]);
         }
-        System.out.printf(Constants.TABLE_TOTAL_COST_FORMAT, Constants.TOTAL_COST,getTotalCost());
+        System.out.printf(Constants.TABLE_TOTAL_COST_FORMAT, Constants.TOTAL_COST, getTotalCost());
 
     }
 }

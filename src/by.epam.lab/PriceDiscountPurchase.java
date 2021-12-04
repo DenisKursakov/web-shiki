@@ -6,14 +6,15 @@ public class PriceDiscountPurchase extends Purchase {
     public PriceDiscountPurchase() {
 
     }
+
     public PriceDiscountPurchase(String name, Byn price, int numberOfUnits, Byn discount) {
-        super(name,price,numberOfUnits);
-        discount = new Byn(discount);
+        super(name, price, numberOfUnits);
+        this.discount = new Byn(discount);
     }
 
     public PriceDiscountPurchase(String[] elements) {
         super(elements);
-        discount = new Byn(Integer.parseInt(elements[Constants.THREE]));
+        discount = new Byn(Integer.parseInt(elements[Constants.IN_LINE_THREE]));
     }
 
     public Byn getDiscount() {
@@ -24,7 +25,7 @@ public class PriceDiscountPurchase extends Purchase {
         this.discount = new Byn(discount);
     }
 
-    public Byn getCost (){
+    public Byn getCost() {
         return new Byn(super.getPrice()).diff(discount).mul(getNumberOfUnits());
     }
 

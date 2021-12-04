@@ -1,9 +1,6 @@
 package by.epam.lab;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
-public class Purchase{
+public class Purchase {
     private String name;
     private Byn price;
     private int numberOfUnits;
@@ -17,10 +14,11 @@ public class Purchase{
         this.price = price;
         this.numberOfUnits = numberOfUnits;
     }
-    public Purchase(String[] elements){
-        this.name = elements[Constants.ZERO];
-        this.price = new Byn(Integer.parseInt(elements[Constants.ONE]));
-        this.numberOfUnits = Integer.parseInt(elements[Constants.TWO]);
+
+    public Purchase(String[] elements) {
+        this.name = elements[Constants.IN_LINE_ZERO];
+        this.price = new Byn(Integer.parseInt(elements[Constants.IN_LINE_ONE]));
+        this.numberOfUnits = Integer.parseInt(elements[Constants.IN_LINE_TWO]);
     }
 
 
@@ -47,7 +45,8 @@ public class Purchase{
     public void setNumberOfUnits(int numberOfUnits) {
         this.numberOfUnits = numberOfUnits;
     }
-    public Byn getCost (){
+
+    public Byn getCost() {
         return new Byn(price).mul(numberOfUnits);
     }
 
@@ -55,7 +54,8 @@ public class Purchase{
     public String toString() {
         return fieldsToString() + Constants.SEMICOLON + getCost();
     }
-    protected String fieldsToString(){
+
+    protected String fieldsToString() {
         return name + Constants.SEMICOLON + price + Constants.SEMICOLON + numberOfUnits;
     }
 
