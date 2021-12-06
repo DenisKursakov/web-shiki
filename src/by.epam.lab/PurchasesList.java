@@ -1,49 +1,66 @@
 package by.epam.lab;
-
-import java.io.FileNotFoundException;
+import by.epam.lab.exceptions.CsvLineException;
+import by.epam.lab.exceptions.NonPositiveArgumentException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class PurchasesList {
     private List<Purchase> purchases;
-
+    private boolean purchaseIsSorted = false;
     public PurchasesList() {
         purchases = new ArrayList<>();
-    }
-
-    public PurchasesList(List<Purchase> purchases) {
-        this.purchases = new ArrayList<>(purchases);
     }
 
     public PurchasesList(String csvName) {
         final String CSV_NAME = Constants.WAY_TO_FILES + csvName
                 + Constants.CSV_TYPE;
-        try (Scanner scanner = new Scanner(new FileReader(CSV_NAME))) {
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(new FileReader(CSV_NAME));
             scanner.useLocale(Locale.ENGLISH);
             scanner.useDelimiter(Constants.SEMICOLON);
             purchases = new ArrayList<>();
-            do {
-                Purchase currentPurchase =
-                        PurchaseFactory.getPurchaseFromFactory(scanner.nextLine());
-                if (currentPurchase != null) {
-                    purchases.add(currentPurchase);
+            while (scanner.hasNextLine()) {
+                try {
+                    purchases.add(PurchaseFactory.getPurchaseFromFactory(scanner.nextLine()));
+                } catch (CsvLineException | NonPositiveArgumentException e) {
+                    System.err.println(e);
                 }
-            } while (scanner.hasNextLine());
-
-        } catch (FileNotFoundException | NoSuchElementException e) {
-            System.err.println(Constants.FILE_NOT_FOUND);
+            }
+        } catch (IOException e) {
+            purchases = new ArrayList<>();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
         }
     }
 
     public List<Purchase> getPurchases() {
-        return purchases;
+        List<Purchase> purchasesClone = new ArrayList<>();
+        for (Purchase purchase: purchases) {
+            if(purchase.getClass() == Purchase.class){
+               purchasesClone.add(new Purchase(purchase.getName(),
+                       purchase.getPrice(),purchase.getNumberOfUnits()));
+            } else {
+                purchasesClone.add(new PriceDiscountPurchase(
+                        purchase.getName(),purchase.getPrice(),
+                        purchase.getNumberOfUnits(),((PriceDiscountPurchase) purchase)
+                        .getDiscount()));
+            }
+        }
+        return purchasesClone;
     }
 
     public void setPurchases(List<Purchase> purchases) {
         this.purchases = purchases;
     }
 
-    public void addPurchase(int index, Purchase purchase) {
+    public boolean isIndexCorrect (int index){
+        return index < purchases.size() && index > 0;
+    }
+    public void insert(int index, Purchase purchase) {
         if (index >= purchases.size()) {
             purchases.add(purchase);
         } else if (index < 0) {
@@ -51,18 +68,19 @@ public class PurchasesList {
         } else {
             purchases.add(index, purchase);
         }
+        purchaseIsSorted = false;
     }
 
-    public void removePurchase(int index) {
-        if (index >= purchases.size() || index < 0) {
-            System.out.printf(Constants.INDEX_NOT_FOUND, index);
-        } else {
+    public void delete(int index) {
+         if(isIndexCorrect(index)) {
             purchases.remove(index);
+            purchaseIsSorted = false;
         }
     }
 
     public void sortList(Comparator<Purchase> comparator) {
         Collections.sort(purchases, comparator);
+        purchaseIsSorted = true;
     }
 
     public int searchPurchase(Purchase purchase, Comparator<Purchase> comparator) {
@@ -76,20 +94,13 @@ public class PurchasesList {
         }
         return totalCost;
     }
-
-    public void showPurchases() {
-        System.out.println(Constants.FIRST_STRING_OF_TABLE);
+    public String toTable() {
+        StringBuilder info = new StringBuilder(Constants.FIRST_STRING_OF_TABLE);
         for (Purchase purchase : purchases) {
-            String[] elements = purchase.toString().split(Constants.SEMICOLON);
-            String discount = Constants.MINUS;
-            if (elements.length == Constants.DISCOUNT_PURCHASE_LENGTH) {
-                discount = elements[Constants.IN_LINE_DISCOUNT];
-            }
-            System.out.printf(Constants.FORMAT_TO_TABLE, elements[Constants.IN_LINE_NAME]
-                    , elements[Constants.IN_LINE_PRICE], elements[Constants.IN_LINE_NUMBER]
-                    , discount, elements[elements.length - 1]);
+            info.append(purchase.lineToTableFormat());
         }
-        System.out.printf(Constants.TABLE_TOTAL_COST_FORMAT, Constants.TOTAL_COST, getTotalCost());
-
+        info.append(String.format(Constants.TABLE_TOTAL_COST_FORMAT,
+                Constants.TOTAL_COST, getTotalCost()));
+        return info.toString();
     }
 }

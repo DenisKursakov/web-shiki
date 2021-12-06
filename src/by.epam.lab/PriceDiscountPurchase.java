@@ -28,6 +28,10 @@ public class PriceDiscountPurchase extends Purchase {
     public Byn getCost() {
         return new Byn(super.getPrice()).diff(discount).mul(getNumberOfUnits());
     }
+    public String lineToTableFormat (){
+        return String.format(Constants.FORMAT_TO_TABLE,getName(),getPrice(),
+                getNumberOfUnits(),getDiscount(),getCost());
+    }
 
     @Override
     protected String fieldsToString() {

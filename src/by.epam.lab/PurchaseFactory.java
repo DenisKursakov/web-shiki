@@ -1,5 +1,9 @@
 package by.epam.lab;
 
+import by.epam.lab.beans.Causes;
+import by.epam.lab.beans.NumFields;
+import by.epam.lab.exceptions.*;
+
 public class PurchaseFactory {
     private enum PurchaseKind {
         GENERAL_PURCHASE {
@@ -18,80 +22,60 @@ public class PurchaseFactory {
         abstract Purchase getPurchase(String[] elements);
     }
 
-    public static Purchase getPurchaseFromFactory(String currentLine) {
-        final String ERROR_DISCOUNT_MORE = currentLine + Constants.ARROW
-                + "discount more or equal price";
-        final String NON_POSITIVE = currentLine + Constants.ARROW + "non positive value ";
-        final String WRONG_NUMBER = currentLine + Constants.ARROW + " wrong of arguments";
-        final String WRONG_NAME = currentLine + Constants.ARROW + " wrong name";
-        final String EMPTY_NAME = currentLine + Constants.ARROW + " empty name";
-        final String GENERAL_PURCHASE_REGEX = Constants.NAME_REGEX + Constants.SEMICOLON
-                + Constants.NUMBER_REGEX + Constants.SEMICOLON + Constants.NUMBER_REGEX;
-        final String DISCOUNT_PURCHASE_REGEX = GENERAL_PURCHASE_REGEX + Constants.SEMICOLON
-                + Constants.NUMBER_REGEX;
+    public static Purchase getPurchaseFromFactory(String currentLine) throws CsvLineException {
         String[] elements = currentLine.split(Constants.SEMICOLON);
+        if (elements.length < Constants.MIN_IN_LINE_LENGTH
+                || elements.length > Constants.MAX_IN_LINE_LENGTH) {
+            throw new CsvLineException(currentLine, Causes.WRONG_ARGUMENT);
+        }
         for (int i = 0; i < elements.length; i++) {
             if (elements[i].contains(Constants.POINT)) {
-                System.err.println(WRONG_NUMBER);
-                break;
+                throw new CsvLineException(currentLine, Causes.HAVE_POINT);
             }
             switch (i) {
                 case Constants.IN_LINE_NAME:
-                    if (elements.length <= Constants.IN_LINE_NUMBER) {
-                        System.err.println(WRONG_NAME);
-                    }
-                    if (elements[i].matches(Constants.NON_WORDS_REGEX)) {
-                        System.err.println(WRONG_NAME);
-                        break;
-                    } else if (elements[i].isEmpty()) {
-                        System.err.println(EMPTY_NAME);
+                    if (elements[i].isEmpty()) {
+                        throw new CsvLineException(currentLine, Causes.EMPTY_NAME);
                     }
                     break;
                 case Constants.IN_LINE_PRICE:
-                    if (elements[i].contains(Constants.MINUS)
-                            || elements[i].equals(Constants.ZERO_STRING)) {
-                        System.err.println(NON_POSITIVE + elements[i] + Constants.IN_PRICE);
-                        break;
-                    } else if (elements[i].matches(Constants.NAME_REGEX)
-                            || elements[i].isEmpty()) {
-                        System.err.println(WRONG_NUMBER);
-                    }
+
+                    checkNonPositiveEx(currentLine,elements[i],Constants.PRICE);
+                    checkWrongArgumentEx(currentLine,elements[i]);
                     break;
                 case Constants.IN_LINE_NUMBER:
-                    if (elements[i].contains(Constants.MINUS)
-                            || elements[i].equals(Constants.ZERO_STRING)) {
-                        System.err.println(NON_POSITIVE + elements[i] + Constants.IN_NUMBER);
-                        break;
-                    } else if (elements[i].matches(Constants.NAME_REGEX)
-                            || elements[i].isEmpty()) {
-                        System.err.println(WRONG_NUMBER);
-                    }
+                    checkNonPositiveEx(currentLine,elements[i],Constants.NUMBER);
+                    checkWrongArgumentEx(currentLine,elements[i]);
                     break;
                 case Constants.IN_LINE_DISCOUNT:
-                    if (elements[i].contains(Constants.MINUS)
-                            || elements[i].equals(Constants.ZERO_STRING)) {
-                        System.err.println(NON_POSITIVE + Constants.IN_DISCOUNT);
-                        break;
-                    } else if (elements[i].matches(Constants.NAME_REGEX)
-                            || elements[i].isEmpty()) {
-                        System.err.println(WRONG_NUMBER);
-                    }
+                    checkNonPositiveEx(currentLine,elements[i],Constants.DISCOUNT);
+                    checkWrongArgumentEx(currentLine,elements[i]);
                     break;
             }
         }
-        Purchase currentPurchase = null;
         //check the string by discount purchase regex
-        if (currentLine.matches(DISCOUNT_PURCHASE_REGEX)) {
-            //check the string by discount > price
-            if (Integer.parseInt(elements[Constants.IN_LINE_PRICE])
-                    <= Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT])) {
-                System.err.println(ERROR_DISCOUNT_MORE);
-            } else {
-                currentPurchase = PurchaseKind.DISCOUNT_PURCHASE.getPurchase(elements);
-            }
-        } else if (currentLine.matches(GENERAL_PURCHASE_REGEX)) {
-            currentPurchase = PurchaseKind.GENERAL_PURCHASE.getPurchase(elements);
+        if (elements.length == Constants.MAX_IN_LINE_LENGTH &&
+                Integer.parseInt(elements[Constants.IN_LINE_PRICE]) <=
+                        Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT])) {
+            throw new CsvLineException(currentLine, Causes.DISCOUNT_MORE_OR_EQUAL_PRICE);
         }
-        return currentPurchase;
+
+        return elements.length == 4 ? PurchaseKind.DISCOUNT_PURCHASE.getPurchase(elements) :
+                PurchaseKind.GENERAL_PURCHASE.getPurchase(elements);
+
+    }
+    private static void checkNonPositiveEx(String currentLine, String element, String lineNumber){
+        if (element.contains(Constants.MINUS)
+                || element.equals(Constants.ZERO_STRING)) {
+            throw new NonPositiveArgumentException(
+                    new NumFields(lineNumber, element, currentLine));
+
+        }
+    }
+    private static void checkWrongArgumentEx(String currentLine, String element)
+            throws CsvLineException {
+        if (!element.matches(Constants.NUMBER_REGEX) || element.isEmpty()) {
+            throw new CsvLineException(currentLine, Causes.WRONG_ARGUMENT);
+        }
     }
 }

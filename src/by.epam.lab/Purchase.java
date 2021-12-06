@@ -11,8 +11,8 @@ public class Purchase {
 
     public Purchase(String name, Byn price, int numberOfUnits) {
         this.name = name;
-        this.price = price;
-        this.numberOfUnits = numberOfUnits;
+        setPrice(price);
+        setNumberOfUnits(numberOfUnits);
     }
 
     public Purchase(String[] elements) {
@@ -34,7 +34,7 @@ public class Purchase {
         return price;
     }
 
-    public void setPrice(Byn price) {
+    public final void setPrice(Byn price) {
         this.price = price;
     }
 
@@ -42,12 +42,20 @@ public class Purchase {
         return numberOfUnits;
     }
 
-    public void setNumberOfUnits(int numberOfUnits) {
+    public final void setNumberOfUnits(int numberOfUnits) {
+        if(numberOfUnits <= 0){
+            throw new IllegalArgumentException();
+        }
         this.numberOfUnits = numberOfUnits;
     }
 
     public Byn getCost() {
         return new Byn(price).mul(numberOfUnits);
+    }
+
+    public String lineToTableFormat (){
+        return String.format(Constants.FORMAT_TO_TABLE,getName(),getPrice(),
+                getNumberOfUnits(),Constants.MINUS,getCost());
     }
 
     @Override

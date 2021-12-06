@@ -8,6 +8,8 @@ public class Constants {
     public static final int IN_LINE_DISCOUNT = 3;
     public static final int DISCOUNT_PURCHASE_LENGTH = 5;
     public static final int HUNDRED = 100;
+    public static final int MAX_IN_LINE_LENGTH = 4;
+    public static final int MIN_IN_LINE_LENGTH = 3;
     public static final String SEARCH_RESULT = "Search results: ";
     public static final String NAME = "Name";
     public static final String TOTAL_COST = "Total cost";
@@ -16,10 +18,9 @@ public class Constants {
     public static final String NUMBER = "Number";
     public static final String COST = "Cost";
     public static final String INDEX_NOT_FOUND = "Index %d is not found\n";
-    public static final String FILE_NOT_FOUND = "File is not found";
     public static final String TABLE_TOTAL_COST_FORMAT = "%s\t%36s\n";
     public static final String FIRST_STRING_OF_TABLE =
-            String.format("%7s%10s%10s%10s%10s", NAME, PRICE, NUMBER, DISCOUNT, COST);
+            String.format("%7s%10s%10s%10s%10s\n", NAME, PRICE, NUMBER, DISCOUNT, COST);
     public static final String CSV_TYPE = ".csv";
     public static final String WAY_TO_FILES = "src/";
     public static final String PURCHASE_FOUND = "Purchase: ";
@@ -33,11 +34,6 @@ public class Constants {
     public static final String ZERO_STRING = "0";
     public static final String ARROW = "\t-> ";
     public static final String NUMBER_REGEX = "[1-9]\\d*";
-    public static final String NAME_REGEX = "[A-Za-z].*";
-    public static final String NON_WORDS_REGEX = "\\W";
-    public static final String IN_PRICE = " in price";
-    public static final String IN_NUMBER = " in number of units";
-    public static final String IN_DISCOUNT = " in discount";
     public static final String FORMAT_TO_TABLE = "%s\t%10s%10s%10s%10s\n";
     public static final String WAY_COMPARATOR = "by.epam.lab.comparators.";
 }

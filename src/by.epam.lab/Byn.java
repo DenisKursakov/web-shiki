@@ -9,6 +9,9 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn(int valueInKopecks) {
+        if(valueInKopecks <= 0){
+            throw new IllegalArgumentException();
+        }
         this.valueInKopecks = valueInKopecks;
     }
 
