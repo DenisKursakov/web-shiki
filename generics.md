@@ -87,11 +87,11 @@ private final static Gen2 g22 = new Gen2();
 **Ответ:** Да (смотреть ответ #6). ```g12``` Необработанный тип ```Raw type```.  
 **Источник:** https://docs.oracle.com/javase/tutorial/java/generics/rawTypes.html  
 
-(8) В каком случае используется второй способ ```(g12, g22)```?  
+(8) В каком случае используется второй способ ```(g12, g22)```?    
 **Ответ:** Использование необработанных типов допускается только в качестве уступки совместимости устаревшего кода.
 Из-за непатентованного универсального кода Java есть два исключения, где необработанные типы должны использоваться в новом коде:  
-а) Литералы класса, например ```List.class```, не ```List<String>.class```
-б) ```instanceof``` операнд, например ```o instanceof Set```, не ```o instanceof Set<String>```
+а) Литералы класса, например ```List.class```, не ```List<String>.class```  
+б) ```instanceof``` операнд, например ```o instanceof Set```, не ```o instanceof Set<String>```   
 **Источник:** https://qastack.ru/programming/2770321/what-is-a-raw-type-and-why-shouldnt-we-use-it  
 
 (9) Дан код:
@@ -110,8 +110,8 @@ class Gen2 <T extends Info> { … }
 ```SubInfo``` и ```Info```. Общим родителем ```Gen1<SubInfo>``` и ```Gen1<Info>``` является ```Object```.  
 **Источник:** https://docs.oracle.com/javase/tutorial/java/generics/inheritance.html  
 
-(11) Является ли декларация ```Gen2<SubInfo>``` подклассом ```Gen2<Info>```?  
-**Ответ:** Нет (смотреть ответ #10)
+(11) Является ли декларация ```Gen2<SubInfo>``` подклассом ```Gen2<Info>```?   
+**Ответ:** Нет (смотреть ответ #10)  
 **Источник:** https://docs.oracle.com/javase/tutorial/java/generics/inheritance.html  
 
 (12) Почему нельзя вызвать конструктор ```generic-типа```?  
