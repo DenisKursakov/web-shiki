@@ -1,6 +1,7 @@
 package by.epam.lab.beans;
 
 import by.epam.lab.Constants;
+import by.epam.lab.exceptions.NonPositiveArgumentException;
 
 public class Purchase {
     private String name;
@@ -10,8 +11,16 @@ public class Purchase {
     public Purchase() {
 
     }
-    public Purchase(Purchase purchase){
-        this(purchase.name,purchase.price,purchase.numberOfUnits);
+
+    public Purchase(Purchase purchase) {
+        this(purchase.name, purchase.price, purchase.numberOfUnits);
+    }
+
+    public Purchase(String name, int price, int numberOfUnits) {
+        setName(name);
+        setPrice(new Byn(price));
+        setNumberOfUnits(numberOfUnits);
+
     }
 
     public Purchase(String name, Byn price, int numberOfUnits) {
@@ -21,13 +30,15 @@ public class Purchase {
     }
 
 
-
     public String getName() {
         return name;
     }
 
     public final void setName(String name) {
-        if(name == null) {
+        if (name == null) {
+            throw new NullPointerException();
+        }
+        if (name.isEmpty()) {
             throw new NullPointerException();
         }
         this.name = name;
@@ -38,8 +49,11 @@ public class Purchase {
     }
 
     public final void setPrice(Byn price) {
-        if(price == null){
+        if (price == null) {
             throw new NullPointerException();
+        }
+        if (price.compareTo(new Byn(0)) <= 0) {
+            throw new NonPositiveArgumentException(Constants.PRICE, price.toString());
         }
         this.price = price;
     }
@@ -49,8 +63,8 @@ public class Purchase {
     }
 
     public final void setNumberOfUnits(int numberOfUnits) {
-        if(numberOfUnits <= 0){
-            throw new IllegalArgumentException();
+        if (numberOfUnits <= 0) {
+            throw new NonPositiveArgumentException(Constants.NUMBER, String.valueOf(numberOfUnits));
         }
         this.numberOfUnits = numberOfUnits;
     }
@@ -59,9 +73,9 @@ public class Purchase {
         return new Byn(price).mul(numberOfUnits);
     }
 
-    public String lineToTableFormat (){
-        return String.format(Constants.FORMAT_TO_TABLE,getName(),getPrice(),
-                getNumberOfUnits(),Constants.MINUS,getCost());
+    public String lineToTableFormat() {
+        return String.format(Constants.FORMAT_TO_TABLE, getName(), getPrice(),
+                getNumberOfUnits(), Constants.MINUS, getCost());
     }
 
     @Override

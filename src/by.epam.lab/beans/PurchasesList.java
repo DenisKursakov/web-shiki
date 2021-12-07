@@ -29,7 +29,7 @@ public class PurchasesList {
             while (scanner.hasNextLine()) {
                 try {
                     purchases.add(PurchaseFactory.getPurchaseFromFactory(scanner.nextLine()));
-                } catch (CsvLineException | NonPositiveArgumentException e) {
+                } catch (CsvLineException | IllegalArgumentException e) {
                     System.err.println(e);
                 }
             }
@@ -42,7 +42,7 @@ public class PurchasesList {
         }
     }
 
-    public List<Purchase> getPurchases() {
+    public List<Purchase> getPurchases() throws CsvLineException {
         List<Purchase> purchasesClone = new ArrayList<>();
         for (Purchase purchase : purchases) {
             if (purchase.getClass() == Purchase.class) {

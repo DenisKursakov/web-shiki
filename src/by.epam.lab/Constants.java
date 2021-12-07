@@ -1,11 +1,9 @@
 package by.epam.lab;
 
 public class Constants {
-    public static final int IN_LINE_NAME = 0;
+
     public static final int IN_LINE_PRICE = 1;
-    public static final int IN_LINE_NUMBER = 2;
     public static final int IN_LINE_DISCOUNT = 3;
-    public static final int HUNDRED = 100;
     public static final int MAX_IN_LINE_LENGTH = 4;
     public static final int MIN_IN_LINE_LENGTH = 3;
     public static final String SEARCH_RESULT = "Search results: ";
@@ -24,6 +22,8 @@ public class Constants {
     public static final String WAY_TO_FILES = "src/";
     public static final String PURCHASE_FOUND = "Purchase: ";
     public static final String EXCEPTION = "some exception was caught";
+    public static final String NON_POSITIVE = "non positive number ";
+    public static final String IN = " in ";
     public static final String POSITION = " at position ";
     public static final String IS_FOUND = " is found";
     public static final String IS_NOT_FOUND = " is not found";
@@ -31,7 +31,6 @@ public class Constants {
     public static final String CONVERT_FORMAT = "%d.%02d";
     public static final String MINUS = "-";
     public static final String POINT = ".";
-    public static final String ZERO_STRING = "0";
     public static final String ARROW = "\t-> ";
     public static final String NUMBER_REGEX = "[1-9]\\d*";
     public static final String FORMAT_TO_TABLE = "%s\t%10s%10s%10s%10s\n";

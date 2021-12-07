@@ -1,12 +1,11 @@
 import by.epam.lab.*;
+import by.epam.lab.beans.PurchasesList;
 import by.epam.lab.comparators.PurchaseComparatorBuilder;
-import by.epam.lab.comparators.PurchaseComparatorV1;
-
-import java.util.Comparator;
+import by.epam.lab.exceptions.CsvLineException;
 
 public class Runner {
-    public static void main(String[] args) {
-        try {
+    public static void main(String[] args) throws CsvLineException {
+//        try {
             PurchaseComparatorBuilder.buildPurchaseComparator(args[0]);
             PurchasesList purchasesList = new PurchasesList(args[0]);
             PurchasesList addonList = new PurchasesList(args[1]);
@@ -29,13 +28,13 @@ public class Runner {
             System.out.println(Constants.SEARCH_RESULT);
             showSearchResult(indexSearch1, addonList, 1);
             showSearchResult(indexSearch2, addonList, 3);
-        } catch (Exception e) {
-            System.err.println(Constants.EXCEPTION);
-        }
+//        } catch (Exception e) {
+//            System.err.println(Constants.EXCEPTION);
+//        }
 
     }
 
-    private static void showSearchResult(int index, PurchasesList purchasesList, int indexByList) {
+    private static void showSearchResult(int index, PurchasesList purchasesList, int indexByList) throws CsvLineException {
         if (index >= 0) {
             System.out.println(Constants.PURCHASE_FOUND + purchasesList.getPurchases()
                     .get(indexByList) + Constants.IS_FOUND + Constants.POSITION + index);

@@ -2,17 +2,16 @@ package by.epam.lab.beans;
 
 public class NumFields {
     private String fieldName;
-    private String wrongValue;
+    private int wrongValue;
     private String currentLine;
 
     public NumFields() {
 
     }
 
-    public NumFields(String fieldName, String wrongValue, String currentLine) {
+    public NumFields(String fieldName, int wrongValue) {
         setFieldName(fieldName);
         setWrongValue(wrongValue);
-        setCurrentLine(currentLine);
     }
 
     public String getFieldName() {
@@ -26,12 +25,12 @@ public class NumFields {
         this.fieldName = fieldName;
     }
 
-    public String getWrongValue() {
+    public int getWrongValue() {
         return wrongValue;
     }
 
-    public final void setWrongValue(String wrongValue) {
-        if(wrongValue == null){
+    public final void setWrongValue(int wrongValue) {
+        if(wrongValue == 0){
             throw new NullPointerException();
         }
         this.wrongValue = wrongValue;
