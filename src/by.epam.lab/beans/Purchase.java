@@ -1,4 +1,6 @@
-package by.epam.lab;
+package by.epam.lab.beans;
+
+import by.epam.lab.Constants;
 
 public class Purchase {
     private String name;
@@ -8,25 +10,26 @@ public class Purchase {
     public Purchase() {
 
     }
+    public Purchase(Purchase purchase){
+        this(purchase.name,purchase.price,purchase.numberOfUnits);
+    }
 
     public Purchase(String name, Byn price, int numberOfUnits) {
-        this.name = name;
+        setName(name);
         setPrice(price);
         setNumberOfUnits(numberOfUnits);
     }
 
-    public Purchase(String[] elements) {
-        this.name = elements[Constants.IN_LINE_NAME];
-        this.price = new Byn(Integer.parseInt(elements[Constants.IN_LINE_PRICE]));
-        this.numberOfUnits = Integer.parseInt(elements[Constants.IN_LINE_NUMBER]);
-    }
 
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public final void setName(String name) {
+        if(name == null) {
+            throw new NullPointerException();
+        }
         this.name = name;
     }
 
@@ -35,6 +38,9 @@ public class Purchase {
     }
 
     public final void setPrice(Byn price) {
+        if(price == null){
+            throw new NullPointerException();
+        }
         this.price = price;
     }
 

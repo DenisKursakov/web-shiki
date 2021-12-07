@@ -10,16 +10,19 @@ public class NumFields {
     }
 
     public NumFields(String fieldName, String wrongValue, String currentLine) {
-        this.fieldName = fieldName;
-        this.wrongValue = wrongValue;
-        this.currentLine = currentLine;
+        setFieldName(fieldName);
+        setWrongValue(wrongValue);
+        setCurrentLine(currentLine);
     }
 
     public String getFieldName() {
         return fieldName;
     }
 
-    public void setFieldName(String fieldName) {
+    public final void setFieldName(String fieldName) {
+        if(fieldName == null){
+            throw new NullPointerException();
+        }
         this.fieldName = fieldName;
     }
 
@@ -27,7 +30,10 @@ public class NumFields {
         return wrongValue;
     }
 
-    public void setWrongValue(String wrongValue) {
+    public final void setWrongValue(String wrongValue) {
+        if(wrongValue == null){
+            throw new NullPointerException();
+        }
         this.wrongValue = wrongValue;
     }
 
@@ -35,7 +41,10 @@ public class NumFields {
         return currentLine;
     }
 
-    public void setCurrentLine(String currentLine) {
+    public final void setCurrentLine(String currentLine) {
+        if(currentLine == null){
+            throw new NullPointerException();
+        }
         this.currentLine = currentLine;
     }
 

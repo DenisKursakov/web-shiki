@@ -1,6 +1,10 @@
-package by.epam.lab;
+package by.epam.lab.beans;
+
+import by.epam.lab.Constants;
+import by.epam.lab.PurchaseFactory;
 import by.epam.lab.exceptions.CsvLineException;
 import by.epam.lab.exceptions.NonPositiveArgumentException;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
@@ -8,8 +12,9 @@ import java.util.*;
 public class PurchasesList {
     private List<Purchase> purchases;
     private boolean purchaseIsSorted = false;
+
     public PurchasesList() {
-        purchases = new ArrayList<>();
+        setPurchases(new ArrayList<>());
     }
 
     public PurchasesList(String csvName) {
@@ -39,28 +44,31 @@ public class PurchasesList {
 
     public List<Purchase> getPurchases() {
         List<Purchase> purchasesClone = new ArrayList<>();
-        for (Purchase purchase: purchases) {
-            if(purchase.getClass() == Purchase.class){
-               purchasesClone.add(new Purchase(purchase.getName(),
-                       purchase.getPrice(),purchase.getNumberOfUnits()));
+        for (Purchase purchase : purchases) {
+            if (purchase.getClass() == Purchase.class) {
+                purchasesClone.add(new Purchase(purchase));
             } else {
-                purchasesClone.add(new PriceDiscountPurchase(
-                        purchase.getName(),purchase.getPrice(),
-                        purchase.getNumberOfUnits(),((PriceDiscountPurchase) purchase)
-                        .getDiscount()));
+                purchasesClone.add(new PriceDiscountPurchase((PriceDiscountPurchase) purchase));
             }
         }
         return purchasesClone;
     }
 
-    public void setPurchases(List<Purchase> purchases) {
+    public final void setPurchases(List<Purchase> purchases) {
+        if(purchases == null){
+            throw new NullPointerException();
+        }
         this.purchases = purchases;
     }
 
-    public boolean isIndexCorrect (int index){
-        return index < purchases.size() && index > 0;
+    public boolean isIndexCorrect(int index) {
+        return index < purchases.size() && index >= 0;
     }
+
     public void insert(int index, Purchase purchase) {
+        if(purchase == null){
+            throw new NullPointerException();
+        }
         if (index >= purchases.size()) {
             purchases.add(purchase);
         } else if (index < 0) {
@@ -72,28 +80,37 @@ public class PurchasesList {
     }
 
     public void delete(int index) {
-         if(isIndexCorrect(index)) {
+        if (isIndexCorrect(index)) {
             purchases.remove(index);
-            purchaseIsSorted = false;
         }
     }
 
     public void sortList(Comparator<Purchase> comparator) {
+        if (comparator == null){
+            throw new NullPointerException();
+        }
         Collections.sort(purchases, comparator);
         purchaseIsSorted = true;
     }
 
     public int searchPurchase(Purchase purchase, Comparator<Purchase> comparator) {
+        if(purchase == null || comparator == null ){
+            throw new NullPointerException();
+        }
+        if (!purchaseIsSorted) {
+            sortList(comparator);
+        }
         return Collections.binarySearch(purchases, purchase, comparator);
     }
 
     public Byn getTotalCost() {
         Byn totalCost = new Byn();
         for (Purchase purchase : purchases) {
-            totalCost.add(purchase.getCost());
+            totalCost = totalCost.add(purchase.getCost());
         }
         return totalCost;
     }
+
     public String toTable() {
         StringBuilder info = new StringBuilder(Constants.FIRST_STRING_OF_TABLE);
         for (Purchase purchase : purchases) {

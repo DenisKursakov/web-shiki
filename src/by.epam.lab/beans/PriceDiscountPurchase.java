@@ -1,4 +1,6 @@
-package by.epam.lab;
+package by.epam.lab.beans;
+
+import by.epam.lab.Constants;
 
 public class PriceDiscountPurchase extends Purchase {
     private Byn discount;
@@ -7,21 +9,24 @@ public class PriceDiscountPurchase extends Purchase {
 
     }
 
-    public PriceDiscountPurchase(String name, Byn price, int numberOfUnits, Byn discount) {
-        super(name, price, numberOfUnits);
-        this.discount = new Byn(discount);
+    public PriceDiscountPurchase(PriceDiscountPurchase purchase) {
+        super(purchase);
+        this.discount = purchase.discount;
     }
 
-    public PriceDiscountPurchase(String[] elements) {
-        super(elements);
-        discount = new Byn(Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT]));
+    public PriceDiscountPurchase(String name, Byn price, int numberOfUnits, Byn discount) {
+        super(name, price, numberOfUnits);
+        setDiscount(discount);
     }
 
     public Byn getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Byn discount) {
+    public final void setDiscount(Byn discount) {
+        if(discount == null){
+            throw new NullPointerException();
+        }
         this.discount = new Byn(discount);
     }
 

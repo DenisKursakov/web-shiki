@@ -1,7 +1,7 @@
 package by.epam.lab.comparators;
 
 import by.epam.lab.Constants;
-import by.epam.lab.Purchase;
+import by.epam.lab.beans.Purchase;
 
 import java.util.Comparator;
 

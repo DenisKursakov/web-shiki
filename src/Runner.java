@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 public class Runner {
     public static void main(String[] args) {
-//        try {
+        try {
             PurchaseComparatorBuilder.buildPurchaseComparator(args[0]);
             PurchasesList purchasesList = new PurchasesList(args[0]);
             PurchasesList addonList = new PurchasesList(args[1]);
@@ -29,9 +29,9 @@ public class Runner {
             System.out.println(Constants.SEARCH_RESULT);
             showSearchResult(indexSearch1, addonList, 1);
             showSearchResult(indexSearch2, addonList, 3);
-//        } catch (Exception e) {
-//            System.err.println(Constants.EXCEPTION);
-//        }
+        } catch (Exception e) {
+            System.err.println(Constants.EXCEPTION);
+        }
 
     }
 
