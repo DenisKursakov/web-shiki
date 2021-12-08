@@ -12,13 +12,13 @@ public class Byn implements Comparable<Byn> {
 
     public Byn(int value) {
         if (value < 0) {
-            throw new NonPositiveArgumentException();
+            throw new NonPositiveArgumentException(String.valueOf(value));
         }
         this.value = value;
     }
 
     public Byn(int rubs, int coins) {
-        this(rubs * 100 + coins);
+        this(rubs * Constants.HUNDRED_FOR_COINS_RESULT + coins);
     }
 
     public Byn(Byn byn) {
@@ -33,7 +33,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public int getRubs() {
-        return value / 100;
+        return value / Constants.HUNDRED_FOR_RUBS_RESULT;
     }
 
     public Byn diff(Byn byn) {
@@ -46,7 +46,8 @@ public class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-        return String.format(Constants.CONVERT_FORMAT, value / 100, value % 100);
+        return String.format(Constants.CONVERT_FORMAT, value / Constants.HUNDRED_FOR_RUBS_RESULT,
+                value % Constants.HUNDRED_FOR_COINS_RESULT);
     }
 
     public boolean equals(Object obj) {

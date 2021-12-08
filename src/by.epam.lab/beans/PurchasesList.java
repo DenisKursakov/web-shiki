@@ -4,6 +4,7 @@ import by.epam.lab.Constants;
 import by.epam.lab.PurchaseFactory;
 import by.epam.lab.exceptions.CsvLineException;
 import by.epam.lab.exceptions.NonPositiveArgumentException;
+import by.epam.lab.exceptions.WrongArgumentType;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -55,7 +56,7 @@ public class PurchasesList {
     }
 
     public final void setPurchases(List<Purchase> purchases) {
-        if(purchases == null){
+        if (purchases == null) {
             throw new NullPointerException();
         }
         this.purchases = purchases;
@@ -66,7 +67,7 @@ public class PurchasesList {
     }
 
     public void insert(int index, Purchase purchase) {
-        if(purchase == null){
+        if (purchase == null) {
             throw new NullPointerException();
         }
         if (index >= purchases.size()) {
@@ -86,7 +87,7 @@ public class PurchasesList {
     }
 
     public void sortList(Comparator<Purchase> comparator) {
-        if (comparator == null){
+        if (comparator == null) {
             throw new NullPointerException();
         }
         Collections.sort(purchases, comparator);
@@ -94,7 +95,7 @@ public class PurchasesList {
     }
 
     public int searchPurchase(Purchase purchase, Comparator<Purchase> comparator) {
-        if(purchase == null || comparator == null ){
+        if (purchase == null || comparator == null) {
             throw new NullPointerException();
         }
         if (!purchaseIsSorted) {

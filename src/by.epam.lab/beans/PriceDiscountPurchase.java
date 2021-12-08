@@ -18,7 +18,7 @@ public class PriceDiscountPurchase extends Purchase {
 
     public PriceDiscountPurchase(String name, int price, int numberOfUnits, int discount) {
         super(name, price, numberOfUnits);
-        setDiscount(new Byn(discount));
+        setDiscount(discount);
     }
 
     public PriceDiscountPurchase(String name, Byn price, int numberOfUnits, Byn discount) {
@@ -34,8 +34,15 @@ public class PriceDiscountPurchase extends Purchase {
         if (discount == null) {
             throw new NullPointerException();
         }
-        if(discount.compareTo(new Byn(0)) <= 0){
+        if (discount.compareTo(new Byn(0)) <= 0) {
             throw new NonPositiveArgumentException(Constants.DISCOUNT, discount.toString());
+        }
+        this.discount = new Byn(discount);
+    }
+
+    public final void setDiscount(int discount) {
+        if (discount <= 0) {
+            throw new NonPositiveArgumentException(Constants.DISCOUNT, String.valueOf(discount));
         }
         this.discount = new Byn(discount);
     }

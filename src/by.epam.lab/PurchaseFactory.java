@@ -35,6 +35,19 @@ public class PurchaseFactory {
         //check the string by discount purchase regex
 
         try {
+            for (int i = 0; i < elements.length; i++) {
+                switch (i) {
+                    case Constants.IN_LINE_PRICE:
+                        checkNumberFormat(elements[i], Constants.PRICE, currentLine);
+                        break;
+                    case Constants.IN_LINE_NUMBER:
+                        checkNumberFormat(elements[i], Constants.NUMBER, currentLine);
+                        break;
+                    case Constants.IN_LINE_DISCOUNT:
+                        checkNumberFormat(elements[i], Constants.DISCOUNT, currentLine);
+                }
+            }
+
             if (elements.length == Constants.MAX_IN_LINE_LENGTH &&
                     Integer.parseInt(elements[Constants.IN_LINE_PRICE]) <=
                             Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT])) {
@@ -42,13 +55,20 @@ public class PurchaseFactory {
             }
             return elements.length == 4 ? PurchaseKind.DISCOUNT_PURCHASE.getPurchase(elements) :
                     PurchaseKind.GENERAL_PURCHASE.getPurchase(elements);
-        } catch (NumberFormatException e) {
-            throw new CsvLineException(currentLine, Causes.WRONG_INTEGER_ARGUMENT);
         } catch (NullPointerException e) {
             throw new CsvLineException(currentLine, Causes.EMPTY_NAME);
-        } catch (NonPositiveArgumentException e){
-            throw new CsvLineException(currentLine + e, Causes.WRONG_NUMBER_ARGUMENT);
+        } catch (NonPositiveArgumentException e) {
+            throw new NonPositiveArgumentException(currentLine,
+                    e.getWrongField(), e.getWrongElement());
         }
-
     }
+
+    private static void checkNumberFormat(String element, String fieldName, String currentLine) {
+        try {
+            Integer.parseInt(element);
+        } catch (NumberFormatException e) {
+            throw new WrongArgumentType(element, fieldName, currentLine);
+        }
+    }
+
 }

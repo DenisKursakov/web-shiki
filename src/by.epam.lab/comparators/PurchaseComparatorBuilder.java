@@ -21,7 +21,7 @@ public class PurchaseComparatorBuilder {
         }
         final String COMPARATOR_NAME = Constants.WAY_COMPARATOR + comparatorName;
         try {
-           purchaseComparator = (Comparator<Purchase>) Class.forName(comparatorName).newInstance();
+            purchaseComparator = (Comparator<Purchase>) Class.forName(comparatorName).newInstance();
         } catch (Exception e) {
             //use default class independently on exception
             purchaseComparator = new PurchaseComparatorV1();

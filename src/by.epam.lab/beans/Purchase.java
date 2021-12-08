@@ -18,7 +18,7 @@ public class Purchase {
 
     public Purchase(String name, int price, int numberOfUnits) {
         setName(name);
-        setPrice(new Byn(price));
+        setPrice(price);
         setNumberOfUnits(numberOfUnits);
 
     }
@@ -42,6 +42,13 @@ public class Purchase {
             throw new NullPointerException();
         }
         this.name = name;
+    }
+
+    public final void setPrice(int price) {
+        if (price <= 0) {
+            throw new NonPositiveArgumentException(Constants.PRICE, String.valueOf(price));
+        }
+        this.price = new Byn(price);
     }
 
     public Byn getPrice() {
