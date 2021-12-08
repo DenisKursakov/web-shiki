@@ -12,7 +12,7 @@ public class Byn implements Comparable<Byn> {
 
     public Byn(int value) {
         if (value < 0) {
-            throw new NonPositiveArgumentException(String.valueOf(value));
+            throw new NonPositiveArgumentException();
         }
         this.value = value;
     }

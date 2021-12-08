@@ -8,7 +8,8 @@ public enum Causes {
     DISCOUNT_MORE_OR_EQUAL_PRICE,
     EMPTY_NAME,
     WRONG_NUMBER_ARGUMENT,
-    WRONG_ARGUMENT_TYPE;
+    WRONG_ARGUMENT_TYPE,
+    NON_POSITIVE_ARGUMENT_;
 
     @Override
     public String toString() {

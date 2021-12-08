@@ -1,7 +1,7 @@
 import by.epam.lab.*;
 import by.epam.lab.beans.PurchasesList;
 import by.epam.lab.comparators.PurchaseComparatorBuilder;
-import by.epam.lab.exceptions.CsvLineException;
+
 
 public class Runner {
     public static void main(String[] args) {
@@ -19,12 +19,10 @@ public class Runner {
             purchasesList.delete(10);
             purchasesList.delete(-5);
             System.out.println(purchasesList.toTable());
-            purchasesList.sortList(PurchaseComparatorBuilder.getPurchaseComparator());
+            purchasesList.sortList();
             System.out.println(purchasesList.toTable());
-            int indexSearch1 = purchasesList.searchPurchase(addonList.getPurchases()
-                    .get(1), PurchaseComparatorBuilder.getPurchaseComparator());
-            int indexSearch2 = purchasesList.searchPurchase(addonList.getPurchases()
-                    .get(3), PurchaseComparatorBuilder.getPurchaseComparator());
+            int indexSearch1 = purchasesList.searchPurchase(addonList.getPurchases().get(1));
+            int indexSearch2 = purchasesList.searchPurchase(addonList.getPurchases().get(3));
             System.out.println(Constants.SEARCH_RESULT);
             showSearchResult(indexSearch1, addonList, 1);
             showSearchResult(indexSearch2, addonList, 3);
@@ -34,8 +32,7 @@ public class Runner {
 
     }
 
-    private static void showSearchResult(int index, PurchasesList purchasesList, int indexByList)
-            throws CsvLineException {
+    private static void showSearchResult(int index, PurchasesList purchasesList, int indexByList) {
         if (index >= 0) {
             System.out.println(Constants.PURCHASE_FOUND + purchasesList.getPurchases()
                     .get(indexByList) + Constants.IS_FOUND + Constants.POSITION + index);

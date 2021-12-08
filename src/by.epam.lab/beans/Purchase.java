@@ -20,7 +20,6 @@ public class Purchase {
         setName(name);
         setPrice(price);
         setNumberOfUnits(numberOfUnits);
-
     }
 
     public Purchase(String name, Byn price, int numberOfUnits) {

@@ -25,7 +25,6 @@ public class Constants {
     public static final String WAY_TO_FILES = "src/";
     public static final String PURCHASE_FOUND = "Purchase: ";
     public static final String EXCEPTION = "some exception was caught";
-    public static final String NON_POSITIVE = "non positive number ";
     public static final String IN = " in ";
     public static final String POSITION = " at position ";
     public static final String IS_FOUND = " is found";
@@ -36,4 +35,5 @@ public class Constants {
     public static final String ARROW = "\t-> ";
     public static final String FORMAT_TO_TABLE = "%s\t%10s%10s%10s%10s\n";
     public static final String WAY_COMPARATOR = "by.epam.lab.comparators.";
+    public static final String FILE_IS_NOT_FOUND = "File is not found";
 }

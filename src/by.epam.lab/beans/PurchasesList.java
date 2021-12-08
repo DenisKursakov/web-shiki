@@ -2,9 +2,8 @@ package by.epam.lab.beans;
 
 import by.epam.lab.Constants;
 import by.epam.lab.PurchaseFactory;
+import by.epam.lab.comparators.PurchaseComparatorBuilder;
 import by.epam.lab.exceptions.CsvLineException;
-import by.epam.lab.exceptions.NonPositiveArgumentException;
-import by.epam.lab.exceptions.WrongArgumentType;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,6 +12,8 @@ import java.util.*;
 public class PurchasesList {
     private List<Purchase> purchases;
     private boolean purchaseIsSorted = false;
+    private final Comparator<Purchase> comparator =
+            PurchaseComparatorBuilder.getPurchaseComparator();
 
     public PurchasesList() {
         setPurchases(new ArrayList<>());
@@ -30,12 +31,13 @@ public class PurchasesList {
             while (scanner.hasNextLine()) {
                 try {
                     purchases.add(PurchaseFactory.getPurchaseFromFactory(scanner.nextLine()));
-                } catch (CsvLineException | IllegalArgumentException e) {
+                } catch (CsvLineException e) {
                     System.err.println(e);
                 }
             }
         } catch (IOException e) {
             purchases = new ArrayList<>();
+            System.out.println(Constants.FILE_IS_NOT_FOUND);
         } finally {
             if (scanner != null) {
                 scanner.close();
@@ -60,6 +62,7 @@ public class PurchasesList {
             throw new NullPointerException();
         }
         this.purchases = purchases;
+        purchaseIsSorted = false;
     }
 
     public boolean isIndexCorrect(int index) {
@@ -86,20 +89,17 @@ public class PurchasesList {
         }
     }
 
-    public void sortList(Comparator<Purchase> comparator) {
-        if (comparator == null) {
-            throw new NullPointerException();
-        }
+    public void sortList() {
         Collections.sort(purchases, comparator);
         purchaseIsSorted = true;
     }
 
-    public int searchPurchase(Purchase purchase, Comparator<Purchase> comparator) {
-        if (purchase == null || comparator == null) {
+    public int searchPurchase(Purchase purchase) {
+        if (purchase == null) {
             throw new NullPointerException();
         }
         if (!purchaseIsSorted) {
-            sortList(comparator);
+            sortList();
         }
         return Collections.binarySearch(purchases, purchase, comparator);
     }
@@ -127,7 +127,7 @@ public class PurchasesList {
             throw new NullPointerException();
         }
         String discount;
-        if (purchase.getClass() == Purchase.class) {
+        if(purchase.getClass() == Purchase.class){
             discount = Constants.MINUS;
         } else {
             discount = ((PriceDiscountPurchase) purchase).getDiscount().toString();

@@ -38,13 +38,13 @@ public class PurchaseFactory {
             for (int i = 0; i < elements.length; i++) {
                 switch (i) {
                     case Constants.IN_LINE_PRICE:
-                        checkNumberFormat(elements[i], Constants.PRICE, currentLine);
+                        checkNumberFormat(elements[i], Constants.PRICE);
                         break;
                     case Constants.IN_LINE_NUMBER:
-                        checkNumberFormat(elements[i], Constants.NUMBER, currentLine);
+                        checkNumberFormat(elements[i], Constants.NUMBER);
                         break;
                     case Constants.IN_LINE_DISCOUNT:
-                        checkNumberFormat(elements[i], Constants.DISCOUNT, currentLine);
+                        checkNumberFormat(elements[i], Constants.DISCOUNT);
                 }
             }
 
@@ -58,16 +58,17 @@ public class PurchaseFactory {
         } catch (NullPointerException e) {
             throw new CsvLineException(currentLine, Causes.EMPTY_NAME);
         } catch (NonPositiveArgumentException e) {
-            throw new NonPositiveArgumentException(currentLine,
-                    e.getWrongField(), e.getWrongElement());
+            throw new CsvLineException(currentLine,Causes.NON_POSITIVE_ARGUMENT_,e.toString());
+        } catch (WrongArgumentType e){
+            throw new CsvLineException(currentLine,Causes.WRONG_ARGUMENT_TYPE, e.toString());
         }
     }
 
-    private static void checkNumberFormat(String element, String fieldName, String currentLine) {
+    private static void checkNumberFormat(String element, String fieldName) {
         try {
             Integer.parseInt(element);
         } catch (NumberFormatException e) {
-            throw new WrongArgumentType(element, fieldName, currentLine);
+            throw new WrongArgumentType(element, fieldName);
         }
     }
 
