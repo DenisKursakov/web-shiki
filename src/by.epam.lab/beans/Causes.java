@@ -5,11 +5,11 @@ import by.epam.lab.Constants;
 import java.util.Locale;
 
 public enum Causes {
-    DISCOUNT_MORE_OR_EQUAL_PRICE(Constants.DISCOUNT_MORE_OR_EQUAL_PRICE),
-    EMPTY_NAME(Constants.EMPTY_NAME),
-    WRONG_NUMBER_ARGUMENT(Constants.WRONG_NUMBER_ARGUMENT),
-    WRONG_ARGUMENT_TYPE(Constants.WRONG_ARGUMENT_TYPE),
-    NON_POSITIVE_ARGUMENT(Constants.NON_POSITIVE_ARGUMENT);
+    DISCOUNT_MORE_OR_EQUAL_PRICE(" discount more or equal price "),
+    EMPTY_NAME(" empty name "),
+    WRONG_NUMBER_ARGUMENT(" wrong number argument "),
+    WRONG_ARGUMENT_TYPE(" wrong argument type "),
+    NON_POSITIVE_ARGUMENT(" non positive argument ");
 
     private final String strWrongInfo;
 
