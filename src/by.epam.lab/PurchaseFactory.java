@@ -32,7 +32,6 @@ public class PurchaseFactory {
                 || elements.length > Constants.MAX_IN_LINE_LENGTH) {
             throw new CsvLineException(currentLine, Causes.WRONG_NUMBER_ARGUMENT);
         }
-        //check the string by discount purchase regex
 
         try {
             for (int i = 0; i < elements.length; i++) {
