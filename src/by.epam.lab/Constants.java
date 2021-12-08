@@ -7,8 +7,7 @@ public class Constants {
     public static final int IN_LINE_DISCOUNT = 3;
     public static final int MAX_IN_LINE_LENGTH = 4;
     public static final int MIN_IN_LINE_LENGTH = 3;
-    public static final int HUNDRED_FOR_RUBS_RESULT = 100;
-    public static final int HUNDRED_FOR_COINS_RESULT = 100;
+    public static final int HUNDRED_FOR_BYN_RESULT = 100;
     public static final String SEARCH_RESULT = "Search results: ";
     public static final String NAME = "name";
     public static final String TOTAL_COST = "Total cost";

@@ -13,6 +13,7 @@ public class CsvLineException extends Exception {
         this.cause = cause;
         this.strCause = cause.toString();
     }
+
     public CsvLineException(String csvLine, Causes cause, String wrongFieldInfo) {
         this.csvLine = csvLine;
         this.cause = cause;
@@ -30,6 +31,6 @@ public class CsvLineException extends Exception {
 
     @Override
     public String toString() {
-        return csvLine + Constants.ARROW + strCause ;
+        return csvLine + Constants.ARROW + strCause;
     }
 }

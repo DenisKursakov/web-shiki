@@ -18,7 +18,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public Byn(int rubs, int coins) {
-        this(rubs * Constants.HUNDRED_FOR_COINS_RESULT + coins);
+        this(rubs * Constants.HUNDRED_FOR_BYN_RESULT + coins);
     }
 
     public Byn(Byn byn) {
@@ -33,7 +33,7 @@ public class Byn implements Comparable<Byn> {
     }
 
     public int getRubs() {
-        return value / Constants.HUNDRED_FOR_RUBS_RESULT;
+        return value / Constants.HUNDRED_FOR_BYN_RESULT;
     }
 
     public Byn diff(Byn byn) {
@@ -46,8 +46,8 @@ public class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-        return String.format(Constants.CONVERT_FORMAT, value / Constants.HUNDRED_FOR_RUBS_RESULT,
-                value % Constants.HUNDRED_FOR_COINS_RESULT);
+        return String.format(Constants.CONVERT_FORMAT, value / Constants.HUNDRED_FOR_BYN_RESULT,
+                value % Constants.HUNDRED_FOR_BYN_RESULT);
     }
 
     public boolean equals(Object obj) {

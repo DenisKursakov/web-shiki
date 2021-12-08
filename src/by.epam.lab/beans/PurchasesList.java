@@ -123,11 +123,11 @@ public class PurchasesList {
     }
 
     private String lineToTableFormat(Purchase purchase) {
-        if(purchase == null){
+        if (purchase == null) {
             throw new NullPointerException();
         }
         String discount;
-        if(purchase.getClass() == Purchase.class){
+        if (purchase.getClass() == Purchase.class) {
             discount = Constants.MINUS;
         } else {
             discount = ((PriceDiscountPurchase) purchase).getDiscount().toString();

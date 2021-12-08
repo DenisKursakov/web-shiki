@@ -25,7 +25,6 @@ public class PurchaseComparatorBuilder {
             purchaseComparator =
                     (Comparator<Purchase>) Class.forName(COMPARATOR_NAME).newInstance();
         } catch (Exception e) {
-            //use default class independently on exception
             purchaseComparator = new PurchaseComparatorV1();
         }
     }

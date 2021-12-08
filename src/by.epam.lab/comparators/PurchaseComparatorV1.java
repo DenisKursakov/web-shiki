@@ -20,7 +20,8 @@ public class PurchaseComparatorV1 implements Comparator<Purchase> {
         }
         return result;
     }
-    private int priorityPurchase (Purchase purchase){
+
+    private int priorityPurchase(Purchase purchase) {
         return purchase instanceof PriceDiscountPurchase ? 1 : 0;
     }
 }

@@ -1,7 +1,6 @@
 package by.epam.lab.exceptions;
 
 import by.epam.lab.Constants;
-import by.epam.lab.beans.Causes;
 
 public class WrongArgumentType extends NumberFormatException {
     private final String wrongArgument;

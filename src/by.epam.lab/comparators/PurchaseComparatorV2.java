@@ -1,4 +1,5 @@
 package by.epam.lab.comparators;
+
 import by.epam.lab.beans.Purchase;
 
 import java.util.Comparator;

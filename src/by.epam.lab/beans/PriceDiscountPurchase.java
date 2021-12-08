@@ -1,7 +1,6 @@
 package by.epam.lab.beans;
 
 import by.epam.lab.Constants;
-import by.epam.lab.exceptions.CsvLineException;
 import by.epam.lab.exceptions.NonPositiveArgumentException;
 
 public class PriceDiscountPurchase extends Purchase {
