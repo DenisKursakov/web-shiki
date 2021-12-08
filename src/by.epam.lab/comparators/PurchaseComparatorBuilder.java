@@ -19,9 +19,11 @@ public class PurchaseComparatorBuilder {
         if (purchaseComparator != null) {
             return;
         }
-        final String COMPARATOR_NAME = Constants.WAY_COMPARATOR + comparatorName;
+        final String COMPARATOR_NAME = Constants.WAY_COMPARATOR +
+                comparatorName + Constants.CSV_TYPE;
         try {
-            purchaseComparator = (Comparator<Purchase>) Class.forName(comparatorName).newInstance();
+            purchaseComparator =
+                    (Comparator<Purchase>) Class.forName(COMPARATOR_NAME).newInstance();
         } catch (Exception e) {
             //use default class independently on exception
             purchaseComparator = new PurchaseComparatorV1();

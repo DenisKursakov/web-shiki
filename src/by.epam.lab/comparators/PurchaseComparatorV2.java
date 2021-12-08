@@ -1,6 +1,4 @@
 package by.epam.lab.comparators;
-
-import by.epam.lab.beans.PriceDiscountPurchase;
 import by.epam.lab.beans.Purchase;
 
 import java.util.Comparator;
@@ -9,19 +7,19 @@ public class PurchaseComparatorV2 implements Comparator<Purchase> {
     @Override
     public int compare(Purchase firstPurchase, Purchase secondPurchase) {
         int result;
+        int priorityFirstPurchase = priorityPurchase(firstPurchase);
+        int prioritySecondPurchase = priorityPurchase(secondPurchase);
         if (firstPurchase.getName().equals(secondPurchase.getName())) {
-            if (secondPurchase.getClass() == PriceDiscountPurchase.class &&
-                    firstPurchase.getClass() == Purchase.class) {
-                result = -1;
-            } else if (firstPurchase.getClass() == PriceDiscountPurchase.class &&
-                    secondPurchase.getClass() == Purchase.class) {
-                result = 1;
-            } else {
-                result = firstPurchase.getCost().compareTo(secondPurchase.getCost());
-            }
+            result = (priorityFirstPurchase == prioritySecondPurchase) ?
+                    firstPurchase.getCost().compareTo(secondPurchase.getCost()) :
+                    priorityFirstPurchase - prioritySecondPurchase;
         } else {
             result = firstPurchase.getName().compareTo(secondPurchase.getName());
         }
         return result;
+    }
+
+    private int priorityPurchase(Purchase purchase) {
+        return purchase.getClass() == Purchase.class ? 0 : 1;
     }
 }
