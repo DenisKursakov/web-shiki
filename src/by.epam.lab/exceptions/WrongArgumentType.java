@@ -26,6 +26,6 @@ public class WrongArgumentType extends NumberFormatException {
 
     @Override
     public String toString() {
-        return Constants.SPACE + wrongArgument + Constants.IN + fieldName;
+        return wrongArgument + Constants.IN + fieldName;
     }
 }

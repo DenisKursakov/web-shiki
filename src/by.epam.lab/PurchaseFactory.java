@@ -59,7 +59,7 @@ public class PurchaseFactory {
         } catch (NullPointerException e) {
             throw new CsvLineException(currentLine, Causes.EMPTY_NAME);
         } catch (NonPositiveArgumentException e) {
-            throw new CsvLineException(currentLine,Causes.NON_POSITIVE_ARGUMENT_,e.toString());
+            throw new CsvLineException(currentLine,Causes.NON_POSITIVE_ARGUMENT,e.toString());
         } catch (WrongArgumentType e){
             throw new CsvLineException(currentLine,Causes.WRONG_ARGUMENT_TYPE, e.toString());
         }

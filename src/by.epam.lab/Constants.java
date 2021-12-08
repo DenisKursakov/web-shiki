@@ -21,6 +21,11 @@ public class Constants {
     public static final String TABLE_TOTAL_COST_FORMAT = "%s\t%36s\n";
     public static final String FIRST_STRING_OF_TABLE =
             String.format("%7s%10s%10s%10s%10s\n", NAME, PRICE, NUMBER, DISCOUNT, COST);
+    public static final String DISCOUNT_MORE_OR_EQUAL_PRICE = "discount more or equal price";
+    public static final String EMPTY_NAME = " empty name ";
+    public static final String WRONG_NUMBER_ARGUMENT = " wrong number argument ";
+    public static final String WRONG_ARGUMENT_TYPE = " wrong argument type ";
+    public static final String NON_POSITIVE_ARGUMENT = " non positive argument ";
     public static final String CSV_TYPE = ".csv";
     public static final String WAY_TO_FILES = "src/";
     public static final String PURCHASE_FOUND = "Purchase: ";

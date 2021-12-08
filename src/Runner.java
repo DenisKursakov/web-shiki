@@ -6,7 +6,7 @@ import by.epam.lab.comparators.PurchaseComparatorBuilder;
 public class Runner {
     public static void main(String[] args) {
         try {
-            PurchaseComparatorBuilder.buildPurchaseComparator(args[0]);
+            PurchaseComparatorBuilder.buildPurchaseComparator(args[2]);
             PurchasesList purchasesList = new PurchasesList(args[0]);
             PurchasesList addonList = new PurchasesList(args[1]);
             showPurchasesList(purchasesList);
