@@ -46,8 +46,14 @@ public class Runner {
         System.out.println(purchasesList.toTable());
     }
 
-    private static void delete(PurchasesList purchasesList, int value) {
-        purchasesList.delete(value);
+    private static void delete(PurchasesList purchasesList, int index) {
+        if(purchasesList.isIndexCorrect(index)) {
+            purchasesList.delete(index);
+            System.out.println(Constants.INDEX + index + Constants.WAS_FOUND_AND_DELETED);
+        } else {
+            System.out.println(Constants.INDEX + index + Constants.IS_NOT_FOUND);
+        }
+
     }
 
 }

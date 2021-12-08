@@ -1,7 +1,7 @@
 package by.epam.lab;
 
 public class Constants {
-
+    public static final int IN_LINE_NAME = 0;
     public static final int IN_LINE_PRICE = 1;
     public static final int IN_LINE_NUMBER = 2;
     public static final int IN_LINE_DISCOUNT = 3;
@@ -36,5 +36,6 @@ public class Constants {
     public static final String FORMAT_TO_TABLE = "%s\t%10s%10s%10s%10s\n";
     public static final String WAY_COMPARATOR = "by.epam.lab.comparators.";
     public static final String FILE_IS_NOT_FOUND = "File is not found";
-    public static final int IN_LINE_NAME = 0;
+    public static final String INDEX = "index ";
+    public static final String WAS_FOUND_AND_DELETED = " was found and deleted";
 }
