@@ -36,4 +36,5 @@ public class Constants {
     public static final String FORMAT_TO_TABLE = "%s\t%10s%10s%10s%10s\n";
     public static final String WAY_COMPARATOR = "by.epam.lab.comparators.";
     public static final String FILE_IS_NOT_FOUND = "File is not found";
+    public static final int IN_LINE_NAME = 0;
 }

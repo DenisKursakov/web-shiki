@@ -9,18 +9,18 @@ public class Runner {
             PurchaseComparatorBuilder.buildPurchaseComparator(args[0]);
             PurchasesList purchasesList = new PurchasesList(args[0]);
             PurchasesList addonList = new PurchasesList(args[1]);
-            System.out.println(purchasesList.toTable());
+            showPurchasesList(purchasesList);
             purchasesList.insert(0, addonList.getPurchases()
                     .get(addonList.getPurchases().size() - 1));
             purchasesList.insert(1000, addonList.getPurchases()
                     .get(0));
             purchasesList.insert(2, addonList.getPurchases().get(2));
-            purchasesList.delete(3);
-            purchasesList.delete(10);
-            purchasesList.delete(-5);
-            System.out.println(purchasesList.toTable());
+            delete(purchasesList, 3);
+            delete(purchasesList, 10);
+            delete(purchasesList, -5);
+            showPurchasesList(purchasesList);
             purchasesList.sortList();
-            System.out.println(purchasesList.toTable());
+            showPurchasesList(purchasesList);
             int indexSearch1 = purchasesList.searchPurchase(addonList.getPurchases().get(1));
             int indexSearch2 = purchasesList.searchPurchase(addonList.getPurchases().get(3));
             System.out.println(Constants.SEARCH_RESULT);
@@ -40,6 +40,14 @@ public class Runner {
             System.out.println(Constants.PURCHASE_FOUND +
                     purchasesList.getPurchases().get(indexByList) + Constants.IS_NOT_FOUND);
         }
+    }
+
+    private static void showPurchasesList(PurchasesList purchasesList) {
+        System.out.println(purchasesList.toTable());
+    }
+
+    private static void delete(PurchasesList purchasesList, int value) {
+        purchasesList.delete(value);
     }
 
 }

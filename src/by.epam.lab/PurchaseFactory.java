@@ -8,18 +8,18 @@ public class PurchaseFactory {
         GENERAL_PURCHASE {
             @Override
             Purchase getPurchase(String[] elements) {
-                return new Purchase(elements[0],
-                        Integer.parseInt(elements[1]),
-                        Integer.parseInt(elements[2]));
+                return new Purchase(elements[Constants.IN_LINE_NAME],
+                        Integer.parseInt(elements[Constants.IN_LINE_PRICE]),
+                        Integer.parseInt(elements[Constants.IN_LINE_NUMBER]));
             }
         },
         DISCOUNT_PURCHASE {
             @Override
             Purchase getPurchase(String[] elements) {
-                return new PriceDiscountPurchase(elements[0],
-                        Integer.parseInt(elements[1]),
-                        Integer.parseInt(elements[2]),
-                        Integer.parseInt(elements[3]));
+                return new PriceDiscountPurchase(elements[Constants.IN_LINE_NAME],
+                        Integer.parseInt(elements[Constants.IN_LINE_PRICE]),
+                        Integer.parseInt(elements[Constants.IN_LINE_NUMBER]),
+                        Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT]));
             }
         };
 
@@ -53,7 +53,8 @@ public class PurchaseFactory {
                             Integer.parseInt(elements[Constants.IN_LINE_DISCOUNT])) {
                 throw new CsvLineException(currentLine, Causes.DISCOUNT_MORE_OR_EQUAL_PRICE);
             }
-            return elements.length == 4 ? PurchaseKind.DISCOUNT_PURCHASE.getPurchase(elements) :
+            return elements.length == Constants.MAX_IN_LINE_LENGTH ?
+                    PurchaseKind.DISCOUNT_PURCHASE.getPurchase(elements) :
                     PurchaseKind.GENERAL_PURCHASE.getPurchase(elements);
         } catch (NullPointerException e) {
             throw new CsvLineException(currentLine, Causes.EMPTY_NAME);
