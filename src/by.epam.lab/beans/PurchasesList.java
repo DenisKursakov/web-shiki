@@ -43,7 +43,7 @@ public class PurchasesList {
         }
     }
 
-    public List<Purchase> getPurchases() throws CsvLineException {
+    public List<Purchase> getPurchases() {
         List<Purchase> purchasesClone = new ArrayList<>();
         for (Purchase purchase : purchases) {
             if (purchase.getClass() == Purchase.class) {
@@ -115,10 +115,21 @@ public class PurchasesList {
     public String toTable() {
         StringBuilder info = new StringBuilder(Constants.FIRST_STRING_OF_TABLE);
         for (Purchase purchase : purchases) {
-            info.append(purchase.lineToTableFormat());
+            info.append(lineToTableFormat(purchase));
         }
         info.append(String.format(Constants.TABLE_TOTAL_COST_FORMAT,
                 Constants.TOTAL_COST, getTotalCost()));
         return info.toString();
+    }
+
+    private String lineToTableFormat(Purchase purchase) {
+        String discount;
+        if (purchase.getClass() == Purchase.class) {
+            discount = Constants.MINUS;
+        } else {
+            discount = ((PriceDiscountPurchase) purchase).getDiscount().toString();
+        }
+        return String.format(Constants.FORMAT_TO_TABLE, purchase.getName(), purchase.getPrice(),
+                purchase.getNumberOfUnits(), discount, purchase.getCost());
     }
 }

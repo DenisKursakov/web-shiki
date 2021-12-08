@@ -80,11 +80,6 @@ public class Purchase {
         return new Byn(price).mul(numberOfUnits);
     }
 
-    public String lineToTableFormat() {
-        return String.format(Constants.FORMAT_TO_TABLE, getName(), getPrice(),
-                getNumberOfUnits(), Constants.MINUS, getCost());
-    }
-
     @Override
     public String toString() {
         return fieldsToString() + Constants.SEMICOLON + getCost();
