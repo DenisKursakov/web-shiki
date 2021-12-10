@@ -35,7 +35,7 @@ public class Product extends AbstractItem {
         return fieldToString();
     }
 
-    protected String fieldToString (){
+    protected String fieldToString() {
         return name + Constants.SEMICOLON + price;
     }
 }

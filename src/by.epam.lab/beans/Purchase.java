@@ -31,8 +31,8 @@ public class Purchase implements Comparable<Purchase> {
         this.quantityOfItem = quantityOfItem;
     }
 
-    public Byn getCost (){
-        return item.getPrice().mul(quantityOfItem, RoundMethod.ROUND,0);
+    public Byn getCost() {
+        return item.getPrice().mul(quantityOfItem, RoundMethod.ROUND, 0);
     }
 
     @Override

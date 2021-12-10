@@ -28,6 +28,7 @@ public class Byn implements Comparable<Byn> {
         }
         this.value = byn.value;
     }
+
     public Byn mul(double k, RoundMethod roundMethod, int d) {
         return new Byn(roundMethod.round(value * k, d));
 
@@ -38,7 +39,7 @@ public class Byn implements Comparable<Byn> {
 
     }
 
-    public Byn divide (double k, RoundMethod roundMethod, int d){
+    public Byn divide(double k, RoundMethod roundMethod, int d) {
         return new Byn(roundMethod.round(value / k, d));
     }
 

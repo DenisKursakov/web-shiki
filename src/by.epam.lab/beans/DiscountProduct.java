@@ -1,12 +1,14 @@
 package by.epam.lab.beans;
+
 import by.epam.lab.Constants;
 
 public class DiscountProduct extends Product {
     private Byn discount;
 
-    public DiscountProduct(){
+    public DiscountProduct() {
         super();
     }
+
     public DiscountProduct(String name, Byn price, Byn discount) {
         super(name, price);
         this.discount = discount;

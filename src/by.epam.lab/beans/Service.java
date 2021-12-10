@@ -35,7 +35,7 @@ public class Service extends AbstractItem {
 
     @Override
     public Byn getPrice() {
-        return totalCost.divide(numberOfServiceUsers,RoundMethod.ROUND,0);
+        return totalCost.divide(numberOfServiceUsers, RoundMethod.ROUND, 0);
     }
 
     @Override
