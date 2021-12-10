@@ -2,7 +2,7 @@ import by.epam.lab.beans.*;
 
 public class Runner {
     public static void main(String[] args) {
-        Purchase p1 = new Purchase(new Product("Milk", new Byn(1700)),20);
+        Purchase p1 = new Purchase(new Product("Milk", new Byn(170)),20);
         PurchaseUtils pu1 = new PurchaseUtils(p1);
         pu1.printPurchase();
         pu1.printCost();
