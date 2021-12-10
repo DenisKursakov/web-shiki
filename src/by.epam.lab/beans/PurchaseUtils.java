@@ -31,7 +31,7 @@ public class PurchaseUtils {
 
     public void printCostDiff(Purchase p) {
         String diffPurchase;
-        int value = this.purchase.compareTo(p);
+        int value = purchase.compareTo(p);
         if (value == 0) {
             diffPurchase = Constants.EMPTY_STRING;
         } else if (value > 0) {
@@ -52,11 +52,5 @@ public class PurchaseUtils {
         } else {
             System.out.println(Constants.PURCHASE_DOES_NOT_EXIST);
         }
-    }
-
-
-    @Override
-    public String toString() {
-        return purchase.getItem() + Constants.SEMICOLON + purchase.getQuantityOfItem();
     }
 }

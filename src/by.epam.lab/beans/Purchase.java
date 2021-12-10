@@ -5,12 +5,12 @@ import by.epam.lab.enums.RoundMethod;
 
 public class Purchase implements Comparable<Purchase> {
     private AbstractItem item;
-    private double quantityOfItem;
+    private Number quantityOfItem;
 
     public Purchase() {
     }
 
-    public Purchase(AbstractItem item, double quantityOfItem) {
+    public Purchase(AbstractItem item, Number quantityOfItem) {
         this.item = item;
         this.quantityOfItem = quantityOfItem;
     }
@@ -23,7 +23,7 @@ public class Purchase implements Comparable<Purchase> {
         this.item = item;
     }
 
-    public double getQuantityOfItem() {
+    public Number getQuantityOfItem() {
         return quantityOfItem;
     }
 
@@ -32,7 +32,9 @@ public class Purchase implements Comparable<Purchase> {
     }
 
     public Byn getCost() {
-        return item.getPrice().mul(quantityOfItem, RoundMethod.ROUND, 0);
+        return quantityOfItem.getClass() == Integer.class ?
+                item.getPrice().mul((int) quantityOfItem, RoundMethod.ROUND, 0) :
+                item.getPrice().mul((double) quantityOfItem, RoundMethod.ROUND, 0);
     }
 
     @Override
@@ -42,6 +44,6 @@ public class Purchase implements Comparable<Purchase> {
 
     @Override
     public String toString() {
-        return item + Constants.SEMICOLON + quantityOfItem;
+        return item + Constants.SEMICOLON + quantityOfItem + Constants.SEMICOLON + getCost();
     }
 }
