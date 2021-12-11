@@ -3,7 +3,7 @@ package by.epam.lab.beans;
 import by.epam.lab.Constants;
 import by.epam.lab.enums.RoundMethod;
 
-public class Service extends AbstractItem {
+public class Service implements Priceable {
     private String name;
     private Byn totalCost;
     private int numberOfServiceUsers;
@@ -35,7 +35,7 @@ public class Service extends AbstractItem {
 
     @Override
     public Byn getPrice() {
-        return totalCost.divide(numberOfServiceUsers, RoundMethod.ROUND, 0);
+        return totalCost.divide(numberOfServiceUsers, RoundMethod.CEIL, 0);
     }
 
     @Override

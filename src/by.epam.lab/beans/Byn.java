@@ -1,7 +1,6 @@
 package by.epam.lab.beans;
 
 import by.epam.lab.Constants;
-import by.epam.lab.Converter;
 import by.epam.lab.enums.RoundMethod;
 
 public class Byn implements Comparable<Byn> {
@@ -61,7 +60,8 @@ public class Byn implements Comparable<Byn> {
 
     @Override
     public String toString() {
-        return Converter.convert(value);
+        return String.format(Constants.CONVERT_FORMAT,
+                value / Constants.HUNDRED_FOR_BYN_RESULT, value % Constants.HUNDRED_FOR_BYN_RESULT);
     }
 
     public boolean equals(Object obj) {

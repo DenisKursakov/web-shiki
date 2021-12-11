@@ -4,18 +4,18 @@ import by.epam.lab.Constants;
 import by.epam.lab.enums.RoundMethod;
 
 public class Purchase implements Comparable<Purchase> {
-    private AbstractItem item;
+    private Priceable item;
     private Number quantityOfItem;
 
     public Purchase() {
     }
 
-    public Purchase(AbstractItem item, Number quantityOfItem) {
+    public Purchase(Priceable item, Number quantityOfItem) {
         this.item = item;
         this.quantityOfItem = quantityOfItem;
     }
 
-    public AbstractItem getItem() {
+    public Priceable getItem() {
         return item;
     }
 
@@ -32,9 +32,7 @@ public class Purchase implements Comparable<Purchase> {
     }
 
     public Byn getCost() {
-        return quantityOfItem.getClass() == Integer.class ?
-                item.getPrice().mul((int) quantityOfItem, RoundMethod.ROUND, 0) :
-                item.getPrice().mul((double) quantityOfItem, RoundMethod.ROUND, 0);
+        return item.getPrice().mul(quantityOfItem.doubleValue(), RoundMethod.ROUND, 0);
     }
 
     @Override

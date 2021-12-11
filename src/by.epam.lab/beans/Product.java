@@ -2,7 +2,7 @@ package by.epam.lab.beans;
 
 import by.epam.lab.Constants;
 
-public class Product extends AbstractItem {
+public class Product implements Priceable {
     private String name;
     private Byn price;
 
