@@ -3,7 +3,7 @@ package by.epam.lab.beans;
 import by.epam.lab.Constants;
 import by.epam.lab.enums.RoundMethod;
 
-public class Purchase implements Comparable<Purchase> {
+public class Purchase {
     private Priceable item;
     private Number quantityOfItem;
 
@@ -33,11 +33,6 @@ public class Purchase implements Comparable<Purchase> {
 
     public Byn getCost() {
         return item.getPrice().mul(quantityOfItem.doubleValue(), RoundMethod.ROUND, 0);
-    }
-
-    @Override
-    public int compareTo(Purchase o) {
-        return this.getCost().compareTo(o.getCost());
     }
 
     @Override

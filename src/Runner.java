@@ -1,5 +1,8 @@
 import by.epam.lab.beans.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Runner {
     public static void main(String[] args) {
         Purchase p1 = new Purchase(new Product("Milk", new Byn(170)), 20);
@@ -15,11 +18,10 @@ public class Runner {
 
         PurchaseUtils pu4 = new PurchaseUtils(new Purchase(new Service(
                 "Gym workout", new Byn(7560), 5), 2.25));
-        Purchase p4 = pu4.getPurchase();
-        pu4.printPurchase();
+        Priceable p4 = pu4.getPurchase().getItem();
+        System.out.println(p4);
         pu4.printCost();
-        Purchase[] purchases = {p1, p3, p4};
-        pu2.printIsSameCost(purchases);
+        pu2.printIsSameCost(p1,p2, pu4.getPurchase());
     }
 }
 

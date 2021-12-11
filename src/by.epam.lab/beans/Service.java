@@ -40,6 +40,7 @@ public class Service implements Priceable {
 
     @Override
     public String toString() {
-        return name + Constants.SEMICOLON + totalCost + Constants.SEMICOLON + numberOfServiceUsers;
+        return name + Constants.SEMICOLON + totalCost + Constants.SEMICOLON + numberOfServiceUsers
+                + Constants.SEMICOLON + getPrice();
     }
 }

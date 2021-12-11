@@ -4,9 +4,10 @@ import by.epam.lab.Constants;
 
 
 import java.util.Arrays;
+import java.util.List;
 
 public class PurchaseUtils {
-    private final Purchase purchase;
+    private Purchase purchase;
 
     public PurchaseUtils() {
         this(null);
@@ -29,44 +30,31 @@ public class PurchaseUtils {
     }
 
     public void printCostDiff(Purchase p) {
-        String diffPurchase;
-        int value = purchase.compareTo(p);
-        Byn diffByn;
-        if (value == 0) {
-            diffPurchase = Constants.EMPTY_STRING;
-            diffByn = new Byn(0);
-        } else if (value > 0) {
+        String diffPurchase = Constants.EMPTY_STRING;
+        Byn p1Cost = purchase.getCost();
+        Byn p2Cost = p.getCost();
+        int value = p1Cost.compareTo(p2Cost);
+        Byn diffByn = new Byn(0);
+        if (value > 0) {
             diffPurchase = Constants.POSITIVE_DIFF;
-            diffByn = purchase.getCost().diff(p.getCost());
-        } else {
+            diffByn = p1Cost.diff(p2Cost);
+        } else if (value < 0){
             diffPurchase = Constants.NEGATIVE_DIFF;
-            diffByn = p.getCost().diff(purchase.getCost());
+            diffByn = p2Cost.diff(p1Cost);
         }
         System.out.println(diffPurchase + Constants.DIFF + Constants.EQUAL_SIGN
                 + diffByn + Constants.BYN);
     }
 
-    //    public void printIsSameCost(Purchase[] purchases) {
-//        Arrays.sort(purchases);
-//        boolean indexIsCorrect = Arrays.binarySearch(purchases, purchase) >= 0;
-//        if (indexIsCorrect) {
-//            System.out.println(Constants.PURCHASE_EXIST);
-//        } else {
-//            System.out.println(Constants.PURCHASE_DOES_NOT_EXIST);
-//        }
-//    }
-    public void printIsSameCost(Purchase[] purchases) {
+    public void printIsSameCost(Purchase ... purchases) {
         boolean purchaseWasFound = false;
-        for (Purchase p : purchases) {
-            if (purchase.compareTo(p) == 0) {
+        for (Purchase p: purchases) {
+            if(purchase.getCost().compareTo(p.getCost()) == 0){
                 purchaseWasFound = true;
                 break;
             }
         }
-        if (purchaseWasFound) {
-            System.out.println(Constants.PURCHASE_EXIST);
-        } else {
-            System.out.println(Constants.PURCHASE_DOES_NOT_EXIST);
-        }
+        System.out.println(purchaseWasFound ?
+                Constants.PURCHASE_EXIST : Constants.PURCHASE_DOES_NOT_EXIST);
     }
 }
