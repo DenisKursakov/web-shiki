@@ -21,7 +21,7 @@ public class Runner {
         Priceable p4 = pu4.getPurchase().getItem();
         System.out.println(p4);
         pu4.printCost();
-        pu2.printIsSameCost(p1,p2, pu4.getPurchase());
+        pu2.printIsSameCost(p1,p3, pu4.getPurchase());
     }
 }
 

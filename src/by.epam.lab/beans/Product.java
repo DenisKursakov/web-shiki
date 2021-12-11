@@ -32,7 +32,7 @@ public class Product implements Priceable {
 
     @Override
     public String toString() {
-        return fieldToString() + getPrice();
+        return fieldToString() + Constants.SEMICOLON + getPrice();
     }
 
     protected String fieldToString() {
