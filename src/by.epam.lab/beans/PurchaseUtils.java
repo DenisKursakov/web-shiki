@@ -3,21 +3,18 @@ package by.epam.lab.beans;
 import by.epam.lab.Constants;
 
 
-import java.util.Arrays;
-import java.util.List;
-
-public class PurchaseUtils {
-    private Purchase purchase;
+public class PurchaseUtils<T extends Priceable> {
+    private Purchase<T> purchase;
 
     public PurchaseUtils() {
         this(null);
     }
 
-    public PurchaseUtils(Purchase purchase) {
+    public PurchaseUtils(Purchase<T> purchase) {
         this.purchase = purchase;
     }
 
-    public Purchase getPurchase() {
+    public Purchase<T> getPurchase() {
         return purchase;
     }
 
@@ -29,7 +26,7 @@ public class PurchaseUtils {
         System.out.println(Constants.COST + purchase.getCost() + Constants.BYN);
     }
 
-    public void printCostDiff(Purchase p) {
+    public void printCostDiff(Purchase<T> p) {
         String diffPurchase = Constants.EMPTY_STRING;
         Byn p1Cost = purchase.getCost();
         Byn p2Cost = p.getCost();
@@ -38,7 +35,7 @@ public class PurchaseUtils {
         if (value > 0) {
             diffPurchase = Constants.POSITIVE_DIFF;
             diffByn = p1Cost.diff(p2Cost);
-        } else if (value < 0){
+        } else if (value < 0) {
             diffPurchase = Constants.NEGATIVE_DIFF;
             diffByn = p2Cost.diff(p1Cost);
         }
@@ -46,10 +43,10 @@ public class PurchaseUtils {
                 + diffByn + Constants.BYN);
     }
 
-    public void printIsSameCost(Purchase ... purchases) {
+    public void printIsSameCost(AbstractPurchase<T>... purchases) {
         boolean purchaseWasFound = false;
-        for (Purchase p: purchases) {
-            if(purchase.getCost().compareTo(p.getCost()) == 0){
+        for (AbstractPurchase<T> p : purchases) {
+            if (purchase.getCost().compareTo(p.getCost()) == 0) {
                 purchaseWasFound = true;
                 break;
             }

@@ -3,23 +3,23 @@ package by.epam.lab.beans;
 import by.epam.lab.Constants;
 import by.epam.lab.enums.RoundMethod;
 
-public class Purchase {
-    private Priceable item;
+public class Purchase<T extends Priceable> extends AbstractPurchase<Priceable> {
+    private T item;
     private Number quantityOfItem;
 
     public Purchase() {
     }
 
-    public Purchase(Priceable item, Number quantityOfItem) {
+    public Purchase(T item, Number quantityOfItem) {
         this.item = item;
         this.quantityOfItem = quantityOfItem;
     }
 
-    public Priceable getItem() {
+    public T getItem() {
         return item;
     }
 
-    public void setItem(Product item) {
+    public void setItem(T item) {
         this.item = item;
     }
 
