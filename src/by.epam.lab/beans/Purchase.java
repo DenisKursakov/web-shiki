@@ -3,14 +3,14 @@ package by.epam.lab.beans;
 import by.epam.lab.Constants;
 import by.epam.lab.enums.RoundMethod;
 
-public class Purchase<T extends Priceable, T2 extends Number> {
+public class Purchase<T extends Priceable, N extends Number> {
     private T item;
-    private T2 quantityOfItem;
+    private N quantityOfItem;
 
     public Purchase() {
     }
 
-    public Purchase(T item, T2 quantityOfItem) {
+    public Purchase(T item, N quantityOfItem) {
         this.item = item;
         this.quantityOfItem = quantityOfItem;
     }
@@ -27,7 +27,7 @@ public class Purchase<T extends Priceable, T2 extends Number> {
         return quantityOfItem;
     }
 
-    public void setQuantityOfItem(T2 quantityOfItem) {
+    public void setQuantityOfItem(N quantityOfItem) {
         this.quantityOfItem = quantityOfItem;
     }
 
