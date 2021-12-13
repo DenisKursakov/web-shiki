@@ -13,7 +13,7 @@ public class Runner {
         PurchaseUtils<Product, Double> pu2 = new PurchaseUtils<>(p2);
         pu2.printCost();
         pu2.printCostDiff(p1);
-        Purchase<Product, Integer> p3 = new Purchase<>(new DiscountProduct(
+        Purchase<DiscountProduct, Integer> p3 = new Purchase<>(new DiscountProduct(
                 "Sugar", new Byn(280), new Byn(10)), 60);
 
         PurchaseUtils<Service, Double> pu4 = new PurchaseUtils<>(new Purchase<>(new Service(
