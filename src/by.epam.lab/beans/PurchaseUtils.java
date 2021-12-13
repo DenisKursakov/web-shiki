@@ -30,7 +30,8 @@ public class PurchaseUtils<T extends Priceable, N extends Number> {
         System.out.println(Constants.COST + purchase.getCost() + Constants.BYN);
     }
 
-    public void printCostDiff(Purchase<T, N> p) {
+    public <E extends Purchase<? extends Priceable, ? extends Number>>
+    void printCostDiff(E p) {
         String diffPurchase = Constants.EMPTY_STRING;
         Byn p1Cost = purchase.getCost();
         Byn p2Cost = p.getCost();
