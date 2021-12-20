@@ -68,6 +68,11 @@ public class Byn implements Comparable<Byn> {
     }
 
     @Override
+    public int hashCode() {
+        return value + Constants.NUMBER_TO_HASH_BYN;
+    }
+
+    @Override
     public int compareTo(Byn byn) {
         return value - byn.value;
     }

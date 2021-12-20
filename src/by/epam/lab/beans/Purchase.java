@@ -1,7 +1,6 @@
 package by.epam.lab.beans;
 
 import by.epam.lab.Constants;
-
 import java.util.Scanner;
 
 public class Purchase {
@@ -21,15 +20,13 @@ public class Purchase {
     }
 
     public Purchase(Scanner scanner) {
-        this.productName = scanner.next();
-        this.price = new Byn(scanner);
-        this.numberOfUnits = scanner.nextInt();
+        this(scanner.next(), new Byn(scanner), scanner.nextInt());
     }
 
     public Purchase(String[] elements) {
-        this.productName = elements[Constants.PURCHASE_NAME_ID];
-        this.price = new Byn(Integer.parseInt(elements[Constants.PURCHASE_PRICE_ID]));
-        this.numberOfUnits = Integer.parseInt(elements[Constants.PURCHASE_NUMBER_ID]);
+        this(elements[Constants.PURCHASE_NAME_ID],
+                new Byn(Integer.parseInt(elements[Constants.PURCHASE_PRICE_ID])),
+                Integer.parseInt(elements[Constants.PURCHASE_NUMBER_ID]));
     }
 
     public void setProductName(String productName) {
@@ -75,7 +72,7 @@ public class Purchase {
             return false;
         }
         Purchase purchase = (Purchase) o;
-        return productName.equals(purchase.productName) && price.equals(purchase.price);
+        return this.productName.equals(purchase.productName) && this.price.equals(purchase.price);
     }
 
     protected String fieldsToString() {
@@ -85,6 +82,9 @@ public class Purchase {
 
     @Override
     public int hashCode() {
-        return price.getCoins();
+        int hash = productName != null ? productName.hashCode() : 0;
+        hash = hash * Constants.NUMBER_TO_HASH_MUL_PURCHASES +
+                (price != null ? price.hashCode() : 0);
+        return hash;
     }
 }

@@ -12,18 +12,16 @@ import java.util.*;
 
 public class Runner {
     public static void main(String[] args) {
-        try (Scanner scanner = new Scanner(new FileReader("src/in.csv"))) {
+        try (Scanner scanner = new Scanner(new FileReader(Constants.IN_FILE_WAY_STR))) {
             scanner.useLocale(Locale.ENGLISH);
             Map<Purchase, WeekDay> firstPurchaseMap = new HashMap<>();
             Map<Purchase, WeekDay> lastPurchaseMap = new HashMap<>();
             Map<WeekDay, List<Purchase>> enumerationMap = new HashMap<>();
             List<PricePurchase> pricePurchases = new ArrayList<>();
-            Byn totalCostPurchases = new Byn();
             while (scanner.hasNextLine()) {
                 Purchase currentPurchase = PurchasesFactory.getPurchaseFromFactory(scanner);
                 if (currentPurchase.getClass() == PricePurchase.class) {
                     pricePurchases.add((PricePurchase) currentPurchase);
-                    totalCostPurchases.add(currentPurchase.getCost());
                 }
 
                 WeekDay currentPurchaseDay = WeekDay.valueOf(scanner.nextLine());
@@ -40,26 +38,29 @@ public class Runner {
                 }
 
             }
-            printMap(firstPurchaseMap);
             printMap(lastPurchaseMap);
-            System.out.println("First day bread 1.55 = " +
+            printMap(firstPurchaseMap);
+            System.out.println(Constants.FIRST_DAY_ELEMENT_INFO +
                     searchElement(firstPurchaseMap,
-                            new Purchase("bread", new Byn(155), 0)));
-            System.out.println("Last day bread 1.55 = " +
+                            new Purchase(Constants.ELEMENT_BREAD,
+                                    new Byn(155), 0)));
+            System.out.println(Constants.LAST_DAY_ELEMENT_INFO +
                     searchElement(lastPurchaseMap,
-                            new Purchase("bread", new Byn(155), 0)));
-            System.out.println("First day bread 1.70 = " +
+                            new Purchase(Constants.ELEMENT_BREAD,
+                                    new Byn(155), 0)));
+            System.out.println(Constants.FIRST_DAY_ELEMENT_INFO +
                     searchElement(firstPurchaseMap,
-                            new Purchase("bread", new Byn(170), 0)));
-            removeElement(firstPurchaseMap, new Purchase("meat",
+                            new Purchase(Constants.ELEMENT_BREAD,
+                                    new Byn(170), 0)));
+            removeElement(lastPurchaseMap, new Purchase(Constants.ELEMENT_MEAT,
                     new Byn(0), 0).getProductName());
-            removeElement(lastPurchaseMap, WeekDay.FRIDAY.name());
-            printMap(firstPurchaseMap);
+            removeElement(firstPurchaseMap, WeekDay.FRIDAY.name());
             printMap(lastPurchaseMap);
+            printMap(firstPurchaseMap);
             printTotalCost(pricePurchases);
             printMap(enumerationMap);
             for (Map.Entry<WeekDay, List<Purchase>> entry : enumerationMap.entrySet()) {
-                System.out.print(entry.getKey() + " ");
+                System.out.print(entry.getKey() + Constants.SPACE);
                 printTotalCost(entry.getValue());
             }
             System.out.println(searchElement(enumerationMap, WeekDay.MONDAY));
@@ -87,9 +88,12 @@ public class Runner {
 
     private static <E extends Map<?, ?>> void removeElement(E currentMap, String key) {
         String resultInfo = Constants.REQUIRED_IS_NOT_FOUND;
-        for (Map.Entry<?, ?> entry : currentMap.entrySet()) {
+        Iterator<? extends Map.Entry<?, ?>> iterator = currentMap.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<?, ?> entry = iterator.next();
             if (entry.toString().contains(key)) {
-                resultInfo = entry.getKey() + " was deleted";
+                resultInfo = entry.getKey() + Constants.WAS_DELETED;
+                iterator.remove();
                 System.out.println(resultInfo);
             }
         }
@@ -103,6 +107,6 @@ public class Runner {
         for (Purchase p : list) {
             totalCost = totalCost.add(p.getCost());
         }
-        System.out.println("Total cost = " + totalCost);
+        System.out.println(Constants.TOTAL_COST + totalCost);
     }
 }
