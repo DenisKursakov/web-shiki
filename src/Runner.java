@@ -53,14 +53,14 @@ public class Runner {
                     return Constants.ELEMENT_MEAT.equals(entry.getKey().getProductName());
                 }
             };
-            removeElement(lastPurchaseMap, entryCheckerPurchaseNameMeat);
+            removeElements(lastPurchaseMap, entryCheckerPurchaseNameMeat);
             EntryChecker<Purchase, WeekDay> entryCheckerPurchaseDayFriday = new EntryChecker<>() {
                 @Override
                 public boolean check(Map.Entry<Purchase, WeekDay> entry) {
                     return WeekDay.FRIDAY.equals(entry.getValue());
                 }
             };
-            removeElement(firstPurchaseMap, entryCheckerPurchaseDayFriday);
+            removeElements(firstPurchaseMap, entryCheckerPurchaseDayFriday);
             printMap(firstPurchaseMap, Constants.FIRST_PURCHASE_MAP);
             printMap(lastPurchaseMap, Constants.LAST_PURCHASE_MAP);
             getTotalCost(pricePurchases);
@@ -84,7 +84,7 @@ public class Runner {
                     return haveMilk;
                 }
             };
-            removeElement(dayPurchaseMap, entryCheckerDayWithMilkPurchase);
+            removeElements(dayPurchaseMap, entryCheckerDayWithMilkPurchase);
             printMap(dayPurchaseMap, Constants.ENUMERATED_MAP);
 
 
@@ -109,11 +109,10 @@ public class Runner {
     }
 
 
-    private static <K, V> void removeElement(Map<K, V> currentMap,
-                                             EntryChecker<K, V> entryChecker) {
+    private static <K, V> void removeElements(Map<K, V> currentMap,
+                                              EntryChecker<K, V> entryChecker) {
         for (Iterator<Map.Entry<K, V>> it = currentMap.entrySet().iterator(); it.hasNext(); ) {
-            Map.Entry<K, V> entry = it.next();
-            if (entryChecker.check(entry)) {
+            if (entryChecker.check(it.next())) {
                 it.remove();
             }
         }
