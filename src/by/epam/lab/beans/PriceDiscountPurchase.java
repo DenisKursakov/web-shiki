@@ -4,24 +4,24 @@ import by.epam.lab.Constants;
 
 import java.util.Scanner;
 
-public class PricePurchase extends Purchase {
+public class PriceDiscountPurchase extends Purchase {
     private Byn discount;
 
-    public PricePurchase() {
+    public PriceDiscountPurchase() {
     }
 
 
-    public PricePurchase(String productName, Byn price, int numberOfUnits, Byn discount) {
+    public PriceDiscountPurchase(String productName, Byn price, int numberOfUnits, Byn discount) {
         super(productName, price, numberOfUnits);
         this.discount = discount;
     }
 
-    public PricePurchase(Scanner scanner) {
+    public PriceDiscountPurchase(Scanner scanner) {
         super(scanner);
         discount = new Byn(scanner);
     }
 
-    public PricePurchase(String[] elements) {
+    public PriceDiscountPurchase(String[] elements) {
         super(elements);
         discount = new Byn(Integer.parseInt(elements[Constants.PURCHASE_DISCOUNT_ID]));
     }

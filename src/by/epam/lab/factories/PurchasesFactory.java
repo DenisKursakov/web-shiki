@@ -1,6 +1,6 @@
 package by.epam.lab.factories;
 
-import by.epam.lab.beans.PricePurchase;
+import by.epam.lab.beans.PriceDiscountPurchase;
 import by.epam.lab.Constants;
 import by.epam.lab.beans.Purchase;
 
@@ -15,7 +15,7 @@ public class PurchasesFactory {
         },
         PRICE_PURCHASE {
             Purchase getPurchase(String[] elements) {
-                return new PricePurchase(elements);
+                return new PriceDiscountPurchase(elements);
             }
         };
 
