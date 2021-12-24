@@ -26,10 +26,11 @@ public class Runner {
                 if (!firstPurchaseMap.containsKey(currentPurchase)) {
                     firstPurchaseMap.put(currentPurchase, currentPurchaseDay);
                 }
-                if (!dayPurchaseMap.containsKey(currentPurchaseDay)) {
-                    dayPurchaseMap.put(currentPurchaseDay, new ArrayList<>());
+                List<Purchase> valueListPurchase = dayPurchaseMap.get(currentPurchaseDay);
+                if (valueListPurchase == null) {
+                    dayPurchaseMap.put(currentPurchaseDay, valueListPurchase = new ArrayList<>());
                 }
-                dayPurchaseMap.get(currentPurchaseDay).add(currentPurchase);
+                valueListPurchase.add(currentPurchase);
                 if (currentPurchase.getClass() == PriceDiscountPurchase.class) {
                     pricePurchases.add((PriceDiscountPurchase) currentPurchase);
                 }
@@ -47,20 +48,18 @@ public class Runner {
                     new Byn(170), 0);
             findAndShow(firstPurchaseMap, purchaseForSecondSearch,
                     Constants.FIRST_DAY_ELEMENT_INFO + purchaseForSecondSearch.getPrice());
-            EntryChecker<Purchase, WeekDay> entryCheckerPurchaseNameMeat = new EntryChecker<>() {
+            removeElements(lastPurchaseMap, new EntryChecker<>() {
                 @Override
                 public boolean check(Map.Entry<Purchase, WeekDay> entry) {
                     return Constants.ELEMENT_MEAT.equals(entry.getKey().getProductName());
                 }
-            };
-            removeElements(lastPurchaseMap, entryCheckerPurchaseNameMeat);
-            EntryChecker<Purchase, WeekDay> entryCheckerPurchaseDayFriday = new EntryChecker<>() {
+            });
+            removeElements(firstPurchaseMap, new EntryChecker<>() {
                 @Override
                 public boolean check(Map.Entry<Purchase, WeekDay> entry) {
                     return WeekDay.FRIDAY.equals(entry.getValue());
                 }
-            };
-            removeElements(firstPurchaseMap, entryCheckerPurchaseDayFriday);
+            });
             printMap(firstPurchaseMap, Constants.FIRST_PURCHASE_MAP);
             printMap(lastPurchaseMap, Constants.LAST_PURCHASE_MAP);
             getTotalCost(pricePurchases);
@@ -70,8 +69,7 @@ public class Runner {
                 getTotalCost(entry.getValue());
             }
             findAndShow(dayPurchaseMap, WeekDay.MONDAY, Constants.SEARCH_ELEMENT_MONDAY);
-            EntryChecker<WeekDay, List<Purchase>> entryCheckerDayWithMilkPurchase
-                    = new EntryChecker<>() {
+            removeElements(dayPurchaseMap, new EntryChecker<>() {
                 @Override
                 public boolean check(Map.Entry<WeekDay, List<Purchase>> entry) {
                     boolean haveMilk = false;
@@ -83,8 +81,7 @@ public class Runner {
                     }
                     return haveMilk;
                 }
-            };
-            removeElements(dayPurchaseMap, entryCheckerDayWithMilkPurchase);
+            });
             printMap(dayPurchaseMap, Constants.ENUMERATED_MAP);
 
 
@@ -95,7 +92,7 @@ public class Runner {
 
     private static <K, V> void printMap(Map<K, V> currentMap, String massage) {
         System.out.println(massage);
-        for (Map.Entry<?, ?> entry : currentMap.entrySet()) {
+        for (Map.Entry<K, V> entry : currentMap.entrySet()) {
             System.out.println(entry.getKey() + Constants.ARROW + entry.getValue());
         }
         System.out.println();

@@ -20,7 +20,9 @@ public class Purchase {
     }
 
     public Purchase(Scanner scanner) {
-        this(scanner.next(), new Byn(scanner), scanner.nextInt());
+        this.productName = scanner.next();
+        this.price = new Byn(scanner);
+        this.numberOfUnits = scanner.nextInt();
     }
 
     public Purchase(String[] elements) {
@@ -55,7 +57,7 @@ public class Purchase {
 
 
     public Byn getCost() {
-        return new Byn(price).mul(numberOfUnits);
+        return price.mul(numberOfUnits);
     }
 
     @Override
@@ -76,7 +78,7 @@ public class Purchase {
     }
 
     protected String fieldsToString() {
-        return this.getClass().getSimpleName() + Constants.SEMICOLON + productName +
+        return getClass().getSimpleName() + Constants.SEMICOLON + productName +
                 Constants.SEMICOLON + price + Constants.SEMICOLON + numberOfUnits;
     }
 

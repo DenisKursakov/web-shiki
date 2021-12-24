@@ -24,9 +24,9 @@ public class PurchasesFactory {
 
     public static Purchase getPurchaseFromFactory(Scanner scanner) {
         String[] elements = scanner.nextLine().split(Constants.SEMICOLON);
-        return elements.length == Constants.MAX_IN_LINE_LENGTH ?
-                PurchaseKind.PRICE_PURCHASE.getPurchase(elements) :
-                PurchaseKind.GENERAL_PURCHASE.getPurchase(elements);
+        PurchaseKind kind = PurchaseKind.values()[elements.length -
+                Constants.MAX_IN_LINE_LENGTH + 1];
+        return kind.getPurchase(elements);
 
     }
 }

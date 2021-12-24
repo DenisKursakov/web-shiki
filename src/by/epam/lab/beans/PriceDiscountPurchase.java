@@ -36,7 +36,7 @@ public class PriceDiscountPurchase extends Purchase {
 
     @Override
     public Byn getCost() {
-        return new Byn(getPrice()).diff(discount).mul(getNumberOfUnits());
+        return getPrice().diff(discount).mul(getNumberOfUnits());
     }
 
     protected String fieldsToString() {
