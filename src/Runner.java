@@ -7,7 +7,7 @@ import java.util.*;
 public class Runner {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(new FileReader(Constants.IN_FILE_WAY_STR))) {
-            TreeSet<SegmentInfo> someSet = new TreeSet<>();
+            TreeSet<SegmentInfo> segmentsSet = new TreeSet<>();
             Set<SegmentInfo> resultSet = new TreeSet<>(new Comparator<>() {
                 @Override
                 public int compare(SegmentInfo o1, SegmentInfo o2) {
@@ -27,16 +27,16 @@ public class Runner {
                         secondCoordinates[0]) + getSquareDiffResult(
                         firstCoordinates[1], secondCoordinates[1])));
                 SegmentInfo currentSegment = new SegmentInfo(length, 1);
-                SegmentInfo ceilElement = someSet.ceiling(currentSegment);
-                SegmentInfo floorElement = someSet.floor(currentSegment);
+                SegmentInfo ceilElement = segmentsSet.ceiling(currentSegment);
+                SegmentInfo floorElement = segmentsSet.floor(currentSegment);
                 SegmentInfo requiredElement = (ceilElement == floorElement) ? floorElement : null;
                 if (requiredElement != null) {
                     requiredElement.setNumberOfSegments(requiredElement.getNumberOfSegments() + 1);
                 } else {
-                    someSet.add(currentSegment);
+                    segmentsSet.add(currentSegment);
                 }
             }
-            resultSet.addAll(someSet);
+            resultSet.addAll(segmentsSet);
 
             for (SegmentInfo segmentsInfo : resultSet) {
                 System.out.println(segmentsInfo);
