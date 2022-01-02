@@ -1,6 +1,6 @@
-package beans;
+package by.epam.lab.beans;
 
-import constants.Constants;
+import by.epam.lab.constants.Constants;
 
 public class SegmentInfo implements Comparable<SegmentInfo> {
     private int segmentsLength;
