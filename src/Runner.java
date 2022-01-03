@@ -1,7 +1,8 @@
-
 import by.epam.lab.beans.NumLen;
+import by.epam.lab.comparators.NumComparator;
 import by.epam.lab.constants.Constants;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
@@ -12,34 +13,24 @@ public class Runner {
             while (scanner.hasNextLine()) {
                 String currentLine = scanner.nextLine();
                 String[] coordinates = currentLine.split(Constants.REGEX_FOR_COORDINATES);
-                int length = (int) Math.round(Math.sqrt(
-                        getSquareDiffResult(
-                                coordinates[Constants.X1_COORDINATE_ID],
-                                coordinates[Constants.X2_COORDINATE_ID])
-                                + getSquareDiffResult(
-                                coordinates[Constants.Y1_COORDINATE_ID],
-                                coordinates[Constants.Y2_COORDINATE_ID])));
+                int length = calculateLength(coordinates);
                 segmentsSet.add(new NumLen(length));
             }
             List<NumLen> segmentsList = new ArrayList<>(segmentsSet);
-            Collections.sort(segmentsList, new Comparator<>() {
-                @Override
-                public int compare(NumLen o1, NumLen o2) {
-                    return o2.getNumberOfSegments() - o1.getNumberOfSegments();
-                }
-            });
-
-            for (NumLen segmentsInfo : segmentsList) {
-                System.out.println(segmentsInfo);
+            Collections.sort(segmentsList, new NumComparator());
+            for (NumLen numLen : segmentsList) {
+                System.out.println(numLen);
             }
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             System.out.println(Constants.FILE_IS_NOT_FOUND);
         }
     }
 
-    private static double getSquareDiffResult(String s1, String s2) {
-        double diff = Double.parseDouble(s2) - Double.parseDouble(s1);
-        diff *= diff;
-        return diff;
+    private static int calculateLength(String[] coordinates) {
+        double x1 = Double.parseDouble(coordinates[Constants.X1_COORDINATE_ID]);
+        double x2 = Double.parseDouble(coordinates[Constants.X2_COORDINATE_ID]);
+        double y1 = Double.parseDouble(coordinates[Constants.Y1_COORDINATE_ID]);
+        double y2 = Double.parseDouble(coordinates[Constants.Y2_COORDINATE_ID]);
+        return (int) Math.round(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));
     }
 }

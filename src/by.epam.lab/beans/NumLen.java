@@ -26,6 +26,9 @@ public class NumLen {
         return segmentsLength;
     }
 
+    public void incNum() {
+        numberOfSegments++;
+    }
 
     @Override
     public String toString() {
@@ -39,7 +42,7 @@ public class NumLen {
         final NumLen numLen = (NumLen) o;
         if (segmentsLength != numLen.segmentsLength)
             return false;
-        numLen.numberOfSegments++;
+        numLen.incNum();
         return true;
     }
 
