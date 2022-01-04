@@ -1,4 +1,3 @@
-import by.epam.lab.beans.NumLen;
 import by.epam.lab.comparators.NumComparator;
 import by.epam.lab.constants.Constants;
 
@@ -9,17 +8,20 @@ import java.util.*;
 public class Runner {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(new FileReader(Constants.IN_FILE_WAY_STR))) {
-            Set<NumLen> segmentsSet = new HashSet<>();
+            Map<Integer, Integer> segmentsSet = new HashMap<>();
             while (scanner.hasNextLine()) {
                 String currentLine = scanner.nextLine();
                 String[] coordinates = currentLine.split(Constants.REGEX_FOR_COORDINATES);
                 int length = calculateLength(coordinates);
-                segmentsSet.add(new NumLen(length));
+                int num = segmentsSet.get(length) != null ?
+                        segmentsSet.get(length) + Constants.INCREMENT_FOR_NUM :
+                        Constants.INCREMENT_FOR_NUM;
+                segmentsSet.put(length, num);
             }
-            List<NumLen> segmentsList = new ArrayList<>(segmentsSet);
-            Collections.sort(segmentsList, new NumComparator());
-            for (NumLen numLen : segmentsList) {
-                System.out.println(numLen);
+            List<Map.Entry<Integer, Integer>> segmentList = new ArrayList<>(segmentsSet.entrySet());
+            Collections.sort(segmentList, new NumComparator());
+            for (Map.Entry<Integer, Integer> entry : segmentList) {
+                System.out.println(entry.getKey() + Constants.SEMICOLON + entry.getValue());
             }
         } catch (FileNotFoundException e) {
             System.out.println(Constants.FILE_IS_NOT_FOUND);
