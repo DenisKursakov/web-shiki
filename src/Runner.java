@@ -8,17 +8,16 @@ import java.util.*;
 public class Runner {
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(new FileReader(Constants.IN_FILE_WAY_STR))) {
-            Map<Integer, Integer> segmentsSet = new HashMap<>();
+            Map<Integer, Integer> numLenMap = new HashMap<>();
             while (scanner.hasNextLine()) {
                 String currentLine = scanner.nextLine();
                 String[] coordinates = currentLine.split(Constants.REGEX_FOR_COORDINATES);
                 int length = calculateLength(coordinates);
-                int num = segmentsSet.get(length) != null ?
-                        segmentsSet.get(length) + Constants.INCREMENT_FOR_NUM :
-                        Constants.INCREMENT_FOR_NUM;
-                segmentsSet.put(length, num);
+                int num = numLenMap.get(length) != null ?
+                        numLenMap.get(length) + 1 : 1;
+                numLenMap.put(length, num);
             }
-            List<Map.Entry<Integer, Integer>> segmentList = new ArrayList<>(segmentsSet.entrySet());
+            List<Map.Entry<Integer, Integer>> segmentList = new ArrayList<>(numLenMap.entrySet());
             Collections.sort(segmentList, new NumComparator());
             for (Map.Entry<Integer, Integer> entry : segmentList) {
                 System.out.println(entry.getKey() + Constants.SEMICOLON + entry.getValue());
