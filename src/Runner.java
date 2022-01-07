@@ -18,14 +18,14 @@ public class Runner {
                 //create empty statement for working with the coordinates table
                 coordinatesStatement = cn.createStatement();
                 //create resultSet a with table after sorting
-                ResultSet resultCoordinatesSet = coordinatesStatement.executeQuery(
+                rs = coordinatesStatement.executeQuery(
                         Constants.SELECT_COORDINATES_TABLE_AFTER_SORTING);
                 //create list with results from coordinates table after sorting
                 List<NumLen> coordinatesList = new ArrayList<>();
-                while (resultCoordinatesSet.next()) {
+                while (rs.next()) {
                     coordinatesList.add(new NumLen(
-                            resultCoordinatesSet.getInt(Constants.LEN_ID_IN_COORDINATES_TABLE),
-                            resultCoordinatesSet.getInt(Constants.NUM_ID_IN_COORDINATE_TABLE)));
+                            rs.getInt(Constants.LEN_ID_IN_COORDINATES_TABLE),
+                            rs.getInt(Constants.NUM_ID_IN_COORDINATE_TABLE)));
                 }
 
                 //create prepare statement for working with the frequencies table
@@ -42,20 +42,19 @@ public class Runner {
                 }
 
                 //create a new result set with all data from frequencies table
-                ResultSet resultFrequenciesSet = frequenciesStatement.executeQuery(
+                rs = frequenciesStatement.executeQuery(
                         Constants.SELECT_FREQUENCIES_TABLE);
 
                 //print num len data from frequencies table before sorting
-                printLenNum(resultFrequenciesSet, Constants.LEN_ID_IN_FREQUENCIES_TABLE,
+                printLenNum(rs, Constants.LEN_ID_IN_FREQUENCIES_TABLE,
                         Constants.NUM_ID_IN_FREQUENCIES_TABLE);
 
                 //create a new result set with all data from frequencies table after sorting
-                ResultSet resultFrequenciesSetAfterSorting =
-                        frequenciesStatement.executeQuery(
+                rs = frequenciesStatement.executeQuery(
                                 Constants.SELECT_FREQUENCIES_TABLE_AFTER_SORTING);
 
                 //print num len data from frequencies table after sorting
-                printLenNum(resultFrequenciesSetAfterSorting, Constants.LEN_ID_IN_FREQUENCIES_TABLE,
+                printLenNum(rs, Constants.LEN_ID_IN_FREQUENCIES_TABLE,
                         Constants.NUM_ID_IN_FREQUENCIES_TABLE);
             } finally {
                 if (rs != null && !rs.isClosed()) {
