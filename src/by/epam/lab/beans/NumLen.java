@@ -4,7 +4,7 @@ package by.epam.lab.beans;
 import by.epam.lab.Constants;
 
 public class NumLen {
-    private final int segmentsLength;
+    private int segmentsLength;
     private int numberOfSegments;
 
 
@@ -25,8 +25,8 @@ public class NumLen {
         return segmentsLength;
     }
 
-    public void incNum() {
-        numberOfSegments++;
+    public void setSegmentsLength(int segmentsLength) {
+        this.segmentsLength = segmentsLength;
     }
 
     @Override
@@ -34,22 +34,4 @@ public class NumLen {
         return segmentsLength + Constants.SEMICOLON + numberOfSegments;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        final NumLen numLen = (NumLen) o;
-        if (segmentsLength != numLen.segmentsLength)
-            return false;
-        numLen.incNum();
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        final int PRIME = Constants.NUMBER_FOR_MUL_HASHCODE;
-        int result = 1;
-        result = PRIME * result + segmentsLength;
-        return result;
-    }
 }
