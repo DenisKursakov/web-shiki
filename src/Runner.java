@@ -1,10 +1,9 @@
 import by.epam.lab.Constants;
+import by.epam.lab.beans.NumLen;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Runner {
     public static void main(String[] args) {
@@ -12,7 +11,7 @@ public class Runner {
             Class.forName(Constants.FOR_NAME_WAY);
             Connection cn = null;
             Statement coordinatesStatement = null;
-            Statement frequenciesStatement = null;
+            PreparedStatement frequenciesStatement = null;
             ResultSet rs = null;
             try {
                 cn = DriverManager.getConnection(Constants.URL, Constants.USER, Constants.PASSWORD);
@@ -21,34 +20,40 @@ public class Runner {
                 //create resultSet a with table after sorting
                 ResultSet resultCoordinatesSet = coordinatesStatement.executeQuery(
                         Constants.SELECT_COORDINATES_TABLE_AFTER_SORTING);
-                List<Integer[]> coordinatesList = new ArrayList<>();
+                //create list with results from coordinates table after sorting
+                List<NumLen> coordinatesList = new ArrayList<>();
                 while (resultCoordinatesSet.next()) {
-                    coordinatesList.add(new Integer[]{
+                    coordinatesList.add(new NumLen(
                             resultCoordinatesSet.getInt(Constants.LEN_ID_IN_COORDINATES_TABLE),
-                            resultCoordinatesSet.getInt(Constants.NUM_ID_IN_COORDINATE_TABLE)
-                    });
+                            resultCoordinatesSet.getInt(Constants.NUM_ID_IN_COORDINATE_TABLE)));
                 }
 
-                //create empty statement for working with the frequencies table
-                frequenciesStatement = cn.createStatement();
+                //create prepare statement for working with the frequencies table
+                frequenciesStatement = cn.prepareStatement(Constants.INSERT_INTO_FREQUENCIES_TABLE);
                 //delete all data from the table frequencies
                 frequenciesStatement.executeUpdate(Constants.TRUNCATE_FREQUENCIES_TABLE);
                 //enter new data into the table frequencies using INSERT SQL query
-                for (Integer[] element : coordinatesList) {
-                    frequenciesStatement.executeLargeUpdate(String.format(
-                            Constants.INSERT_INTO_FREQUENCIES_TABLE, element[0], element[1]));
+                for (NumLen numLen : coordinatesList) {
+                    frequenciesStatement.setInt(Constants.LEN_ID_IN_COORDINATES_TABLE,
+                            numLen.getSegmentsLength());
+                    frequenciesStatement.setInt(Constants.NUM_ID_IN_COORDINATE_TABLE,
+                            numLen.getNumberOfSegments());
+                    frequenciesStatement.executeUpdate();
                 }
 
                 //create a new result set with all data from frequencies table
                 ResultSet resultFrequenciesSet = frequenciesStatement.executeQuery(
                         Constants.SELECT_FREQUENCIES_TABLE);
+
                 //print num len data from frequencies table before sorting
                 printLenNum(resultFrequenciesSet, Constants.LEN_ID_IN_FREQUENCIES_TABLE,
                         Constants.NUM_ID_IN_FREQUENCIES_TABLE);
+
                 //create a new result set with all data from frequencies table after sorting
                 ResultSet resultFrequenciesSetAfterSorting =
-                        coordinatesStatement.executeQuery(
+                        frequenciesStatement.executeQuery(
                                 Constants.SELECT_FREQUENCIES_TABLE_AFTER_SORTING);
+
                 //print num len data from frequencies table after sorting
                 printLenNum(resultFrequenciesSetAfterSorting, Constants.LEN_ID_IN_FREQUENCIES_TABLE,
                         Constants.NUM_ID_IN_FREQUENCIES_TABLE);
