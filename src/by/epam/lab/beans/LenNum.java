@@ -1,14 +1,13 @@
 package by.epam.lab.beans;
 
-
 import by.epam.lab.Constants;
 
-public class NumLen {
+public class LenNum {
     private int segmentsLength;
     private int numberOfSegments;
 
 
-    public NumLen(int segmentsLength, int numberOfSegments) {
+    public LenNum(int segmentsLength, int numberOfSegments) {
         this.segmentsLength = segmentsLength;
         this.numberOfSegments = numberOfSegments;
     }
@@ -33,5 +32,4 @@ public class NumLen {
     public String toString() {
         return segmentsLength + Constants.SEMICOLON + numberOfSegments;
     }
-
 }
