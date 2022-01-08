@@ -3,8 +3,8 @@ package by.epam.lab.beans;
 import by.epam.lab.Constants;
 
 public class LenNum {
-    private int segmentsLength;
-    private int numberOfSegments;
+    private final int segmentsLength;
+    private final numberOfSegments;
 
 
     public LenNum(int segmentsLength, int numberOfSegments) {
@@ -16,16 +16,8 @@ public class LenNum {
         return numberOfSegments;
     }
 
-    public void setNumberOfSegments(int numberOfSegments) {
-        this.numberOfSegments = numberOfSegments;
-    }
-
     public int getSegmentsLength() {
         return segmentsLength;
-    }
-
-    public void setSegmentsLength(int segmentsLength) {
-        this.segmentsLength = segmentsLength;
     }
 
     @Override
