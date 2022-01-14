@@ -11,7 +11,7 @@ public class Result {
     private int mark;
 
     public Result() {
-        this(null, null, null, 0);
+
     }
 
     public Result(String login, String test, Date date, int mark) {
@@ -55,7 +55,8 @@ public class Result {
 
     @Override
     public String toString() {
-        return login + SEMICOLON + test + SEMICOLON + date + SEMICOLON
-                + String.format(FORMAT_MARK, mark / TEN_FOR_GET_INT, mark % TEN_FOR_GET_INT);
+        return login + SEMICOLON + test + SEMICOLON + date.toString().replaceAll(DASH, POINT)
+                + SEMICOLON + String.format(FORMAT_MARK, mark / TEN_FOR_GET_INT,
+                mark % TEN_FOR_GET_INT);
     }
 }
