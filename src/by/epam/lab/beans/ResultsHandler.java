@@ -16,11 +16,11 @@ public class ResultsHandler extends DefaultHandler {
         RESULTS, STUDENT, LOGIN, TESTS, TEST;
     }
 
-    private final List<Result> results = new ArrayList<>();
+    private final List<by.epam.lab.beans.Result> results = new ArrayList<>();
     private ResultEnum currentEnum;
     private String currentLogin;
 
-    public List<Result> getResults() {
+    public List<by.epam.lab.beans.Result> getResults() {
         return results;
     }
 
@@ -54,7 +54,7 @@ public class ResultsHandler extends DefaultHandler {
             throws SAXException {
         currentEnum = ResultEnum.valueOf(localName.toUpperCase());
         if (currentEnum == ResultEnum.TEST) {
-            Result currentResult = new Result();
+            by.epam.lab.beans.Result currentResult = new by.epam.lab.beans.Result();
             currentResult.setLogin(currentLogin);
             currentResult.setTest(attributes.getValue(TEST_ID));
             currentResult.setDate(Date.valueOf(attributes.getValue(DATE_ID)));

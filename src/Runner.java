@@ -1,6 +1,6 @@
 import by.epam.lab.Constants;
-import by.epam.lab.beans.ResultsHandler;
 import by.epam.lab.beans.Result;
+import by.epam.lab.beans.ResultsHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;

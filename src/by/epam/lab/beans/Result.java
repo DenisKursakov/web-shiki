@@ -1,5 +1,6 @@
 package by.epam.lab.beans;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static by.epam.lab.Constants.*;
@@ -11,7 +12,7 @@ public class Result {
     private int mark;
 
     public Result() {
-
+        this(null, null, null, 0);
     }
 
     public Result(String login, String test, Date date, int mark) {
@@ -55,7 +56,7 @@ public class Result {
 
     @Override
     public String toString() {
-        return login + SEMICOLON + test + SEMICOLON + date.toString().replaceAll(DASH, POINT)
+        return login + SEMICOLON + test + SEMICOLON + new SimpleDateFormat(DATE_FORMAT).format(date)
                 + SEMICOLON + String.format(FORMAT_MARK, mark / TEN_FOR_GET_INT,
                 mark % TEN_FOR_GET_INT);
     }
