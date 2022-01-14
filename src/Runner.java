@@ -14,10 +14,10 @@ public class Runner {
             ResultsHandler handler = new ResultsHandler();
             reader.setContentHandler(handler);
             reader.parse(Constants.WAY_RESULTS_XML);
-            for (Result result: handler.getResults()) {
+            for (Result result : handler.getResults()) {
                 System.out.println(result);
             }
-        }catch (SAXException | IOException e){
+        } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
     }

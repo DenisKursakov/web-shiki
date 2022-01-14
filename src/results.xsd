@@ -4,17 +4,17 @@
         xmlns:tns="http://www.example.org/results.xml">
     <element name="results">
         <complexType>
-        <sequence>
-            <element name="student" type="tns:Student" minOccurs="1" maxOccurs="unbounded"/>
-        </sequence>
+            <sequence>
+                <element name="student" type="tns:Student" minOccurs="1" maxOccurs="unbounded"/>
+            </sequence>
         </complexType>
     </element>
-<complexType name="Student">
-    <sequence>
-        <element name="login" type="tns:Login" minOccurs="1" maxOccurs="unbounded" />
-        <element name="tests" type="tns:Test" />
-    </sequence>
-</complexType>
+    <complexType name="Student">
+        <sequence>
+            <element name="login" type="tns:Login" minOccurs="1" maxOccurs="unbounded"/>
+            <element name="tests" type="tns:Test"/>
+        </sequence>
+    </complexType>
     <simpleType name="Login">
         <restriction base="ID">
             <pattern value="[a-zA-Z].{2,}"/>
@@ -25,7 +25,7 @@
             <element name="test" type="tns:testType" minOccurs="1" maxOccurs="unbounded"/>
         </sequence>
     </complexType>
-    <complexType name="testType" >
+    <complexType name="testType">
         <attribute name="name" type="string" use="required"/>
         <attribute name="date" type="date" use="required"/>
         <attribute name="mark" type="tns:Mark" use="required"/>

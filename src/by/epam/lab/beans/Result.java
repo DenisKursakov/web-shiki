@@ -1,6 +1,7 @@
 package by.epam.lab.beans;
 
 import java.util.Date;
+
 import static by.epam.lab.Constants.*;
 
 public class Result {
@@ -10,7 +11,7 @@ public class Result {
     private int mark;
 
     public Result() {
-
+        this(null, null, null, 0);
     }
 
     public Result(String login, String test, Date date, int mark) {

@@ -1,4 +1,5 @@
 package by.epam.lab.beans;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -49,22 +50,16 @@ public class ResultsHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes atts)
+    public void startElement(String uri, String localName, String qName, Attributes attributes)
             throws SAXException {
         currentEnum = ResultEnum.valueOf(localName.toUpperCase());
         if (currentEnum == ResultEnum.TEST) {
             Result currentResult = new Result();
             currentResult.setLogin(currentLogin);
-            currentResult.setTest(atts.getValue(TEST_ID));
-            currentResult.setDate(Date.valueOf(atts.getValue(DATE_ID)));
-            currentResult.setMark(Integer.parseInt(
-                    new StringBuilder(atts.getValue(MARK_ID)).
-                            delete(ID_START_POINT_DELETE,ID_FINISH_POINT_DELETE).toString()));
-//            currentResult.setMark(
-//                    (int) (Double.parseDouble(atts.getValue(MARK_ID)) * TEN_FOR_GET_INT));
-
-//            currentResult.setMark(Integer.parseInt(atts.getValue(MARK_ID).
-//                    replaceAll("\\.","")));
+            currentResult.setTest(attributes.getValue(TEST_ID));
+            currentResult.setDate(Date.valueOf(attributes.getValue(DATE_ID)));
+            currentResult.setMark(
+                    (int) (Double.parseDouble(attributes.getValue(MARK_ID)) * TEN_FOR_GET_INT));
             results.add(currentResult);
         }
 
@@ -79,7 +74,7 @@ public class ResultsHandler extends DefaultHandler {
     public void characters(char[] ch, int start, int length) throws SAXException {
         String currentStr = new String(ch, start, length).trim();
         if (currentEnum == ResultEnum.LOGIN) {
-            if(!currentStr.isEmpty()) {
+            if (!currentStr.isEmpty()) {
                 currentLogin = currentStr;
             }
         }
