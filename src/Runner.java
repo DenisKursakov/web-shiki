@@ -17,8 +17,8 @@ public class Runner {
             for (Result result : handler.getResults()) {
                 System.out.println(result);
             }
-        } catch (SAXException | IOException e) {
-            e.printStackTrace();
+        } catch (SAXException | IOException | IllegalArgumentException e) {
+            throw new IllegalArgumentException();
         }
     }
 }
