@@ -35,9 +35,9 @@ public class ResultsHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
-        String currentStr = new String(ch, start, length).trim();
+    public void characters(char[] ch, int start, int length) {
         if (currentEnum == ResultEnum.LOGIN) {
+            String currentStr = new String(ch, start, length).trim();
             if (!currentStr.isEmpty()) {
                 currentLogin = currentStr;
             }
