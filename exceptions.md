@@ -908,15 +908,13 @@ trialProvider.close();
 ```  
 **Ответ:** 
 ```java  
-public interface TrialProvidable {  
-    boolean hasTrial();  
-    Trial getTrial() throws CsvLineException;  
-    void close();  
-}  
-  
+  public interface TrialProvidable {  
+boolean hasTrial();  
+Trial getTrial() throws CsvLineException;  
+void close();  
+}
 public class TrialCsvImpl implements TrialProvidable {  
-    private Scanner sc;  
-  
+private Scanner sc;
     public TrialCsvImpl(String csvName) {  
         try {  
             sc = new Scanner(new FileReader(csvName));  
@@ -948,10 +946,8 @@ public class TrialCsvImpl implements TrialProvidable {
     public void close() {  
         sc.close();      
     }  
-}  
-  
-public class Runner {  
-  
+}
+public class Runner {
     private static List<Trial> getTrials(TrialProvidable trialProvider) {  
         List<Trial> trials = new ArrayList<Trial>();  
         while (trialProvider.hasTrial()) {  
@@ -978,12 +974,12 @@ public class Runner {
             }  
             List<Trial> trials = getTrials(trialProvider);  
 //          ...  
-        } finally {  
-            if (trialProvider != null) {  
-                trialProvider.close();  
-            }  
-        }  
-    }  
+} finally {  
+if (trialProvider != null) {  
+trialProvider.close();  
 }  
+}  
+}  
+}
 ```  
 
