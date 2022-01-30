@@ -6,6 +6,7 @@ import by.epam.lab.enums.TestNames;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -55,7 +56,7 @@ public class RunnerForCsvFile2 {
                     psForResultInsert.addBatch();
                 }
                 psForResultInsert.executeBatch();
-            } catch (SQLException e) {
+            } catch (FileNotFoundException e) {
                 System.err.println(e);
             }
             try (ResultSet rs = st.executeQuery(SELECT_RESULT_TABLE_AFTER_SORTED_BY_MEAN_MARK)) {
@@ -65,6 +66,8 @@ public class RunnerForCsvFile2 {
                             rs.getDouble(MEAN_MARK_ID) / 10);
                 }
                 System.out.println(DIVIDING_LINE);
+            } catch (SQLException e) {
+                System.err.println(e);
             }
             List<Result> resultList = new LinkedList<>();
             try (ResultSet rs = st.executeQuery(SELECT_RESULT_TABLE_AFTER_SORTED_BY_DATE)) {
@@ -81,13 +84,24 @@ public class RunnerForCsvFile2 {
             }
             printList(resultList);
             System.out.println(DIVIDING_LINE);
-            for (Result result : resultList) {
-                if (result.getDate().equals(resultList.get(resultList.size() - 1).getDate())) {
+            //print the tests which passed in the last day of current month
+            LocalDate localDateNow = LocalDate.now();
+            LocalDate DateWithMaxDay = LocalDate.MIN;
+            for (int i = resultList.size() - 1; i >= 0; i--) {
+                Result result = resultList.get(i);
+                LocalDate resultLocalDate = result.getDate().toLocalDate();
+                if (resultLocalDate.getMonth().equals(localDateNow.getMonth()) &&
+                        resultLocalDate.getYear() == localDateNow.getYear() &&
+                        DateWithMaxDay.getDayOfMonth() <= resultLocalDate.getDayOfMonth()) {
+                    DateWithMaxDay = resultLocalDate;
                     System.out.println(result);
                 }
             }
+            if(DateWithMaxDay.equals(LocalDate.MIN)){
+                System.out.println(REQUIRED_MONTH_IS_NOT_FOUND);
+            }
 
-        } catch (SQLException | FileNotFoundException e) {
+        } catch (SQLException e) {
             System.err.println(e);
         }
     }

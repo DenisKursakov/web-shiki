@@ -8,8 +8,10 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -46,7 +48,11 @@ public class RunnerForXmlFile {
                 XMLReader reader = XMLReaderFactory.createXMLReader();
                 ResultsHandler handler = new ResultsHandler();
                 reader.setContentHandler(handler);
-                reader.parse(Constants.FILE_NAME_FOR_TASK2);
+                try {
+                    reader.parse(Constants.FILE_NAME_FOR_TASK2);
+                } catch (FileNotFoundException e) {
+                    System.err.println(e);
+                }
                 //delete all from result table
                 st.executeUpdate(String.format(DELETE_ALL_FROM_TABLE_FORMAT, RESULTS_TABLE_NAME));
                 //insert new data to result table
@@ -69,8 +75,10 @@ public class RunnerForXmlFile {
                 while (rs.next()) {
                     System.out.printf(FORMAT_FOR_AVG_MARK_TABLE,
                             rs.getString(NAME_ID_FOR_SET_LOG_TEST),
-                            rs.getDouble(MEAN_MARK_ID) / 10);
+                            rs.getDouble(MEAN_MARK_ID) / TEN_FOR_GET_INT);
                 }
+            } catch (SQLException e) {
+                System.err.println(e);
             }
             // print collections after sorting
             System.out.println(DIVIDING_LINE);
@@ -86,16 +94,24 @@ public class RunnerForXmlFile {
                     );
                     resultList.add(currentResult);
                 }
-            } catch (SQLException e) {
-                System.err.println(e);
             }
             printList(resultList);
             System.out.println(DIVIDING_LINE);
             //print the tests which passed in the last day of current month
-            for (Result result : resultList) {
-                if (result.getDate().equals(resultList.get(resultList.size() - 1).getDate())) {
+            LocalDate localDateNow = LocalDate.now();
+            LocalDate DateWithMaxDay = LocalDate.MIN;
+            for (int i = resultList.size() - 1; i >= 0; i--) {
+                Result result = resultList.get(i);
+                LocalDate resultLocalDate = result.getDate().toLocalDate();
+                if (resultLocalDate.getMonth().equals(localDateNow.getMonth()) &&
+                        resultLocalDate.getYear() == localDateNow.getYear() &&
+                        DateWithMaxDay.getDayOfMonth() <= resultLocalDate.getDayOfMonth()) {
+                    DateWithMaxDay = resultLocalDate;
                     System.out.println(result);
                 }
+            }
+            if(DateWithMaxDay.equals(LocalDate.MIN)){
+                System.out.println(REQUIRED_MONTH_IS_NOT_FOUND);
             }
         } catch (SQLException | SAXException |
                 IOException e) {

@@ -16,23 +16,13 @@ public class Constants {
             "INNER JOIN logins ON results.loginId = logins.idLogin " +
             "GROUP BY log_name " +
             "ORDER BY mean_mark DESC;";
-    public static final String SELECT_RESULT_TABLE_LAST_DAY_MARK =
-            "SELECT logins.name, tests.name, max(dat), mark FROM results \n" +
-            "INNER JOIN tests ON results.testId = tests.idTest\n" +
-            "INNER JOIN logins ON results.loginId = logins.idLogin \n" +
-            "group by logins.name";
     public static final String SELECT_RESULT_TABLE_AFTER_SORTED_BY_DATE =
             "SELECT logins.name, tests.name, dat, mark FROM results\n" +
                     "    INNER JOIN tests ON results.testId = tests.idTest\n" +
                     "    INNER JOIN logins ON results.loginId = logins.idLogin\n" +
                     "    order by dat asc";
-    public static final String ALTER_TABLE_FOR_DOUBLE_MARK_IN_RESULTS_TABLE =
-            "ALTER TABLE `results`.`results` " +
-            "CHANGE COLUMN `mark` `mark` DOUBLE NOT NULL ;";
-    public static final String ALTER_TABLE_FOR_INT_MARK_IN_RESULTS_TABLE =
-            "ALTER TABLE `results`.`results` " +
-            "CHANGE COLUMN `mark` `mark` INT NOT NULL ;";
     //other constants
+    public static final String REQUIRED_MONTH_IS_NOT_FOUND = "Required month is not found";
     public static final String FILE_NAME_FOR_TASK1 = "src/results.csv";
     public static final String FILE_NAME_FOR_TASK2 = "src/results.xml";
     public static final String FILE_NAME_FOR_TASK3 = "src/results2.csv";
