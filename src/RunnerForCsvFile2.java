@@ -37,11 +37,10 @@ public class RunnerForCsvFile2 {
                 psForTestInsert.addBatch();
             }
             psForTestInsert.executeBatch();
-
+            st.executeUpdate(String.format(DELETE_ALL_FROM_TABLE_FORMAT, RESULTS_TABLE_NAME));
             try (Scanner sc = new Scanner(new FileReader(FILE_NAME_FOR_TASK3));
                  PreparedStatement psForResultInsert =
                          cn.prepareStatement(INSERT_INTO_RESULTS_TABLE)) {
-                st.executeUpdate(String.format(DELETE_ALL_FROM_TABLE_FORMAT, RESULTS_TABLE_NAME));
                 //get strings from scanner, create Result element
                 while (sc.hasNextLine()) {
                     String[] elements = sc.nextLine().split(SEMICOLON);

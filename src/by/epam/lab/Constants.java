@@ -25,8 +25,7 @@ public class Constants {
     public static final String REQUIRED_MONTH_IS_NOT_FOUND = "Required month is not found";
     public static final String FILE_NAME_FOR_TASK1 = "src/results.csv";
     public static final String FILE_NAME_FOR_TASK2 = "src/results.xml";
-    public static final String FILE_NAME_FOR_TASK3 = "src/results2.csv";
-    public static final String FILE_NOT_FOUND_MESSAGE = "File is not found";
+    public static final String FILE_NAME_FOR_TASK3 = "src/results.csv";
     public static final String SEMICOLON = ";";
     public static final String DIVIDING_LINE = "-----------------------------";
     public static final String FORMAT_MARK = "%d.%d";
