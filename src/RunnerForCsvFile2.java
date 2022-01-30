@@ -69,6 +69,7 @@ public class RunnerForCsvFile2 {
                 System.err.println(e);
             }
             List<Result> resultList = new LinkedList<>();
+            LocalDate localDateNow = LocalDate.now();
             try (ResultSet rs = st.executeQuery(SELECT_RESULT_TABLE_AFTER_SORTED_BY_DATE)) {
                 while (rs.next()) {
                     Result currentResult = new Result(
@@ -78,25 +79,26 @@ public class RunnerForCsvFile2 {
                             rs.getInt(MARK_ID_FOR_STATEMENT_SET),
                             MarkStrFactory.MarkType.MIX_TYPE
                     );
-                    resultList.add(currentResult);
+                    LocalDate resultLocalDate = currentResult.getDate().toLocalDate();
+                    if (resultLocalDate.getMonth().equals(localDateNow.getMonth()) &&
+                            resultLocalDate.getYear() == localDateNow.getYear()) {
+                        resultList.add(currentResult);
+                    }
                 }
             }
             printList(resultList);
             System.out.println(DIVIDING_LINE);
+            System.out.println(PRINT_TESTS_LAST_DAY);
             //print the tests which passed in the last day of current month
-            LocalDate localDateNow = LocalDate.now();
-            LocalDate DateWithMaxDay = LocalDate.MIN;
-            for (int i = resultList.size() - 1; i >= 0; i--) {
-                Result result = resultList.get(i);
-                LocalDate resultLocalDate = result.getDate().toLocalDate();
-                if (resultLocalDate.getMonth().equals(localDateNow.getMonth()) &&
-                        resultLocalDate.getYear() == localDateNow.getYear() &&
-                        DateWithMaxDay.getDayOfMonth() <= resultLocalDate.getDayOfMonth()) {
-                    DateWithMaxDay = resultLocalDate;
-                    System.out.println(result);
+            if (!resultList.isEmpty()) {
+                int dateWithMaxDay = resultList.get(resultList.size() - 1)
+                        .getDate().toLocalDate().getDayOfMonth();
+                for (Result result : resultList) {
+                    if (result.getDate().toLocalDate().getDayOfMonth() == dateWithMaxDay) {
+                        System.out.println(result);
+                    }
                 }
-            }
-            if(DateWithMaxDay.equals(LocalDate.MIN)){
+            } else {
                 System.out.println(REQUIRED_MONTH_IS_NOT_FOUND);
             }
 

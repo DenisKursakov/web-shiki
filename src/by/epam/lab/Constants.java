@@ -25,12 +25,13 @@ public class Constants {
     public static final String REQUIRED_MONTH_IS_NOT_FOUND = "Required month is not found";
     public static final String FILE_NAME_FOR_TASK1 = "src/results.csv";
     public static final String FILE_NAME_FOR_TASK2 = "src/results.xml";
-    public static final String FILE_NAME_FOR_TASK3 = "src/results.csv";
+    public static final String FILE_NAME_FOR_TASK3 = "src/results2.csv";
     public static final String SEMICOLON = ";";
     public static final String DIVIDING_LINE = "-----------------------------";
     public static final String FORMAT_MARK = "%d.%d";
     public static final String FORMAT_FOR_AVG_MARK_TABLE = "%s:%.2f\n";
     public static final String DATE_FORMAT = "dd.MM.yyyy";
+    public static final String PRINT_TESTS_LAST_DAY = "Tests which passed in the last day";
     public static final int TEST_ID = 0;
     public static final int DATE_ID = 1;
     public static final int MARK_ID = 2;
