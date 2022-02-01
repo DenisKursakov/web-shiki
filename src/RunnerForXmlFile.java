@@ -1,9 +1,10 @@
-import by.epam.lab.Constants;
+import by.epam.lab.utils.Constants;
 import by.epam.lab.beans.Result;
 import by.epam.lab.beans.ResultsHandler;
 import by.epam.lab.enums.LoginNames;
 import by.epam.lab.factories.MarkStrFactory;
 import by.epam.lab.enums.TestNames;
+import by.epam.lab.utils.Util;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-import static by.epam.lab.Constants.*;
+import static by.epam.lab.utils.Constants.*;
 
 public class RunnerForXmlFile {
     public static void main(String[] args) {
@@ -100,7 +101,7 @@ public class RunnerForXmlFile {
                     }
                 }
             }
-            printList(resultList);
+            Util.printResultList(resultList);
             System.out.println(DIVIDING_LINE);
             System.out.println(PRINT_TESTS_LAST_DAY);
             //print the tests which passed in the last day of current month
@@ -120,12 +121,6 @@ public class RunnerForXmlFile {
             System.err.println(e);
         }
 
-    }
-
-    private static void printList(List<Result> currentList) {
-        for (Result result : currentList) {
-            System.out.println(result);
-        }
     }
 }
 

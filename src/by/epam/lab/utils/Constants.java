@@ -1,4 +1,4 @@
-package by.epam.lab;
+package by.epam.lab.utils;
 
 public class Constants {
     //SQL-queries
@@ -7,7 +7,7 @@ public class Constants {
     public static final String RESULTS_TABLE_NAME = "results";
     public static final String DELETE_ALL_FROM_TABLE_FORMAT = "TRUNCATE TABLE %s";
     public static final String INSERT_INTO_LOGINS_TABLE = "INSERT INTO logins (name) VALUES (?);";
-    public static final String INSERT_INTO_TESTS_TABLE = "INSERT INTO tests (name) VALUES (?)";
+    public static final String INSERT_INTO_TESTS_TABLE = "INSERT INTO tests (name) VALUES (?);";
     public static final String INSERT_INTO_RESULTS_TABLE =
             "INSERT INTO results (loginId, testId, dat, mark) VALUES (?,?,?,?)";
     public static final String SELECT_RESULT_TABLE_AFTER_SORTED_BY_MEAN_MARK =

@@ -7,7 +7,7 @@ import by.epam.lab.enums.TestNames;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
-import static by.epam.lab.Constants.*;
+import static by.epam.lab.utils.Constants.*;
 
 public class Result implements Comparable<Result> {
     private LoginNames login;
@@ -29,8 +29,9 @@ public class Result implements Comparable<Result> {
         this.mark = mark;
         this.markStr = String.valueOf(mark);
     }
-    public Result (String login, String test, String date, int mark,
-                   MarkStrFactory.MarkType markType){
+
+    public Result(String login, String test, String date, int mark,
+                  MarkStrFactory.MarkType markType) {
         this(
                 LoginNames.valueOf(login.toUpperCase()),
                 TestNames.valueOf(test.toUpperCase()),
@@ -40,7 +41,8 @@ public class Result implements Comparable<Result> {
         markStr = MarkStrFactory.getMarkFromFactory(mark, markType);
 
     }
-    public Result (String login, String test, String date, String mark){
+
+    public Result(String login, String test, String date, String mark) {
         this(
                 LoginNames.valueOf(login.toUpperCase()),
                 TestNames.valueOf(test.toUpperCase()),
@@ -85,7 +87,6 @@ public class Result implements Comparable<Result> {
     public int getMark() {
         return mark;
     }
-
 
 
     @Override

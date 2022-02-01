@@ -2,6 +2,7 @@ import by.epam.lab.beans.Result;
 import by.epam.lab.enums.LoginNames;
 import by.epam.lab.factories.MarkStrFactory;
 import by.epam.lab.enums.TestNames;
+import by.epam.lab.utils.Util;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -11,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import static by.epam.lab.Constants.*;
+import static by.epam.lab.utils.Constants.*;
 
 public class RunnerForCsvFile2 {
     public static void main(String[] args) {
@@ -86,7 +87,7 @@ public class RunnerForCsvFile2 {
                     }
                 }
             }
-            printList(resultList);
+            Util.printResultList(resultList);
             System.out.println(DIVIDING_LINE);
             System.out.println(PRINT_TESTS_LAST_DAY);
             //print the tests which passed in the last day of current month
@@ -104,12 +105,6 @@ public class RunnerForCsvFile2 {
 
         } catch (SQLException e) {
             System.err.println(e);
-        }
-    }
-
-    private static void printList(List<Result> currentList) {
-        for (Result result : currentList) {
-            System.out.println(result);
         }
     }
 }

@@ -1,6 +1,6 @@
 package by.epam.lab.factories;
 
-import static by.epam.lab.Constants.*;
+import static by.epam.lab.utils.Constants.*;
 
 public class MarkStrFactory {
     public enum MarkType {
