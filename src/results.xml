@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <results>
-<!--    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-<!--    xmlns:tns="http://www.example.org/results.xml"-->
-<!--    xsi:schemaLocation="http://www.example.org/results.xml results.xsd">-->
     <student>
         <login>cool</login>
         <tests>
-            <test name="oop" date="2013-03-20" mark="8.5"/>
-            <test name="xml" date="2013-03-23" mark="7.3"/>
-            <test name="oop" date="2013-03-27" mark="9.4"/>
+            <test name="oop" date="2022-02-20" mark="8.5"/>
+            <test name="xml" date="2022-02-23" mark="7.3"/>
+            <test name="oop" date="2022-02-27" mark="9.4"/>
             <test name="jdbc" date="2013-03-27" mark="6.8"/>
-            <test name="xml" date="2013-03-29" mark="7.9"/>
+            <test name="xml" date="2022-02-27" mark="7.9"/>
         </tests>
     </student>
     <student>
