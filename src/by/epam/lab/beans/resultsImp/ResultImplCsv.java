@@ -5,7 +5,6 @@ import by.epam.lab.interfaces.ResultDao;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
 
 import static by.epam.lab.utils.Constants.*;
@@ -17,7 +16,7 @@ public class ResultImplCsv implements ResultDao {
         try {
             this.sc = new Scanner(new FileReader(csvName));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println(e);
         }
     }
 
@@ -36,7 +35,7 @@ public class ResultImplCsv implements ResultDao {
     }
 
     @Override
-    public void close() throws IOException {
+    public void close() {
         sc.close();
     }
 }
