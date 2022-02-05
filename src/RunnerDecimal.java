@@ -1,4 +1,5 @@
 import by.epam.lab.factories.DecimalResultFactory;
+
 import static by.epam.lab.utils.Constants.*;
 
 public class RunnerDecimal {
