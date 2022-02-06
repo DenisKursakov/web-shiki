@@ -59,7 +59,7 @@ public class RunnerLogic {
             List<Result> currentMonthResults = getCurrentMonthResults(factory);
             printLastDayResults(currentMonthResults);
         } catch (SQLException e) {
-            System.err.println(Constants.ERROR_AVERAGE_MARKS + " " + e.getMessage());
+            System.err.println(Constants.ERROR_AVERAGE_MARKS + e.getMessage());
         }
     }
 

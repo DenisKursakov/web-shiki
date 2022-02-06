@@ -1,12 +1,10 @@
 package by.epam.lab.beans;
 
-
 import by.epam.lab.utils.Constants;
 
 import java.sql.Date;
 
 public class DecimalResult extends Result {
-
     public final static int FACTOR = 10;
 
     public DecimalResult(String login, String test, Date date, int mark) {
@@ -21,6 +19,4 @@ public class DecimalResult extends Result {
         int mark = getMark();
         return String.format(Constants.FORMAT_MARK, mark / FACTOR, mark % FACTOR);
     }
-
-
 }

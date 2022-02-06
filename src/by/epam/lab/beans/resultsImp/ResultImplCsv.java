@@ -7,7 +7,6 @@ import by.epam.lab.interfaces.ResultDao;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.sql.Date;
 import java.util.Scanner;
 
 import static by.epam.lab.utils.Constants.*;
@@ -18,7 +17,7 @@ public class ResultImplCsv implements ResultDao {
 
     public ResultImplCsv(String csvName, ResultFactory resultFactory) throws SourceException {
         try {
-            this.sc = new Scanner(new FileReader(SOURCE_DIR + csvName + FILE_EXIT_CSV));
+            sc = new Scanner(new FileReader(SOURCE_DIR + csvName + FILE_EXIT_CSV));
             this.resultFactory = resultFactory;
         } catch (FileNotFoundException e) {
             throw new SourceException(e.getMessage());
@@ -37,7 +36,7 @@ public class ResultImplCsv implements ResultDao {
 
     @Override
     public boolean hasNextResult() {
-        return sc.hasNextLine();
+        return sc.hasNext();
     }
 
     @Override

@@ -2,6 +2,7 @@ package by.epam.lab.beans;
 
 import by.epam.lab.factories.ResultFactory;
 import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ public class ResultsHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) {
+    public void startElement(String uri, String localName, String qName, Attributes attributes)
+            throws SAXException {
         resultEnum = ResultEnum.valueOf(localName.toUpperCase());
         if (resultEnum == ResultEnum.TEST) {
             Result result = resultFactory.getResultFromFactory(

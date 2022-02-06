@@ -5,7 +5,6 @@ import by.epam.lab.utils.Constants;
 import java.sql.Date;
 
 public class HalfResult extends Result {
-
     public static final int FACTOR = 2;
 
     public HalfResult(String login, String test, Date date, int mark) {
@@ -22,5 +21,4 @@ public class HalfResult extends Result {
         return (mark >> 1) + ((mark & 1) == 0 ? Constants.EMPTY_STRING :
                 Constants.HALF_STRING_ELEMENT);
     }
-
 }
