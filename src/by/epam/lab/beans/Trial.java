@@ -6,7 +6,7 @@ public class Trial {
     private String account;
     private int firstTestMark;
     private int secondTestMark;
-    private static final int pointsForPass = 132;
+    private static final int POINTS_FOR_PASS = 132;
 
     public Trial() {
         super();
@@ -44,28 +44,25 @@ public class Trial {
     }
 
     public static int getPointsForPass() {
-        return pointsForPass;
-    }
-
-    public int getResult() {
-        return firstTestMark + secondTestMark;
+        return POINTS_FOR_PASS;
     }
 
     public boolean trialIsPassed() {
-        return getResult() >= pointsForPass;
+        return firstTestMark + secondTestMark >= POINTS_FOR_PASS;
     }
 
-    protected String fieldsToString (){
-        return account + DELIMITER + firstTestMark + DELIMITER + secondTestMark;
+    protected String fieldsToString() {
+        return getClass().getSimpleName() + DELIMITER +
+                account + DELIMITER + firstTestMark + DELIMITER + secondTestMark;
     }
 
-    public Trial getClone(){
-        return new Trial(account,firstTestMark,secondTestMark);
+    public Trial getClone() {
+        return new Trial(this);
     }
 
-    public void clearAllMarks(){
-        setFirstTestMark(0);
-        setSecondTestMark(0);
+    public void clearAllMarks() {
+        firstTestMark = 0;
+        secondTestMark = 0;
     }
 
     @Override

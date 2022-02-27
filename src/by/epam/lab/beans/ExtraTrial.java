@@ -1,9 +1,9 @@
 package by.epam.lab.beans;
 
-import static by.epam.lab.utils.Constants.DELIMITER;
+import static by.epam.lab.utils.Constants.*;
 
 public class ExtraTrial extends Trial {
-    private static final int pointsForPassedThirdTest = 78;
+    private static final int POINTS_FOR_PASSED_THIRD_TEST = 78;
     private int thirdTestMark;
 
     public ExtraTrial() {
@@ -15,8 +15,13 @@ public class ExtraTrial extends Trial {
         this.thirdTestMark = thirdTestMark;
     }
 
+    public ExtraTrial(Trial trial, int thirdTestMark) {
+        super(trial);
+        this.thirdTestMark = thirdTestMark;
+    }
+
     public static int getPointsForPassedThirdTest() {
-        return pointsForPassedThirdTest;
+        return POINTS_FOR_PASSED_THIRD_TEST;
     }
 
     public int getThirdTestMark() {
@@ -29,18 +34,18 @@ public class ExtraTrial extends Trial {
 
     @Override
     public boolean trialIsPassed() {
-        return super.trialIsPassed() && thirdTestMark >= pointsForPassedThirdTest;
+        return super.trialIsPassed() && thirdTestMark >= POINTS_FOR_PASSED_THIRD_TEST;
     }
 
     @Override
     public Trial getClone() {
-        return new ExtraTrial(getAccount(),getFirstTestMark(),getSecondTestMark(),thirdTestMark);
+        return new ExtraTrial(this, thirdTestMark);
     }
 
     @Override
     public void clearAllMarks() {
         super.clearAllMarks();
-        setThirdTestMark(0);
+        thirdTestMark = 0;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package by.epam.lab.beans;
 
+import by.epam.lab.utils.Constants;
+
 public class StrongTrial extends Trial {
 
     public StrongTrial() {
@@ -16,7 +18,12 @@ public class StrongTrial extends Trial {
 
     @Override
     public boolean trialIsPassed() {
-        return (double) (getFirstTestMark() / 2 + getSecondTestMark())
+        return (double) (getFirstTestMark() / Constants.TWO_FOR_HALF_SUB + getSecondTestMark())
                 >= (double) getPointsForPass();
+    }
+
+    @Override
+    public Trial getClone() {
+        return new StrongTrial(this);
     }
 }
