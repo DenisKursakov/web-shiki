@@ -3,7 +3,7 @@ package by.epam.lab.beans;
 import static by.epam.lab.utils.Constants.DELIMITER;
 
 public class ExtraTrial extends Trial {
-    private static final int pointsForPassedThirdTest = 78;
+    private static final int POINTS_FOR_PASSED_THIRD_TEST = 78;
     private int thirdTestMark;
 
     public ExtraTrial() {
@@ -16,7 +16,7 @@ public class ExtraTrial extends Trial {
     }
 
     public static int getPointsForPassedThirdTest() {
-        return pointsForPassedThirdTest;
+        return POINTS_FOR_PASSED_THIRD_TEST;
     }
 
     public int getThirdTestMark() {
@@ -29,7 +29,7 @@ public class ExtraTrial extends Trial {
 
     @Override
     public boolean trialIsPassed() {
-        return super.trialIsPassed() && thirdTestMark >= pointsForPassedThirdTest;
+        return super.trialIsPassed() && thirdTestMark >= POINTS_FOR_PASSED_THIRD_TEST;
     }
 
     @Override

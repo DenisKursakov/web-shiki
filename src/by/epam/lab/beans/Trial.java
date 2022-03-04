@@ -6,7 +6,7 @@ public class Trial {
     private String account;
     private int firstTestMark;
     private int secondTestMark;
-    private static final int pointsForPass = 132;
+    private static final int POINTS_FOR_PASS = 132;
 
     public Trial() {
         super();
@@ -44,7 +44,7 @@ public class Trial {
     }
 
     public static int getPointsForPass() {
-        return pointsForPass;
+        return POINTS_FOR_PASS;
     }
 
     public int getResult() {
@@ -52,7 +52,7 @@ public class Trial {
     }
 
     public boolean trialIsPassed() {
-        return getResult() >= pointsForPass;
+        return getResult() >= POINTS_FOR_PASS;
     }
 
     protected String fieldsToString (){

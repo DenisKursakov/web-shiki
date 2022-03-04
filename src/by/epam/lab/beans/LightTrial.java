@@ -1,8 +1,8 @@
 package by.epam.lab.beans;
 
 public class LightTrial extends Trial {
-    private static final int pointsForTest1 = 57;
-    private static final int pointsForTest2 = 78;
+    private static final int POINTS_FOR_TEST1 = 57;
+    private static final int POINTS_FOR_TEST2 = 78;
 
     public LightTrial() {
         super();
@@ -18,7 +18,11 @@ public class LightTrial extends Trial {
 
     @Override
     public boolean trialIsPassed() {
-        return getFirstTestMark() >= pointsForTest1 && getSecondTestMark() >= pointsForTest2;
+        return getFirstTestMark() >= POINTS_FOR_TEST1 && getSecondTestMark() >= POINTS_FOR_TEST2;
     }
 
+    @Override
+    public Trial getClone() {
+        return new LightTrial(this);
+    }
 }
