@@ -1,6 +1,6 @@
 package by.epam.lab.beans;
 
-import static by.epam.lab.utils.Constants.DELIMITER;
+import by.epam.lab.utils.Constants;
 
 public class ExtraTrial extends Trial {
     private static final int POINTS_FOR_PASSED_THIRD_TEST = 78;
@@ -45,7 +45,7 @@ public class ExtraTrial extends Trial {
 
     @Override
     protected String fieldsToString() {
-        return super.fieldsToString() + DELIMITER + thirdTestMark;
+        return super.fieldsToString() + Constants.DELIMITER + thirdTestMark;
     }
 
 }

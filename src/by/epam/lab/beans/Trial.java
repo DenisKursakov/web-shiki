@@ -1,6 +1,6 @@
 package by.epam.lab.beans;
 
-import static by.epam.lab.utils.Constants.*;
+import by.epam.lab.utils.Constants;
 
 public class Trial {
     private String account;
@@ -56,7 +56,7 @@ public class Trial {
     }
 
     protected String fieldsToString (){
-        return account + DELIMITER + firstTestMark + DELIMITER + secondTestMark;
+        return account + Constants.DELIMITER + firstTestMark + Constants.DELIMITER + secondTestMark;
     }
 
     public Trial getClone(){
@@ -70,6 +70,6 @@ public class Trial {
 
     @Override
     public String toString() {
-        return fieldsToString() + DELIMITER + trialIsPassed();
+        return fieldsToString() + Constants.DELIMITER + trialIsPassed();
     }
 }
