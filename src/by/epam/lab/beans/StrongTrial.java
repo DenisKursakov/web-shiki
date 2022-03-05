@@ -18,8 +18,8 @@ public class StrongTrial extends Trial {
 
     @Override
     public boolean trialIsPassed() {
-        return (double) (getFirstTestMark() / Constants.TWO_FOR_HALF_SUB + getSecondTestMark())
-                >= (double) getPointsForPass();
+        return getFirstTestMark() / Constants.TWO_FOR_HALF_SUB + getSecondTestMark()
+                >= getPointsForPass();
     }
 
     @Override

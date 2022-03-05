@@ -2,10 +2,8 @@ import by.epam.lab.beans.ExtraTrial;
 import by.epam.lab.beans.LightTrial;
 import by.epam.lab.beans.StrongTrial;
 import by.epam.lab.beans.Trial;
-import jdk.dynalink.Operation;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 
@@ -50,7 +48,8 @@ public class Runner {
         System.out.println(SEPARATOR_LINE);
         //add failed trials in the list, delete all trial's marks and print it - 6
         List<Trial> failedTrial = trials
-                .stream().filter(trial -> !trial.trialIsPassed())
+                .stream()
+                .filter(trial -> !trial.trialIsPassed())
                 .map(Trial::getClone)
                 .peek(Trial::clearAllMarks)
                 .peek(System.out::println)
@@ -70,8 +69,7 @@ public class Runner {
         String strTrials = Arrays
                 .stream(sum)
                 .mapToObj(String::valueOf)
-                .collect(Collectors.toList())
-                .toString();
+                .collect(Collectors.joining(DELIMITER));
         System.out.println(strTrials);
 
     }
