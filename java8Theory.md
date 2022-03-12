@@ -42,6 +42,8 @@ p.getGender() == Person.Sex.MALE
 Однако вам не нужно заключать вызов метода void в фигурные скобки. Например, следующее допустимое 
 лямбда-выражение:
 `электронная почта -> System.out.println (электронная почта)  `
+Тип данных параметров в лямбда-выражении можно не указывать. Кроме того, вы можете опустить круглые скобки,
+если имеется только один параметр.  
 **Источник:** https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html  
 
 4: Что такое поток и конвейер в контексте лямбда-выражения?  
@@ -54,22 +56,11 @@ p.getGender() == Person.Sex.MALE
 
 5: Какие компоненты содержит конвейер?  
 **Ответ:** 
-а) Источник: это может быть коллекция, массив, функция-генератор или канал ввода-вывода. 
-В этом примере источником является коллекция `roster`.  
+а) Источник: это может быть коллекция, массив, функция-генератор или канал ввода-вывода.
 б) Ноль или более промежуточных операций . Промежуточная операция, такая как `filter`, создает новый поток.  
 в) Поток — это последовательность элементов. В отличие от коллекции, это не структура данных, 
-в которой хранятся элементы. Вместо этого поток переносит значения из источника по конвейеру. 
-В этом примере создается поток из коллекции `roster` путем вызова метода `stream`.
-Операция `filter` возвращает новый поток, содержащий элементы, соответствующие его предикату 
-(параметр этой операции). В этом примере предикатом является лямбда-выражение 
-`e -> e.getGender() == Person.Sex.MALE`. Он возвращает логическое значение true, если `gender` поле 
-объекта `e` имеет значение `Person.Sex.MALE`. Следовательно, `filter` операция в этом примере возвращает 
-поток, содержащий всех членов мужского пола в коллекции `roster`.  
-г) Терминальная операция . Операция терминала, такая как `forEach`, создает результат, не являющийся 
-потоковым, например, примитивное значение (например, двойное значение), набор или, в случае `forEach`, 
-вообще не имеет значения. В этом примере параметром `forEach` операции является лямбда-выражение 
-`e -> System.out.println(e.getName())`, которое вызывает метод` getName` для объекта e. 
-(Среда выполнения Java и компилятор делают вывод, что тип объекта `e — Person`.)  
+в которой хранятся элементы. Вместо этого поток переносит значения из источника по конвейеру.  
+г) Терминальная операция, возвращает результат, не являющийся потоком.  
 **Источник:** https://docs.oracle.com/javase/tutorial/collections/streams/index.html#pipelines  
 
 6: Что такое агрегатные операции? Приведите примеры агрегатных операций.  
@@ -117,31 +108,23 @@ roster.stream().filter(
 
 9: Что такое целевой тип лямбда-выражения и как компилятор определяет целевой тип?  
 **Ответ:**
-Когда среда выполнения `Java` вызывает метод `printPersons`, она ожидает тип данных `CheckPerson`, 
-поэтому лямбда-выражение имеет этот тип. Однако когда среда выполнения `Java` вызывает метод 
-`printPersonsWithPredicate`, она ожидает тип данных `Predicate<Person>`, поэтому лямбда-выражение имеет 
-этот тип. Тип данных, ожидаемый этими методами, называется целевым типом. Чтобы определить тип 
-лямбда-выражения, компилятор `Java` использует целевой тип контекста или ситуации, в которой было 
-найдено лямбда-выражение. Из этого следует, что вы можете использовать лямбда-выражения только в 
-ситуациях, когда компилятор `Java` может определить целевой тип:  
-а) Объявления переменных  
-б) Задания  
-в) Операторы возврата  
-г) Инициализаторы массива  
-д) Аргументы метода или конструктора  
-е) Тела лямбда-выражений  
-ж) Условные выражения, ?:  
-з) Приведение выражений   
+Тип данных, который ожидает лямбда-выражение, называется целевым типом. Чтобы определить тип
+лямбда-выражения, компилятор Java использует целевой тип контекста или ситуации, в которой
+было найдено лямбда-выражение.  
 **Источник:** https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html#target-types-and-method-arguments  
 
 10: В каких ситуациях может использоваться лямбда-выражение?  
-**Ответ:** Одна проблема с анонимными классами заключается в том, что если реализация вашего 
-анонимного класса очень проста, например интерфейс, содержащий только один метод, то синтаксис 
-анонимных классов может показаться громоздким и неясным. В этих случаях вы обычно пытаетесь передать 
-функциональность в качестве аргумента другому методу, например, какое действие должно быть выполнено, 
-когда кто-то нажимает кнопку. Лямбда-выражения позволяют вам сделать это, рассматривая 
-функциональность как аргумент метода или код как данные.  Лямбда-выражения позволяют более компактно 
-выражать экземпляры классов с одним методом.  
+**Ответ:**  
+Лямбда-выражение может использоваться только в ситуациях, когда компилятор Java может определить целевой тип:  
+1.	Объявления переменных  
+2.	Присваивание  
+3.	Возврат значения (return)  
+4.	Инициализация массива  
+5.	Аргументы метода или конструктора  
+6.	В теле лямбда-выражения  
+7.	Условные операторы  
+8.	Операции преобразования типов  
+
 **Источник:** https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html  
 
 11: Могут ли лямбда-выражения ссылаться на другие существующие методы? Если да -
@@ -207,10 +190,12 @@ HashSet::new
 **Источник:** https://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html  
 
 13: Что такое операции сокращения в контексте лямбда-выражений?  
-**Ответ:** `JDK` также содержит операции сокращения, которые возвращают набор вместо одного значения. 
-Многие операции редукции выполняют определенную задачу, например нахождение среднего значения или 
-группировку элементов по категориям. Однако `JDK` предоставляет вам операции сокращения общего 
-назначения `reduce` и `collect`.  
+**Ответ:** Это терминальные операции, которые выполняют определенную задачу и возвращают один определенный
+элемент. `JDK` содержит множество терминальных операций (таких как `average, sum, min, max, и count`),
+которые возвращают одно значение путем объединения содержимого потока. Эти операции называются
+операциями сокращения. `JDK` также содержит операции сокращения, которые возвращают коллекцию вместо
+одного значения. Многие операции сокращения выполняют определенную задачу, например, нахождение
+среднего значения или группирование элементов по категориям.  
 **Источник:** https://docs.oracle.com/javase/tutorial/collections/streams/reduction.html  
 
 14: Чем метод `reduce` отличается от метода `collect` в контексте лямбда-выражений?  
@@ -228,13 +213,10 @@ HashSet::new
 а) итератор
 б) поток  
 **Ответ:** 
-```java
-Collection<Integer> collect = ...;
-for(Integer n: collect) {     //1
-System.out.println(n);
-}   
-collect.forEach(System.out::println);      //2
-```
+`collect.forEach(System.out::println); - 1`
+`collect.stream().forEach((e) -> System.out.println(e)); - 2`  
+**Источник:** https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html#forEach-java.util.function.Consumer-  
+      https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html#forEach-java.util.function.Consumer-  
 
 17: Выполните вывод каждого элемента `Map collect` с помощью `java 8`.  
 **Ответ:** 
@@ -497,7 +479,7 @@ public class Main {
 public static void main(String[] args) {
 List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
 boolean match = numbers.stream()
-        .allMatch(e -> e >= 0);
+        .allMatch(e -> e > 0);
 System.out.println(match);
 }
 }
@@ -614,7 +596,7 @@ Map<BlogPostType, String> postsForEachType = posts
 
 34: Приведите два способа получения последнего элемента в потоке, в чем особенности
 вычисления этого значения в потоках.  
-**Ответ:** 
+**Ответ:**  
 а) Использование `API` сокращения: 
 ```java 
 Stream stream = someList.stream();
@@ -656,17 +638,24 @@ Collectors.toMap(Book::getAuthor, Book::getName));
 bookMap.forEach((author, book) ->
 System.out.println("Author: " + author + " Books: " + book));  
 ``` 
-**Ответ:** 
+**Ответ:**   
+Если добавить в список еще один элемент:
+`books.add(new Book("Java: A Beginner's Guide", "Herbert Schildt"));`
+В итоге возникнет ошибка всвязи с дублирующимеся ключами для `map` и в приложении возникнет исключение:  
+`IllegalStateException` 
+Чтобы исправить это используем другую перегрузку метода toMap:
+`Collector<T, ?, M> toMap(Function<? super T, ? extends K> keyMapper,
+Function<? super T, ? extends U> valueMapper,
+BinaryOperator<U> mergeFunction)`
 ```java
 List<Book> books = new ArrayList<>();
         books.add(new Book("Java: A Beginner's Guide", "Herbert Schildt"));
         books.add(new Book("Effective Java", "Joshua Bloch"));
         books.add(new Book("Thinking in Java", "Bruce Eckel"));
         books.add(new Book("Java: The Complete Reference", "Herbert Schildt"));
-        Map<String, String> bookMap = new HashMap<>();
-        books.forEach(book -> bookMap.put(book.getAuthor(), book.getName()));
-        bookMap.forEach((author, book) ->
-                System.out.println("Author: " + author + " Books: " + book));
+        Map<String, String> bookMap = books.stream()
+        .collect(Collectors.toMap(Book::getAuthor, Book::getName, (existing, replacement) -> existing + ", " + replacement));
+        
     }
     static class Book {
         private String name;
@@ -695,7 +684,7 @@ List<Book> books = new ArrayList<>();
         }
     }
 ```
-
+**Источник:** https://www.baeldung.com/java-collectors-tomap  
 36: Дан код 
 ```java
 class Employee {
@@ -720,75 +709,14 @@ List<Employee> salesEmpoyees = ...
 Замените многоточие, чтобы определить сотрудников находящихся в отделе “sales”.   
 **Ответ:**  
 ```java
-   List<Employee> employees = new ArrayList<>();
-        List<Department> departments = new ArrayList<>();
-        employees.add(new Employee(1,"Bob"));
-        departments.add(new Department(1,"sales"));
-        employees.add(new Employee(2,"Tom"));
-        departments.add(new Department(2,"purchasing"));
-        employees.add(new Employee(3,"Alex"));
-        departments.add(new Department(3,"sales"));
-        populate(employees, departments); ??
-        List<Employee> salesEmployees = employees
+List<Employee> salesEmployees = employees
                 .stream()
                 .filter(employee -> departments
                         .stream()
                         .anyMatch(dep -> (dep.getEmployeeId().equals(employee.getEmployeeId())
                                 && dep.getDepartment().equals("sales")))).collect(Collectors.toList());
         salesEmployees.forEach(e -> System.out.println(e.getEmployeeName()));
-    }
-
-    static class Employee {
-        Integer employeeId;
-        String employeeName;
-
-        public Employee(Integer employeeId, String employeeName) {
-            this.employeeId = employeeId;
-            this.employeeName = employeeName;
-        }
-
-        public Integer getEmployeeId() {
-            return employeeId;
-        }
-
-        public void setEmployeeId(Integer employeeId) {
-            this.employeeId = employeeId;
-        }
-
-        public String getEmployeeName() {
-            return employeeName;
-        }
-
-        public void setEmployeeName(String employeeName) {
-            this.employeeName = employeeName;
-        }
-    }
-
-    static class Department {
-        Integer employeeId;
-        String department;
-
-        public Department(Integer employeeId, String department) {
-            this.employeeId = employeeId;
-            this.department = department;
-        }
-
-        public Integer getEmployeeId() {
-            return employeeId;
-        }
-
-        public void setEmployeeId(Integer employeeId) {
-            this.employeeId = employeeId;
-        }
-
-        public String getDepartment() {
-            return department;
-        }
-
-        public void setDepartment(String department) {
-            this.department = department;
-        }
-    }
+    
 ```
 
 37: Дан код 
@@ -817,23 +745,7 @@ List<String> names = new ArrayList<>(Arrays.asList("John", "Jane", "Jack", "Denn
                 IntStream.range(0, Math.min(names.size(), ages.size()))
                         .mapToObj(e -> new Tuple<>(names.get(e), ages.get(e)))
                         .collect(Collectors.toList());
-        System.out.println(namesAndAges);
-    }
 
-    static class Tuple<T1, T2> {
-        private T1 item1;
-        private T2 item2;
-
-        public Tuple(T1 item1, T2 item2) {
-            this.item1 = item1;
-            this.item2 = item2;
-        }
-
-        @Override
-        public String toString() {
-            return item1 + ";" + item2;
-        }
-    }
 ```
 
 38: Дан код, замените {code} и {type} так, чтобы получить нужные результаты
@@ -891,47 +803,47 @@ Collection<String> strings = Arrays.asList("a1", "b2", "c3", "a1");
         //2. Объединить все элементы в одну строку через разделитель : и обернуть тегами<b > ... </b >
         String join = strings.stream()
                 .collect(Collectors.joining(":", "<b>", "</b>"));
-        //3. напечатает <b> a1 : b2 : c3 : a1 </b>
+        // напечатает <b> a1 : b2 : c3 : a1 </b>
         System.out.println("join = " + join);
-        //4. Преобразовать в map, сгруппировав по первому символу строки
+        //3. Преобразовать в map, сгруппировав по первому символу строки
         Map<String, List<String>> groups = strings
                 .stream()
                 .collect(Collectors.groupingBy(e -> e.substring(0,1)));
         // напечатает groups = {a=[a1, a1], b=[b2], c=[c3]}
         System.out.println("groups = " + groups);
-        //5. Преобразовать в map, сгруппировав по первому символу строки и в качестве
+        //4. Преобразовать в map, сгруппировав по первому символу строки и в качестве
         // значения взять второй символ, если ключ повторяется, то значения объединить
         // через “:”
         Map<String, String> groupJoin = strings
                 .stream()
                 .collect(Collectors.groupingBy(e -> e.substring(0,1),
                         Collectors.mapping(e -> e.substring(1,2),Collectors.joining(":"))));
-        //6. напечатает groupJoin = groupJoin = {a=1:1, b=2, c=3}
+        // напечатает groupJoin = groupJoin = {a=1:1, b=2, c=3}
         System.out.println("groupJoin = " + groupJoin);
         Collection<Integer> numbers = Arrays.asList(1, 2, 3, 4);
-        //7. Получить сумму нечетных чисел
+        //1. Получить сумму нечетных чисел
         Integer sumOdd = numbers
                 .stream()
                 .collect(Collectors.summingInt(e -> e % 2 == 0 ? 0 : e));
-        //8. напечатает sumEven = 4
+        // напечатает sumEven = 4
         System.out.println("sumOdd = " + sumOdd);
-        //9. Вычесть из каждого элемента 1 и получить среднее
+        //2. Вычесть из каждого элемента 1 и получить среднее
         double average = numbers
                 .stream()
                 .collect(Collectors.averagingDouble(e -> e - 1));
-        //10. напечатает average = 1.5
+        // напечатает average = 1.5
         System.out.println("average = " + average);
-        //11. Прибавить к числам 3 и получить статистику: количество элементов, их сумму,макс и мин.значения, а также их среднее.
+        //3. Прибавить к числам 3 и получить статистику: количество элементов, их сумму,макс и мин.значения, а также их среднее.
         IntSummaryStatistics statistics = numbers
                 .stream()
                 .collect(Collectors.summarizingInt( e -> e + 3));
-        //12. напечатает statistics = … {count=4, sum=22, min=4, average=5.500000, max=7}
+        // напечатает statistics = … {count=4, sum=22, min=4, average=5.500000, max=7}
         System.out.println("statistics = " + statistics);
-        //13. Разделить числа на четные и нечетные
+        //1. Разделить числа на четные и нечетные
         Map<Boolean, List<Integer>> parts = numbers
                 .stream()
                 .collect(Collectors.partitioningBy(e -> e % 2 == 0));
-        //14. напечатает parts = {false=[1, 3], true=[2, 4]}
+        // напечатает parts = {false=[1, 3], true=[2, 4]}
         System.out.println("parts = " + parts);
 ```  
 
