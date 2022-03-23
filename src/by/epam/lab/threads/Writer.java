@@ -20,11 +20,6 @@ public class Writer implements Runnable {
         try (Scanner sc = new Scanner(new FileReader(CSV_NAME))) {
             while (sc.hasNextLine()) {
                 drop.put(sc.next());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

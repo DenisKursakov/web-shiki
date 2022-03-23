@@ -17,11 +17,6 @@ public class Reader implements Runnable {
              !MESSAGE_PUT.equals(message);
              message = drop.take()) {
             System.out.println(MESSAGE_PUT + message);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
