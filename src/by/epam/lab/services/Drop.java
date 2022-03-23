@@ -14,7 +14,9 @@ public class Drop {
                 e.printStackTrace();
             }
         }
-        System.out.println(MESSAGE_GOT + message);
+        if (!message.equals(MESSAGE_PUT)) {
+            System.out.println(MESSAGE_GOT + message);
+        }
         isEmpty = true;
         notifyAll();
         return message;
