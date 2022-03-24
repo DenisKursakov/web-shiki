@@ -22,7 +22,7 @@ public class Writer implements Runnable {
                 drop.put(sc.next());
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            System.err.println(FILE_IS_NOT_FOUND);
         }
         drop.put(MESSAGE_PUT);
     }
