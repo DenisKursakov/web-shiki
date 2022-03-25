@@ -1,12 +1,13 @@
-import by.epam.lab.services.Drop;
-import by.epam.lab.threads.Reader;
-import by.epam.lab.threads.Writer;
+import by.epam.lab.services.TrialBuffer;
+import by.epam.lab.threads.TrialConsumer;
+import by.epam.lab.threads.TrialProducer;
+import static by.epam.lab.utils.Constants.*;
 
 public class Runner {
     public static void main(String[] args) {
-        Drop drop = new Drop();
-        (new Thread(new Reader(drop))).start();
-        (new Thread(new Writer(drop))).start();
+        TrialBuffer trialBuffer = new TrialBuffer();
+        (new Thread(new TrialConsumer(trialBuffer))).start();
+        (new Thread(new TrialProducer(trialBuffer, CSV_NAME))).start();
     }
 }
 

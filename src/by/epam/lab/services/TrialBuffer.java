@@ -1,12 +1,15 @@
 package by.epam.lab.services;
 
+import by.epam.lab.beans.FakeTrial;
+import by.epam.lab.beans.Trial;
+
 import static by.epam.lab.utils.Constants.*;
 
-public class Drop {
-    private String message;
+public class TrialBuffer {
+    private Trial trial;
     private boolean isEmpty = true;
 
-    public synchronized String take() {
+    public synchronized Trial take() {
         while (isEmpty) {
             try {
                 wait();
@@ -14,15 +17,15 @@ public class Drop {
                 e.printStackTrace();
             }
         }
-        if (!message.equals(MESSAGE_PUT)) {
-            System.out.println(MESSAGE_GOT + message);
+        if (trial.getClass() != FakeTrial.class) {
+            System.out.println(MESSAGE_GOT + trial);
         }
         isEmpty = true;
         notifyAll();
-        return message;
+        return trial;
     }
 
-    public synchronized void put(String message) {
+    public synchronized void put(Trial trial) {
         while (!isEmpty) {
             try {
                 wait();
@@ -31,7 +34,7 @@ public class Drop {
             }
         }
         isEmpty = false;
-        this.message = message;
+        this.trial = trial;
         notifyAll();
     }
 }
