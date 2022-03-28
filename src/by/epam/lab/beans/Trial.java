@@ -6,7 +6,7 @@ public class Trial {
     private String account;
     private int firstTestMark;
     private int secondTestMark;
-    private static final int POINTS_FOR_PASS = 132;
+    private static final int POINTS_FOR_PASS = 175;
 
     public Trial() {
         super();
