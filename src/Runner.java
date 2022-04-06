@@ -5,6 +5,7 @@ import by.epam.lab.threads.producers.TrialProducer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.PrintWriter;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.concurrent.*;
@@ -25,17 +26,21 @@ public class Runner {
         ExecutorService consumerService = Executors.newFixedThreadPool(maxConsumersNumber);
         File folder = new File(folderName);
         File[] listOfFiles = folder.listFiles();
-        for (File file : listOfFiles) {
-            String fileName = folderName + file.getName();
-            if (fileName.matches(folderName + CSV_REG)) {
-                TrialProducer tp = new TrialProducer(strQueue, fileName);
-                TrialConsumer tc = new TrialConsumer(passedTrials, strQueue);
-                producerService.execute(tp);
-                consumerService.execute(tc);
+        try (PrintWriter writer = new PrintWriter(new File(RESULT_CSV_NAME))){
+            for (File file : listOfFiles) {
+                String fileName = folderName + file.getName();
+                if (fileName.matches(folderName + CSV_REG)) {
+                    TrialProducer tp = new TrialProducer(strQueue, fileName);
+                    TrialConsumer tc = new TrialConsumer(passedTrials, strQueue, writer);
+                    producerService.execute(tp);
+                    consumerService.execute(tc);
+                }
             }
+            producerService.shutdown();
+            consumerService.shutdown();
+        } catch (FileNotFoundException e) {
+            System.err.println(FILE_IS_NOT_FOUND);
         }
-        producerService.shutdown();
-        consumerService.shutdown();
         printResults(RESULT_CSV_NAME);
     }
 
@@ -49,7 +54,7 @@ public class Runner {
                 System.out.println(sc.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.println(FILE_IS_NOT_FOUND);
+            System.err.println(FILE_IS_NOT_FOUND);
         }
     }
 }

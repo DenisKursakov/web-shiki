@@ -10,15 +10,12 @@ import static by.epam.lab.utils.Constants.*;
 
 public class TrialProducer implements Runnable {
     private final BlockingQueue<String> strTrialsQueue;
-    private Scanner sc;
+    private final Scanner sc;
 
-    public TrialProducer(BlockingQueue<String> strTrialsQueue, String path) {
+    public TrialProducer(BlockingQueue<String> strTrialsQueue, String path)
+            throws FileNotFoundException {
         this.strTrialsQueue = strTrialsQueue;
-        try {
-            this.sc = new Scanner(new FileReader(path));
-        } catch (FileNotFoundException e) {
-            System.err.println(FILE_IS_NOT_FOUND);
-        }
+        this.sc = new Scanner(new FileReader(path));
     }
 
     @Override
@@ -30,7 +27,7 @@ public class TrialProducer implements Runnable {
             }
             strTrialsQueue.put(EMPTY_STR);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.err.println(INTERRUPTED_MESSAGE_PUT);
         }
     }
 }

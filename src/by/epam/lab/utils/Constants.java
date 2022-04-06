@@ -5,6 +5,8 @@ public class Constants {
     public static final String BASE_NAME = "data";
     public static final String TABULATION = "\n";
     public static final String FILE_IS_NOT_FOUND = "File is not found";
+    public static final String INTERRUPTED_MESSAGE_PUT  = "Thread was interrupted during a put operation";
+    public static final String INTERRUPTED_MESSAGE_TAKE  = "Thread was interrupted during a take operation";
     public static final String DELIMITER = ";";
     public static final String EMPTY_STR = "";
     public static final String RESULT_CSV_NAME = "src/passedTrials.csv";
