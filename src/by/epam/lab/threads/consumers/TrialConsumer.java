@@ -37,6 +37,9 @@ public class TrialConsumer implements Runnable {
                         }
                     }
                 } else {
+                    if (strTrialsQueue.remainingCapacity() == 0){
+                        (new Thread(writer)).start();
+                    }
                     break;
                 }
 

@@ -29,5 +29,4 @@ public class TrialWriter implements Runnable {
             System.err.println(WRITER_ERROR_MESS);
         }
     }
-
 }
