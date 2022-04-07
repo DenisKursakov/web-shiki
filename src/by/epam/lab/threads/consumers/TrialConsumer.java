@@ -1,8 +1,8 @@
 package by.epam.lab.threads.consumers;
 
 import by.epam.lab.beans.Trial;
+import by.epam.lab.threads.TrialWriter;
 
-import java.io.PrintWriter;
 import java.util.concurrent.BlockingQueue;
 
 import static by.epam.lab.utils.Constants.*;
@@ -10,10 +10,10 @@ import static by.epam.lab.utils.Constants.*;
 public class TrialConsumer implements Runnable {
     private final BlockingQueue<Trial> passedTrials;
     private final BlockingQueue<String> strTrialsQueue;
-    private final PrintWriter writer;
+    private final TrialWriter writer;
 
     public TrialConsumer(BlockingQueue<Trial> passedTrials, BlockingQueue<String> strTrialsQueue,
-                         PrintWriter writer) {
+                         TrialWriter writer) {
         this.passedTrials = passedTrials;
         this.strTrialsQueue = strTrialsQueue;
         this.writer = writer;
@@ -30,27 +30,19 @@ public class TrialConsumer implements Runnable {
                         try {
                             passedTrials.put(trial);
                             if (passedTrials.remainingCapacity() == 0) {
-                                uploadResult(passedTrials);
-                                passedTrials.clear();
+                                (new Thread(writer)).start();
                             }
                         } catch (InterruptedException e) {
                             System.err.println(INTERRUPTED_MESSAGE_PUT);
                         }
                     }
                 } else {
-                    uploadResult(passedTrials);
                     break;
                 }
 
             } catch (InterruptedException e) {
                 System.err.println(INTERRUPTED_MESSAGE_TAKE);
             }
-        }
-    }
-
-    private void uploadResult(BlockingQueue<Trial> bq) {
-        for (Trial result : bq) {
-            writer.write(result + TABULATION);
         }
     }
 }

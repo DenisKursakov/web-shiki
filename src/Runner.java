@@ -1,13 +1,10 @@
 import by.epam.lab.beans.Trial;
+import by.epam.lab.threads.TrialWriter;
 import by.epam.lab.threads.consumers.TrialConsumer;
 import by.epam.lab.threads.producers.TrialProducer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.concurrent.*;
 
 import static by.epam.lab.utils.Constants.*;
@@ -26,36 +23,31 @@ public class Runner {
         ExecutorService consumerService = Executors.newFixedThreadPool(maxConsumersNumber);
         File folder = new File(folderName);
         File[] listOfFiles = folder.listFiles();
-        try (PrintWriter writer = new PrintWriter(new File(RESULT_CSV_NAME))){
+        try {
+            TrialWriter tw = new TrialWriter(passedTrials,
+                    new BufferedWriter(new FileWriter(RESULT_CSV_NAME)));
             for (File file : listOfFiles) {
                 String fileName = folderName + file.getName();
                 if (fileName.matches(folderName + CSV_REG)) {
                     TrialProducer tp = new TrialProducer(strQueue, fileName);
-                    TrialConsumer tc = new TrialConsumer(passedTrials, strQueue, writer);
+                    TrialConsumer tc = new TrialConsumer(passedTrials, strQueue, tw);
                     producerService.execute(tp);
                     consumerService.execute(tc);
                 }
             }
             producerService.shutdown();
             consumerService.shutdown();
+
         } catch (FileNotFoundException e) {
             System.err.println(FILE_IS_NOT_FOUND);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        printResults(RESULT_CSV_NAME);
+
     }
 
     private static int getNextIntValue(ResourceBundle rb, String key) {
         return Integer.parseInt(rb.getString(key));
-    }
-
-    private static void printResults(String csvName) {
-        try (Scanner sc = new Scanner(new FileReader(csvName))) {
-            while (sc.hasNextLine()) {
-                System.out.println(sc.nextLine());
-            }
-        } catch (FileNotFoundException e) {
-            System.err.println(FILE_IS_NOT_FOUND);
-        }
     }
 }
 
