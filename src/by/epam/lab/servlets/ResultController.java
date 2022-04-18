@@ -1,7 +1,7 @@
 package by.epam.lab.servlets;
 
-import by.epam.lab.utils.ConstantsJSP;
 import by.epam.lab.enums.Operation;
+import by.epam.lab.utils.ConstantsJSP;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -17,17 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 public class ResultController extends HttpServlet {
 
     private static final long serialVersionUID = 2L;
-    private static final String HEADER = "referer";
 
     protected void doGet(HttpServletRequest request,
                          HttpServletResponse response) throws ServletException, IOException {
 
-
-        String referer = request.getHeader(HEADER);
-        if (referer == null) {
-            response.sendRedirect(request.getContextPath());
-            return;
-        }
         //get strOperation and strNumbers from the corresponding request parameters;
         String strOperation = request.getParameter(ConstantsJSP.OPERATION_NAME);
         String[] strNumbers = request.getParameterValues(ConstantsJSP.STAT_NAME);
@@ -37,7 +30,7 @@ public class ResultController extends HttpServlet {
         Operation operation = Operation.valueOf(strOperation.toUpperCase());
         double result = operation.getResult(numbers);
         //set attributes for the next page;
-        request.setAttribute(ConstantsJSP.STAT_NAME, Arrays.toString(numbers));
+        request.setAttribute(ConstantsJSP.STAT_NAME, numbers);
         request.setAttribute(ConstantsJSP.OPERATION_NAME, operation.toString());
         request.setAttribute(ConstantsJSP.RESULT_NAME, result);
         //forward (or redirect?) the request to the next page;

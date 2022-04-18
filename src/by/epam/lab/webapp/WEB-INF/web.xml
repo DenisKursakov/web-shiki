@@ -5,18 +5,28 @@
          version="4.0">
     <servlet>
         <servlet-name>ResultController</servlet-name>
-        <servlet-class>servlets.ResultController</servlet-class>
+        <servlet-class>by.epam.lab.servlets.ResultController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ResultController</servlet-name>
-        <url-pattern>/result</url-pattern>
+        <url-pattern>/ResultController</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>StartController</servlet-name>
-        <servlet-class>servlets.StartController</servlet-class>
+        <servlet-class>by.epam.lab.servlets.StartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>StartController</servlet-name>
-        <url-pattern>/start</url-pattern>
+        <url-pattern>/StartController</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>FilterName</filter-name>
+        <filter-class>by.epam.lab.utils.TypedUrlFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterName</filter-name>
+        <servlet-name>ResultController</servlet-name>
+        <servlet-name>StartController</servlet-name>
+    </filter-mapping>
 </web-app>

@@ -1,34 +1,27 @@
 package by.epam.lab.enums;
 
 import java.util.Arrays;
+import java.util.function.DoubleBinaryOperator;
 
 public enum Operation {
-    SUM {
-        @Override
-        public double getResult(double[] numbers) {
-            return Arrays.stream(numbers).sum();
-        }
-    },
-    MAX {
-        @Override
-        public double getResult(double[] numbers) {
-            return Arrays.stream(numbers).max().getAsDouble();
-        }
-    },
-    MIN {
-        @Override
-        public double getResult(double[] numbers) {
-            return Arrays.stream(numbers).min().getAsDouble();
-        }
-    },
-    AVG {
-        @Override
-        public double getResult(double[] numbers) {
-            return Arrays.stream(numbers).average().getAsDouble();
-        }
-    };
+    SUM(Double::sum),
+    MAX(Math::max),
+    MIN(Math::min),
+    AVG(Double::sum);
 
-    public abstract double getResult (double[] numbers);
+    private DoubleBinaryOperator op;
+
+    Operation(DoubleBinaryOperator op) {
+        this.op = op;
+    }
+
+    public double getResult(double[] numbers) {
+        double result = Arrays.stream(numbers).reduce(op).getAsDouble();
+        if (this == AVG) {
+            result /= numbers.length;
+        }
+        return result;
+    }
 
     @Override
     public String toString() {

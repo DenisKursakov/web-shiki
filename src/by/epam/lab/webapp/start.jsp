@@ -46,6 +46,6 @@
     <a href="JavaScript:sendForm('avg')">avg</a>
 </form>
 <br/>
-<a href="<c:url value='/index.jsp'/>">Back</a>
+<a href="<c:url value='/'/>">Back</a>
 </body>
 </html>

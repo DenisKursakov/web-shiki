@@ -13,9 +13,17 @@
 </head>
 <body>
 <h1>
-    ${operation} ${stats} is ${result}
-<br />
+    ${operation} (
+    <c:forEach items="${stats}" var="stat" varStatus="status">
+        ${stat}
+        <c:if test = "${not status.last}">
+        ,
+        </c:if>
+    </c:forEach>
+    ) is ${result}
+
+    <br />
 </h1>
-<a href="<c:url value='/index.jsp'/>">Main</a>
+<a href="<c:url value='/'/>">Main</a>
 </body>
 </html>
