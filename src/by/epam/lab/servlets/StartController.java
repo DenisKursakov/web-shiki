@@ -1,11 +1,13 @@
 package by.epam.lab.servlets;
 
+import by.epam.lab.exceptions.InitException;
 import by.epam.lab.exceptions.InitRuntimeException;
 import by.epam.lab.factories.NumberFactory;
 
 import static by.epam.lab.utils.ConstantsJSP.*;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebInitParam;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpSession;
 //init param for the minimal size of a collection or an array of real numbers
                 @WebInitParam(name = MIN_SIZE, value = MIN_SIZE_VALUE),
 //init param for the source of real numbers
-                @WebInitParam(name = FACTORY_NUMBER, value = DB_IMPL)
+                @WebInitParam(name = FACTORY_NUMBER, value = DB_IMPL + DELIMITER + DB_PARAM)
         }
 )
 
@@ -36,15 +38,15 @@ public class StartController extends HttpServlet {
             //read the value of the init parameter min.size
             final int MIN_SIZE = Integer.parseInt(sc.getInitParameter(MIN_SIZE_NAME));
             //read the value of the init parameter factory.number and get numbers
-            double[] numbers =
-                    NumberFactory.getResultsFromFactory(sc.getInitParameter(FACTORY_NUMBER));
-            if (numbers.length < MIN_SIZE) {
-                throw new InitRuntimeException(MIN_SIZE_ERR);
+            List<Double> numbers =
+                    NumberFactory.getResultsFromFactory(sc);
+            if (numbers.size() < MIN_SIZE) {
+                throw new InitException(MIN_SIZE_ERR);
             }
             //store data in the app scope
             getServletContext().setAttribute(NUMBERS_VALUE, numbers);
-            getServletContext().setAttribute(MAX_VALUE_NAME, numbers.length);
-        } catch (InitRuntimeException e) {
+            getServletContext().setAttribute(MAX_VALUE_NAME, numbers.size());
+        } catch (InitRuntimeException | InitException e) {
             throw new ServletException(e);
         }
     }
