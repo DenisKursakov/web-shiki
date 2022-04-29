@@ -19,9 +19,13 @@ public class ConstantsJSP {
     public static final String SUCCESSFUL_REG = ", has been registered successful";
     public static final String WRONG_REG = "Unfortunately, your account has not been registered." +
             "Some problem with the data base source";
-    public static final String SELECT_CONF_TABLE = "SELECT * FROM conferences;";
-    public static final String SELECT_EVENTS_PLANET_TABLE = "SELECT * FROM eventsPlanet";
-    public static final String SELECT_EVENTS_MATH_TABLE = "SELECT * FROM eventsMath";
+    public static final String SELECT_CONF_TABLE = "SELECT DISTINCT conferences.id, conferences.name, faculty.name, conferences.date FROM conferences\n" +
+            "INNER JOIN faculty ON conferences.id_faculty = faculty.id;";
+    public static final String SELECT_CONFS_ID = "SELECT conferences.id FROM conferences";
+    public static final String SELECT_EVENTS = "SELECT DISTINCT events.id, eventsType.name, events.time FROM conferences\n" +
+            "INNER JOIN events ON conferences.id = events.id_conf \n" +
+            "INNER JOIN eventsType ON events.id_event_type = eventsType.id\n" +
+            "where conferences.id = ";
     public static final String SELECT_EVENTS_PHYSIC_TABLE = "SELECT * FROM eventsPhysic";
     public static final String FACTORY_CONF_PARAM = "factory.conf";
     public static final String FACTORY_ACT_PARAM = "factory.activity";

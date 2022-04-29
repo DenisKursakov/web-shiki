@@ -50,30 +50,26 @@ public class ConferenceImplDB implements ConferenceDAO {
     }
 
     private static Map<Integer, List<Event>> getInitialEvents() {
-        int id = 1;
         events = new HashMap<>();
         try (Connection cn = DriverManager.getConnection(URL, USER, PASSWORD)) {
             try (Statement st = cn.createStatement()) {
-                initEventList(st, SELECT_EVENTS_PLANET_TABLE, id++);
-                initEventList(st, SELECT_EVENTS_MATH_TABLE, id++);
-                initEventList(st, SELECT_EVENTS_PHYSIC_TABLE, id);
+                for (Map.Entry<Integer, Conference> entryConfs : confs.entrySet()) {
+                    int idConf = entryConfs.getKey();
+                    try(ResultSet rs = st.executeQuery(SELECT_EVENTS + idConf)) {
+                        List<Event> eventsList = new ArrayList<>();
+                        while (rs.next()) {
+                            eventsList.add(new Event(rs.getInt(1), rs.getString(2),
+                                    rs.getString(3)));
+                        }
+                        events.put(idConf, eventsList);
+                    }
+                }
             }
         } catch (SQLException e) {
             throw new InitRuntimeException(e.getMessage());
         }
 
         return events;
-    }
-
-    private static void initEventList(Statement st, String select, int id) throws SQLException {
-        try (ResultSet rs = st.executeQuery(select)) {
-            List<Event> eventsList = new ArrayList<>();
-            while (rs.next()) {
-                eventsList.add(new Event(rs.getInt(1), rs.getString(2),
-                        rs.getString(3)));
-            }
-            events.put(id, eventsList);
-        }
     }
 
     public Map<Integer, Conference> getConferences() {
