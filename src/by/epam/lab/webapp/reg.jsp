@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dariapumpaleva
@@ -9,20 +10,7 @@
 <html>
 <head>
     <title>Registration</title>
-    <h1>${faculty}</h1>
-    <script>
-        function checkInput() {
-            reg.account.value = reg.account.value.trim();
-            var regName = reg.account.value;
-            if (regName === "db") {
-                document.getElementById("regMsg").innerHTML =
-                    "Unfortunately, your application has not been registered. Some problem with the data source on the server...";
-                return false;
-            }
-            document.getElementById("regMsg").innerHTML = regName + ", has been registered successful";
-            reg.submit();
-        }
-    </script>
+    <h1>${confName}</h1>
 </head>
 <body>
 <p>${account}</p>

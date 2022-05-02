@@ -3,38 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <servlet>
-        <servlet-name>ConfsController</servlet-name>
-        <servlet-class>by.epam.lab.servlets.ConfsController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ConfsController</servlet-name>
-        <url-pattern>/ConfsController</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>ProgController</servlet-name>
-        <servlet-class>by.epam.lab.servlets.ProgController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ProgController</servlet-name>
-        <url-pattern>/ProgController</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>RegController</servlet-name>
-        <servlet-class>by.epam.lab.servlets.RegController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegController</servlet-name>
-        <url-pattern>/RegController</url-pattern>
-    </servlet-mapping>
-
-    <filter>
-        <filter-name>FilterName</filter-name>
-        <filter-class>by.epam.lab.utils.TypedUrlFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>FilterName</filter-name>
-        <servlet-name>ConfsController</servlet-name>
-        <servlet-name>ProgController</servlet-name>
-    </filter-mapping>
+    <display-name>confs</display-name>
+    <welcome-file-list>
+        <welcome-file>/index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

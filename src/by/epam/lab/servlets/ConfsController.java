@@ -35,18 +35,16 @@ public class ConfsController extends HttpServlet {
             ResourceBundle rb = ResourceBundle.getBundle(propertiesName);
             ConferenceFactory.init(rb);
             ConferenceDAO conferenceDao = ConferenceFactory.getClassFromFactory();
-            if(conferenceDao!=null) {
-            Map<Integer, Conference> conferences = conferenceDao.getConferences();
-
+            if (conferenceDao != null) {
+                Map<Integer, Conference> conferences = conferenceDao.getConferences();
                 if (conferences.isEmpty()) {
                     throw new InitException("No conferences is found...");
                 }
+                List<Map.Entry<Integer, Conference>> confsList = new ArrayList<>(conferences.entrySet());
+                getServletContext().setAttribute("list", confsList);
+                ActivityFactory.init(rb);
             }
-            Map<Integer, Conference> confsMap =
-                    new ConferenceImplDB(rb.getString(CSV_FILE_ACT_NAME), rb).getConferences();
-            List<Map.Entry<Integer,Conference>> confsList = new ArrayList<>(confsMap.entrySet());
-            getServletContext().setAttribute("list", confsList);
-            ActivityFactory.init(rb, sc);
+
         } catch (InitException e) {
             throw new ServletException(e);
         }

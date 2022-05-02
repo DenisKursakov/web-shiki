@@ -6,16 +6,16 @@ import by.epam.lab.implementations.confImpls.ConferenceImplMemory;
 import by.epam.lab.utils.ConstantsJSP;
 
 import java.util.ResourceBundle;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public class ConferenceFactory {
     enum ConfType {
         CSV (ConferenceImplMemory::new),
         DB (ConferenceImplDB::new),
         MEMORY(ConferenceImplMemory::new);
-        private final BiFunction<String, ResourceBundle, ConferenceDAO> sourceImpl;
+        private final Function<ResourceBundle, ConferenceDAO> sourceImpl;
 
-        ConfType(BiFunction<String, ResourceBundle, ConferenceDAO> sourceImpl) {
+        ConfType(Function<ResourceBundle, ConferenceDAO> sourceImpl) {
             this.sourceImpl = sourceImpl;
         }
     }
@@ -24,7 +24,7 @@ public class ConferenceFactory {
     public static void init (ResourceBundle rb) {
         String factoryConf = rb.getString(ConstantsJSP.FACTORY_CONF_PARAM);
         ConfType source = ConfType.valueOf(factoryConf.toUpperCase());
-        confsImpl = source.sourceImpl.apply(factoryConf, rb);
+        confsImpl = source.sourceImpl.apply(rb);
     }
     public static ConferenceDAO getClassFromFactory () {
         return confsImpl;

@@ -3,10 +3,9 @@ package by.epam.lab.utils;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter({"/confs", "/prog", "/reg"})
+@WebFilter("/prog/*")
 public class TypedUrlFilter implements Filter {
     private static final String HEADER = "referer";
 
@@ -14,10 +13,13 @@ public class TypedUrlFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
         String referer = httpRequest.getHeader(HEADER);
         if (referer == null) {
-            httpResponse.sendRedirect(httpRequest.getContextPath());
+            String[] urlPath = httpRequest.getRequestURI().split(ConstantsJSP.SLASH);
+            System.out.println(httpRequest.getRequestURI());
+            String url = ConstantsJSP.PROG_URL_FOR_FILTER + urlPath[urlPath.length - 1];
+            System.out.println(url);
+            request.getRequestDispatcher(url).forward(request, response);
             return;
         }
         chain.doFilter(request, response);
