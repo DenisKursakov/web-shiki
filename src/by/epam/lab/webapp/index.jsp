@@ -9,7 +9,7 @@
 <h2>GSU Conferences </h2>
 <table border=0>
     <tbody>
-    <c:forEach var="i" items="${list}">
+    <c:forEach var="i" items="${ConfsList}">
         <tr>
             <td><a href='/confs2020/prog?idConf=${i.getKey()}'>${i.getValue().getName()}</a></td>
             <td><fmt:formatDate value="${i.getValue().getDate()}" pattern="dd.MM"/></td>

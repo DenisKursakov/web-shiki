@@ -2,7 +2,6 @@ package by.epam.lab.factories;
 
 import by.epam.lab.ifaces.ConferenceDAO;
 import by.epam.lab.implementations.confImpls.ConferenceImplDB;
-import by.epam.lab.implementations.confImpls.ConferenceImplMemory;
 import by.epam.lab.utils.ConstantsJSP;
 
 import java.util.ResourceBundle;

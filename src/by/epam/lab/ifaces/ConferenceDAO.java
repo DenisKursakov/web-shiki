@@ -5,5 +5,5 @@ import by.epam.lab.model.beans.Conference;
 import java.util.Map;
 
 public interface ConferenceDAO {
-    Map<Integer, Conference> getConferences();
+    Map<Integer, Conference> getEntity();
 }

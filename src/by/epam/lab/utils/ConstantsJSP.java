@@ -12,7 +12,7 @@ public class ConstantsJSP {
     public static final String EVENTS = "events";
     public static final String PROG_FILE = "/prog.jsp";
     public static final String INDEX_FILE = "/index.jsp";
-    public static final String REG_FILE = "/reg.jsp";
+    public static final String REG_FILE = "reg.jsp";
     public static final String PASSWORD = "Ltybc1996";
     public static final String CLASS_FOR_NAME = "com.mysql.jdbc.Driver";
     public static final String USER = "root";
@@ -41,4 +41,5 @@ public class ConstantsJSP {
     public static final String ID_CONF_NAME = "idConf";
     public static final String CSV_FILE_ACT_NAME = "activity.csv.name";
     public static final String PROG_URL_FOR_FILTER = "/prog?idConf=";
+    public static final String CONFS_LIST = "ConfsList";
 }

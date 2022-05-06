@@ -7,6 +7,6 @@ import java.util.List;
 
 
 public interface ActivityDAO {
-    List<Event> getEventsById(int id) throws DaoException;
+    List<Event> getEntityById(int id) throws DaoException;
     void saveRegistration (String name, int[] eventsId, int confId) throws DaoException;
 }

@@ -2,10 +2,8 @@ package by.epam.lab.factories;
 
 import by.epam.lab.ifaces.ActivityDAO;
 import by.epam.lab.implementations.activityImpls.ActivityImplDB;
-import by.epam.lab.implementations.activityImpls.ActivityMemoryImpl;
 import by.epam.lab.utils.ConstantsJSP;
 
-import javax.servlet.ServletConfig;
 import java.util.ResourceBundle;
 import java.util.function.Function;
 
