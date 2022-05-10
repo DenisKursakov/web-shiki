@@ -1,12 +1,9 @@
 package by.epam.lab.servlets;
 
-import by.epam.lab.exceptions.DaoException;
 import by.epam.lab.exceptions.ServiceException;
-import by.epam.lab.ifaces.ActivityDAO;
 import by.epam.lab.services.ActionsService;
 import by.epam.lab.utils.ConstantsJSP;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,12 +33,12 @@ public class RegController extends HttpServlet {
         try {
             ActionsService.saveRegistration(accountValue, eventsId,
                     Integer.parseInt(request.getParameter(ConstantsJSP.ID_CONF_NAME)));
-        } catch (ServiceException e){
+        } catch (ServiceException e) {
             registration = ConstantsJSP.WRONG_REG;
         }
         session.setAttribute(ConstantsJSP.CONF_NAME_PARAM, confNameValue);
         session.setAttribute(ConstantsJSP.ACCOUNT_NAME_PARAM, registration);
-        response.sendRedirect(ConstantsJSP.REG_FILE);
 
+        response.sendRedirect(ConstantsJSP.REG_FILE);
     }
 }

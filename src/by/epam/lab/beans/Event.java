@@ -2,18 +2,17 @@ package by.epam.lab.beans;
 
 import static by.epam.lab.utils.ConstantsJSP.*;
 
-public class Event {
-    private final int id;
+public class Event extends Entity{
     private final String stage;
     private final String time;
 
-    public Event(int id, String stage, String time) {
+    public Event(long id, String stage, String time) {
         this.id = id;
         this.stage = stage;
         this.time = time;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

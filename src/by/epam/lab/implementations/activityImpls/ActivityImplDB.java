@@ -1,8 +1,9 @@
 package by.epam.lab.implementations.activityImpls;
 
 import by.epam.lab.exceptions.DaoException;
-import by.epam.lab.ifaces.ActivityDAO;
-import by.epam.lab.model.beans.Event;
+import by.epam.lab.ifaces.GenericDao;
+import by.epam.lab.implementations.AbstractDao;
+import by.epam.lab.beans.Event;
 
 import java.sql.*;
 import java.util.*;
@@ -10,7 +11,7 @@ import java.util.*;
 import static by.epam.lab.utils.ConstantsJSP.*;
 import static by.epam.lab.utils.ConstantsJSP.SELECT_EVENTS;
 
-public class ActivityImplDB implements ActivityDAO {
+public class ActivityImplDB extends AbstractDao<Event> implements GenericDao<Event> {
     private static final int EVENT_IND_ID = 1;
     private static final int EVENT_STAGE_ID = 2;
     private static final int EVENT_TIME_ID = 3;
@@ -22,7 +23,12 @@ public class ActivityImplDB implements ActivityDAO {
 
 
     @Override
-    public List<Event> getEntityById(int id) throws DaoException {
+    public Optional<List<Event>> getEntities() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<List<Event>> getEntitiesById(long id) throws DaoException {
         List<Event> events = new ArrayList<>();
         try (Statement st = cn.createStatement()) {
             try (ResultSet rs = st.executeQuery(SELECT_EVENTS + id)) {
@@ -35,7 +41,7 @@ public class ActivityImplDB implements ActivityDAO {
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
         }
-        return events;
+        return Optional.of(events);
     }
 
     @Override
@@ -60,6 +66,26 @@ public class ActivityImplDB implements ActivityDAO {
         } catch (SQLException e) {
             throw new DaoException(e.getMessage());
         }
+    }
+
+    @Override
+    public boolean delete(long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean delete(Event entity) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean create(Event entity) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Event update(Event entity) {
+        throw new UnsupportedOperationException();
     }
 
 

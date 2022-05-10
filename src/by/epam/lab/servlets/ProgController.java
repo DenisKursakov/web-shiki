@@ -1,6 +1,5 @@
 package by.epam.lab.servlets;
 
-import by.epam.lab.exceptions.DaoException;
 import by.epam.lab.exceptions.ServiceException;
 import by.epam.lab.services.ActionsService;
 import by.epam.lab.services.ConfsService;
@@ -25,9 +24,9 @@ public class ProgController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idConf = Integer.parseInt(request.getParameter(ID_CONF_NAME));
-        request.setAttribute(CONFERENCES, ConfsService.getConfsMap().get(idConf));
-        request.setAttribute(ID_CONF_NAME, idConf);
         try {
+            request.setAttribute(CONFERENCES, ConfsService.getConfsList().get(idConf - 1));
+            request.setAttribute(ID_CONF_NAME, idConf);
             request.setAttribute(EVENTS, ActionsService.getEventsById(idConf));
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());

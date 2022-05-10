@@ -2,7 +2,7 @@ package by.epam.lab.services;
 
 import by.epam.lab.exceptions.*;
 import by.epam.lab.implementations.activityImpls.ActivityImplDB;
-import by.epam.lab.model.beans.Event;
+import by.epam.lab.beans.Event;
 import by.epam.lab.utils.ConnectionManager;
 
 import java.sql.Connection;
@@ -10,18 +10,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionsService implements ServiceDAO {
+public class ActionsService {
 
     public static List<Event> getEventsById(int id) throws ServiceException {
-        List<Event> list = new ArrayList<>();
         try {
             try (Connection cn = ConnectionManager.getConnection()) {
-                list = new ActivityImplDB(cn).getEntityById(id);
+                return new ActivityImplDB(cn).getEntitiesById(id).orElse(new ArrayList<>());
             }
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e.getMessage());
         }
-        return list;
     }
 
     public static void saveRegistration(String accountValue, int[] eventsId, int parseInt) throws ServiceException {
