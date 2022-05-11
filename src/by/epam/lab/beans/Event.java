@@ -7,7 +7,7 @@ public class Event extends Entity{
     private final String time;
 
     public Event(long id, String stage, String time) {
-        this.id = id;
+        super(id);
         this.stage = stage;
         this.time = time;
     }

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public abstract class AbstractDao <T extends Entity> implements GenericDao<T> {
+
     public Optional<List<T>> getEntities() {
         return Optional.empty();
     }

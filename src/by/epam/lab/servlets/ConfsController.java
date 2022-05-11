@@ -3,7 +3,7 @@ package by.epam.lab.servlets;
 import by.epam.lab.exceptions.InitException;
 import by.epam.lab.exceptions.ServiceException;
 import by.epam.lab.beans.Conference;
-import by.epam.lab.services.ConfsService;
+import by.epam.lab.services.ImplService;
 import by.epam.lab.utils.ConnectionManager;
 import by.epam.lab.utils.ConstantsJSP;
 
@@ -34,7 +34,7 @@ public class ConfsController extends HttpServlet {
             String propertiesName = sc.getInitParameter(FILE_NAME_PARAM);
             ResourceBundle rb = ResourceBundle.getBundle(propertiesName);
             ConnectionManager.init(rb);
-            List<Conference> conferences = ConfsService.getConfsList();
+            List<Conference> conferences = new ImplService().getConfsList();
             if (conferences.isEmpty()) {
                 throw new InitException("No conferences is found...");
             }

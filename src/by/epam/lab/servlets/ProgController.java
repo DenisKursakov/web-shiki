@@ -1,8 +1,7 @@
 package by.epam.lab.servlets;
 
 import by.epam.lab.exceptions.ServiceException;
-import by.epam.lab.services.ActionsService;
-import by.epam.lab.services.ConfsService;
+import by.epam.lab.services.ImplService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,9 +24,10 @@ public class ProgController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int idConf = Integer.parseInt(request.getParameter(ID_CONF_NAME));
         try {
-            request.setAttribute(CONFERENCES, ConfsService.getConfsList().get(idConf - 1));
+            ImplService implService = new ImplService();
+            request.setAttribute(CONFERENCES, implService.getConfsList().get(idConf - 1));
             request.setAttribute(ID_CONF_NAME, idConf);
-            request.setAttribute(EVENTS, ActionsService.getEventsById(idConf));
+            request.setAttribute(EVENTS, implService.getEventsById(idConf));
         } catch (ServiceException e) {
             throw new ServletException(e.getMessage());
         }

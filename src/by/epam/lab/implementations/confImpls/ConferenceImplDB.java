@@ -3,14 +3,13 @@ package by.epam.lab.implementations.confImpls;
 import java.sql.*;
 import java.util.*;
 
-import by.epam.lab.beans.Conference;
 import by.epam.lab.exceptions.InitRuntimeException;
-import by.epam.lab.ifaces.GenericDao;
 import by.epam.lab.implementations.AbstractDao;
+import by.epam.lab.beans.Conference;
 
 import static by.epam.lab.utils.ConstantsJSP.*;
 
-public class ConferenceImplDB extends AbstractDao<Conference> implements GenericDao<Conference> {
+public class ConferenceImplDB extends AbstractDao<Conference> {
     private static final int CONF_IND_ID = 1;
     private static final int CONF_NAME_ID = 2;
     private static final int CONF_FACULTY_ID = 3;

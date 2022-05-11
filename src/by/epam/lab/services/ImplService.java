@@ -2,6 +2,8 @@ package by.epam.lab.services;
 
 import by.epam.lab.exceptions.*;
 import by.epam.lab.implementations.activityImpls.ActivityImplDB;
+import by.epam.lab.implementations.confImpls.ConferenceImplDB;
+import by.epam.lab.beans.Conference;
 import by.epam.lab.beans.Event;
 import by.epam.lab.utils.ConnectionManager;
 
@@ -10,9 +12,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActionsService {
+public class ImplService {
+    public List<Conference> getConfsList() throws ServiceException {
+        try (Connection cn = ConnectionManager.getConnection()) {
+            ConnectionManager.startTransactions();
+            List<Conference> confsList =
+                    new ConferenceImplDB(cn).getEntities().orElse(new ArrayList<>());
+            ConnectionManager.commitConnection();
+            ConnectionManager.endTransaction();
+            return confsList;
+        } catch (SQLException | ConnectionException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
 
-    public static List<Event> getEventsById(int id) throws ServiceException {
+    public List<Event> getEventsById(int id) throws ServiceException {
         try {
             try (Connection cn = ConnectionManager.getConnection()) {
                 return new ActivityImplDB(cn).getEntitiesById(id).orElse(new ArrayList<>());
@@ -22,7 +36,7 @@ public class ActionsService {
         }
     }
 
-    public static void saveRegistration(String accountValue, int[] eventsId, int parseInt) throws ServiceException {
+    public void saveRegistration(String accountValue, int[] eventsId, int parseInt) throws ServiceException {
         try (Connection cn = ConnectionManager.getConnection()) {
             ConnectionManager.startTransactions();
             try {
