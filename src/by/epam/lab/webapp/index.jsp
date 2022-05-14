@@ -11,8 +11,8 @@
     <tbody>
     <c:forEach var="i" items="${ConfsList}">
         <tr>
-            <td><a href='/confs2020/prog?idConf=${i.getId()}'>${i.getName()}</a></td>
-            <td><fmt:formatDate value="${i.getDate()}" pattern="dd.MM"/></td>
+            <td><a href='/confs2020/prog?idConf=${i.id}'>${i.name}</a></td>
+            <td><fmt:formatDate value="${i.date}" pattern="dd.MM"/></td>
         </tr>
     </c:forEach>
     </tbody>

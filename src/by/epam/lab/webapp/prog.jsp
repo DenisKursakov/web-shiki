@@ -51,14 +51,14 @@
         <tbody>
         <c:forEach var="i" items="${events}">
             <tr>
-                <td><input type=checkbox name=idEvent value="${i.getId()}" checked/></td>
-                <td>${i.getStage()}</td>
-                <td>${i.getTime()}</td>
+                <td><input type=checkbox name=idEvent value="${i.id}" checked/></td>
+                <td>${i.stage}</td>
+                <td>${i.time}</td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
-    <input type="hidden" name="confName" value="${conferences.getName()}">
+    <input type="hidden" name="confName" value="${conferences.name}">
     <input type="hidden" name="idConf" value="${idConf}">
     <p/>
     Account: <input type=text name="account"/>

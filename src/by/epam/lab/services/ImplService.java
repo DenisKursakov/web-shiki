@@ -16,12 +16,17 @@ public class ImplService {
     public List<Conference> getConfsList() throws ServiceException {
         try (Connection cn = ConnectionManager.getConnection()) {
             ConnectionManager.startTransactions();
-            List<Conference> confsList =
-                    new ConferenceImplDB(cn).getEntities().orElse(new ArrayList<>());
+            ConferenceImplDB conferenceImplDB = new ConferenceImplDB(cn);
+            ActivityImplDB activityImplDB = new ActivityImplDB(cn);
+            List<Conference> confsList = conferenceImplDB.getEntities().orElse(new ArrayList<>());
+            for (Conference confs: confsList) {
+                conferenceImplDB.initConfsEvents(confs,
+                        activityImplDB.getEntitiesById(confs.getId()).orElse(new ArrayList<>()));
+            }
             ConnectionManager.commitConnection();
             ConnectionManager.endTransaction();
             return confsList;
-        } catch (SQLException | ConnectionException e) {
+        } catch (SQLException | ConnectionException | DaoException e) {
             throw new ServiceException(e.getMessage());
         }
     }

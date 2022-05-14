@@ -1,6 +1,8 @@
 package by.epam.lab.beans;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import static by.epam.lab.utils.ConstantsJSP.*;
@@ -9,6 +11,8 @@ public class Conference extends Entity {
     private final String name;
     private final String faculty;
     private final Date date;
+
+    private List<Event> list = new ArrayList<>();
 
     public Conference(long id, String name, String faculty, String date) {
         super(id);
@@ -29,6 +33,13 @@ public class Conference extends Entity {
         return date;
     }
 
+    public List<Event> getList() {
+        return list;
+    }
+
+    public void setList(List<Event> list) {
+        this.list = list;
+    }
 
     @Override
     public String toString() {

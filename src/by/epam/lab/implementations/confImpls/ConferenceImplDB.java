@@ -3,13 +3,14 @@ package by.epam.lab.implementations.confImpls;
 import java.sql.*;
 import java.util.*;
 
-import by.epam.lab.exceptions.InitRuntimeException;
+import by.epam.lab.beans.Event;
+import by.epam.lab.ifaces.ConferenceDao;
 import by.epam.lab.implementations.AbstractDao;
 import by.epam.lab.beans.Conference;
 
 import static by.epam.lab.utils.ConstantsJSP.*;
 
-public class ConferenceImplDB extends AbstractDao<Conference> {
+public class ConferenceImplDB extends AbstractDao<Conference> implements ConferenceDao {
     private static final int CONF_IND_ID = 1;
     private static final int CONF_NAME_ID = 2;
     private static final int CONF_FACULTY_ID = 3;
@@ -17,22 +18,29 @@ public class ConferenceImplDB extends AbstractDao<Conference> {
     private Connection cn;
 
     public ConferenceImplDB(Connection cn) {
+        super(cn);
         this.cn = cn;
     }
 
-    public Optional<List<Conference>> getEntities() {
+    @Override
+    protected String getSelectEntitiesRequest() {
+        return SELECT_CONF_TABLE;
+    }
+
+    @Override
+    protected String getSelectByIdRequest() {
+        return SELECT_CONFS_ID;
+    }
+
+    @Override
+    protected Optional<List<Conference>> parseAfterSelect(ResultSet rs) throws SQLException {
         List<Conference> conferenceList = new ArrayList<>();
-        try (Statement st = cn.createStatement()) {
-            try (ResultSet rs = st.executeQuery(SELECT_CONF_TABLE)) {
-                while (rs.next()) {
-                    conferenceList.add(new Conference(rs.getInt(CONF_IND_ID),
-                            rs.getString(CONF_NAME_ID),
-                            rs.getString(CONF_FACULTY_ID),
-                            rs.getString(CONF_DATE_ID)));
-                }
-            }
-        } catch (SQLException e) {
-            throw new InitRuntimeException(e.getMessage());
+        while (rs.next()) {
+
+            conferenceList.add(new Conference(rs.getInt(CONF_IND_ID),
+                    rs.getString(CONF_NAME_ID),
+                    rs.getString(CONF_FACULTY_ID),
+                    rs.getString(CONF_DATE_ID)));
         }
         return Optional.of(conferenceList);
     }
@@ -58,4 +66,8 @@ public class ConferenceImplDB extends AbstractDao<Conference> {
     }
 
 
+    @Override
+    public void initConfsEvents(Conference conference, List<Event> list) {
+        conference.setList(list);
+    }
 }
