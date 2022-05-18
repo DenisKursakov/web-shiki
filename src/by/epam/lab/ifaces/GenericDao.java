@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface GenericDao<T extends Entity> {
-    Optional<List<T>> getEntities();
+    List<T> getEntities();
 
-    Optional<List<T>> getEntitiesById(long id) throws DaoException;
+    Optional<T> getEntityById(long id) throws DaoException;
 
     boolean delete(long id);
 

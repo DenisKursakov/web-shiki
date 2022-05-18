@@ -49,7 +49,7 @@
         <th>Time</th>
         </thead>
         <tbody>
-        <c:forEach var="i" items="${events}">
+        <c:forEach var="i" items="${conferences.events}">
             <tr>
                 <td><input type=checkbox name=idEvent value="${i.id}" checked/></td>
                 <td>${i.stage}</td>

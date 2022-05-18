@@ -2,6 +2,7 @@ package by.epam.lab.utils;
 
 import by.epam.lab.exceptions.ConnectionException;
 import by.epam.lab.exceptions.InitException;
+import by.epam.lab.exceptions.InitRuntimeException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,33 +14,26 @@ public class ConnectionManager {
     private static String DB_NAME;
     private static String DB_USER;
     private static String DB_PASS;
+    private Connection con;
+    static {
+        try {
+            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+        } catch (SQLException e) {
+            throw new InitRuntimeException(e.getMessage());
+        }
+    }
 
-    private static ConnectionManager connectionManager;
-    private static Connection con;
-
-    private ConnectionManager(ResourceBundle rb) {
+    public ConnectionManager(ResourceBundle rb) {
         DB_NAME = rb.getString(ConstantsJSP.DB_NAME_PARAM);
         DB_USER = rb.getString(ConstantsJSP.DB_USER_PARAM);
         DB_PASS = rb.getString(ConstantsJSP.DB_PASS_PARAM);
     }
 
-    public static void init(ResourceBundle rb) throws InitException {
-        if (connectionManager != null) {
-            return;
-        }
-        try {
-            DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-            connectionManager = new ConnectionManager(rb);
-        } catch (SQLException e) {
-            throw new InitException(e.getMessage());
-        }
-    }
-
-    public static Connection getConnection() throws SQLException {
+    public Connection getConnection() throws SQLException {
         return con = DriverManager.getConnection(ConstantsJSP.URL + DB_NAME, DB_USER, DB_PASS);
     }
 
-    public static void startTransactions() throws ConnectionException {
+    public void startTransactions() throws ConnectionException {
         try {
             con.setAutoCommit(false);
         } catch (SQLException e) {
@@ -47,7 +41,7 @@ public class ConnectionManager {
         }
     }
 
-    public static void closeConnection() throws ConnectionException {
+    public void closeConnection() throws ConnectionException {
         try {
             con.close();
         } catch (SQLException e) {
@@ -55,7 +49,7 @@ public class ConnectionManager {
         }
 
     }
-    public static void rollbackTransaction() throws ConnectionException {
+    public void rollbackTransaction() throws ConnectionException {
         try {
             con.rollback();
         } catch (SQLException e) {
@@ -63,7 +57,7 @@ public class ConnectionManager {
         }
     }
 
-    public static void endTransaction() throws ConnectionException {
+    public void endTransaction() throws ConnectionException {
         try {
             con.setAutoCommit(true);
         } catch (SQLException e) {
@@ -71,7 +65,7 @@ public class ConnectionManager {
         }
     }
 
-    public static void commitConnection() throws ConnectionException {
+    public void commitConnection() throws ConnectionException {
         try {
             con.commit();
         } catch (SQLException e) {

@@ -1,7 +1,11 @@
 package by.epam.lab.ifaces;
 
+import by.epam.lab.beans.Event;
 import by.epam.lab.exceptions.DaoException;
 
+import java.util.List;
+
+
 public interface ActivityDao {
-    void saveRegistration(String name, int[] eventsId, int confId) throws DaoException;
+    List<Event> getEventsListById(long id) throws DaoException;
 }

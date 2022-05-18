@@ -12,7 +12,7 @@ public class Conference extends Entity {
     private final String faculty;
     private final Date date;
 
-    private List<Event> list = new ArrayList<>();
+    private List<Event> events = new ArrayList<>();
 
     public Conference(long id, String name, String faculty, String date) {
         super(id);
@@ -33,12 +33,12 @@ public class Conference extends Entity {
         return date;
     }
 
-    public List<Event> getList() {
-        return list;
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public void setList(List<Event> list) {
-        this.list = list;
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 
     @Override

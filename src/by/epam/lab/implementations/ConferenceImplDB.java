@@ -1,11 +1,10 @@
-package by.epam.lab.implementations.confImpls;
+package by.epam.lab.implementations;
 
 import java.sql.*;
 import java.util.*;
 
 import by.epam.lab.beans.Event;
-import by.epam.lab.ifaces.ConferenceDao;
-import by.epam.lab.implementations.AbstractDao;
+import by.epam.lab.exceptions.DaoException;
 import by.epam.lab.beans.Conference;
 
 import static by.epam.lab.utils.ConstantsJSP.*;
@@ -16,6 +15,7 @@ public class ConferenceImplDB extends AbstractDao<Conference> implements Confere
     private static final int CONF_FACULTY_ID = 3;
     private static final int CONF_DATE_ID = 4;
     private Connection cn;
+    private List<Conference> conferences;
 
     public ConferenceImplDB(Connection cn) {
         super(cn);
@@ -33,17 +33,23 @@ public class ConferenceImplDB extends AbstractDao<Conference> implements Confere
     }
 
     @Override
-    protected Optional<List<Conference>> parseAfterSelect(ResultSet rs) throws SQLException {
-        List<Conference> conferenceList = new ArrayList<>();
-        while (rs.next()) {
-
-            conferenceList.add(new Conference(rs.getInt(CONF_IND_ID),
-                    rs.getString(CONF_NAME_ID),
-                    rs.getString(CONF_FACULTY_ID),
-                    rs.getString(CONF_DATE_ID)));
+    protected List<Conference> parseAfterSelect(ResultSet rs) throws DaoException {
+        if(conferences == null) {
+            conferences = new ArrayList<>();
         }
-        return Optional.of(conferenceList);
+        try {
+            while (rs.next()) {
+                conferences.add(new Conference(rs.getInt(CONF_IND_ID),
+                        rs.getString(CONF_NAME_ID),
+                        rs.getString(CONF_FACULTY_ID),
+                        rs.getString(CONF_DATE_ID)));
+            }
+            return conferences;
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
     }
+
 
     @Override
     public boolean delete(long id) {
@@ -68,6 +74,6 @@ public class ConferenceImplDB extends AbstractDao<Conference> implements Confere
 
     @Override
     public void initConfsEvents(Conference conference, List<Event> list) {
-        conference.setList(list);
+        conference.setEvents(list);
     }
 }

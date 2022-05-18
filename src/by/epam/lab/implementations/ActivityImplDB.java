@@ -1,4 +1,4 @@
-package by.epam.lab.implementations.activityImpls;
+package by.epam.lab.implementations;
 
 import by.epam.lab.exceptions.DaoException;
 import by.epam.lab.ifaces.ActivityDao;
@@ -23,32 +23,6 @@ public class ActivityImplDB extends AbstractDao<Event> implements GenericDao<Eve
         this.cn = cn;
     }
 
-
-    @Override
-    public void saveRegistration(String name, int[] eventsId, int confId) throws DaoException {
-        try (Statement st = cn.createStatement()) {
-            try (ResultSet rs = st.executeQuery(String.format(SELECT_ID_STUD, name));
-                 PreparedStatement studentsInsert = cn.prepareStatement(INSERT_INTO_STUD_TABLE);
-                 PreparedStatement insertRegistered = cn.prepareStatement(INSERT_INTO_REG_TABLE)) {
-                if (!rs.next()) {
-                    studentsInsert.setString(1, name);
-                    studentsInsert.addBatch();
-                }
-                studentsInsert.executeBatch();
-                for (int i : eventsId) {
-                    insertRegistered.setInt(1, i);
-                    insertRegistered.setString(EVENT_STAGE_ID, name);
-                    insertRegistered.addBatch();
-                }
-                insertRegistered.executeBatch();
-            }
-
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
-
-    }
-
     @Override
     protected String getSelectEntitiesRequest() {
         return SELECT_EVENTS;
@@ -60,16 +34,30 @@ public class ActivityImplDB extends AbstractDao<Event> implements GenericDao<Eve
     }
 
     @Override
-    protected Optional<List<Event>> parseAfterSelect(ResultSet rs) throws SQLException {
+    protected List<Event> parseAfterSelect(ResultSet rs) throws DaoException {
         List<Event> events = new ArrayList<>();
-        while (rs.next()) {
-            events.add(new Event(rs.getInt(EVENT_IND_ID),
-                    rs.getString(EVENT_STAGE_ID),
-                    rs.getString(EVENT_TIME_ID)));
+        try {
+            while (rs.next()) {
+                events.add(new Event(rs.getInt(EVENT_IND_ID),
+                        rs.getString(EVENT_STAGE_ID),
+                        rs.getString(EVENT_TIME_ID)));
+            }
+            return events;
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
         }
-        return Optional.of(events);
     }
 
+    @Override
+    public List<Event> getEventsListById(long id) throws DaoException {
+        try (Statement st = cn.createStatement()) {
+            try (ResultSet rs = st.executeQuery(getSelectByIdRequest() + id)) {
+                return parseAfterSelect(rs);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e.getMessage());
+        }
+    }
 
     @Override
     public boolean delete(long id) {

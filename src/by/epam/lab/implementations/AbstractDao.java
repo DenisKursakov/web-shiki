@@ -20,29 +20,23 @@ public abstract class AbstractDao <T extends Entity> implements GenericDao<T> {
         this.cn = cn;
     }
 
-    public Optional<List<T>> getEntities() {
+    public List<T> getEntities() {
         try (Statement st = cn.createStatement()) {
             try (ResultSet rs = st.executeQuery(getSelectEntitiesRequest())) {
                 return parseAfterSelect(rs);
             }
-        } catch (SQLException e) {
+        } catch (DaoException | SQLException e) {
             throw new InitRuntimeException(e.getMessage());
         }
     }
 
-    public Optional<List<T>> getEntitiesById(long id) throws DaoException {
-        try (Statement st = cn.createStatement()) {
-            try (ResultSet rs = st.executeQuery(getSelectByIdRequest() + id)) {
-                return parseAfterSelect(rs);
-            }
-        } catch (SQLException e) {
-            throw new DaoException(e.getMessage());
-        }
+    public Optional<T> getEntityById(long id) throws DaoException {
+        return Optional.empty();
     }
 
 
 
     protected abstract String getSelectEntitiesRequest ();
     protected abstract String getSelectByIdRequest ();
-    protected abstract Optional<List<T>> parseAfterSelect (ResultSet rs) throws SQLException;
+    protected abstract List<T> parseAfterSelect (ResultSet rs) throws DaoException;
 }

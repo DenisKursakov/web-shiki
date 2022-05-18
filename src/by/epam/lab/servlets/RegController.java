@@ -1,7 +1,8 @@
 package by.epam.lab.servlets;
 
 import by.epam.lab.exceptions.ServiceException;
-import by.epam.lab.services.ImplService;
+import by.epam.lab.services.ConferenceService;
+import by.epam.lab.services.RegisteredService;
 import by.epam.lab.utils.ConstantsJSP;
 
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class RegController extends HttpServlet {
         int[] eventsId = Stream.of(request.getParameterValues(ConstantsJSP.ARRAY_EVENT_ID_NAME))
                 .mapToInt(Integer::parseInt).toArray();
         try {
-            new ImplService().saveRegistration(accountValue, eventsId,
+            new RegisteredService().saveRegistration(accountValue, eventsId,
                     Integer.parseInt(request.getParameter(ConstantsJSP.ID_CONF_NAME)));
         } catch (ServiceException e){
             registration = ConstantsJSP.WRONG_REG;

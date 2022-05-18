@@ -1,6 +1,9 @@
 package by.epam.lab.utils;
 
+import java.util.ResourceBundle;
+
 public class ConstantsJSP {
+    public static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("confs");
     public static final String DELIMITER = ";";
     public static final String SLASH = "/";
     public static final String FILE_NAME_PARAM = "propertiesName";
